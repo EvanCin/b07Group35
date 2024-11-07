@@ -33,6 +33,11 @@ android {
 
 dependencies {
 
+    // My Dependencies
+    implementation("com.sun.mail:javax.mail:1.6.2")
+    implementation("javax.activation:activation:1.1.1")
+    implementation("commons-validator:commons-validator:1.7")
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
