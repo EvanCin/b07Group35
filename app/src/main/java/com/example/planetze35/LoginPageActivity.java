@@ -14,7 +14,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.planetze35.SignupPageActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -23,7 +22,6 @@ public class LoginPageActivity extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etPassword;
-    private EditText etPasswordConfirmation;
     private Button btnSignup;
     private Button btnLogin;
 
@@ -40,7 +38,6 @@ public class LoginPageActivity extends AppCompatActivity {
 
         etEmail = this.findViewById(R.id.etLoginEmail);
         etPassword = this.findViewById(R.id.etLoginPassword);
-        etPasswordConfirmation = this.findViewById(R.id.etLoginPasswordConfirmation);
         btnLogin = this.findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +48,7 @@ public class LoginPageActivity extends AppCompatActivity {
                     String email = etEmail.getText().toString().trim();
 
                     // TODO: Check if the email and password match.
-                    if (emailValidator.isValid(email) && validatePassword()) {
+                    if (emailValidator.isValid(email)) {
 
                         // TODO: make sure the name is the user's name you get from the database. For now we use a dummy name.
                         String name = "Ally";
@@ -91,13 +88,7 @@ public class LoginPageActivity extends AppCompatActivity {
     public boolean filledFields() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        String passwordConfirmation = etPasswordConfirmation.getText().toString().trim();
-        return !email.isEmpty() && !password.isEmpty() && !passwordConfirmation.isEmpty();
+        return !email.isEmpty() && !password.isEmpty();
     }
 
-    public boolean validatePassword() {
-        String password = etPassword.getText().toString().trim();
-        String passwordConfirmation = etPasswordConfirmation.getText().toString().trim();
-        return password.equals(passwordConfirmation);
-    }
 }
