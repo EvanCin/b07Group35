@@ -20,10 +20,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public class LoginPageActivity extends AppCompatActivity {
 
-    private EditText etEmail;
-    private EditText etPassword;
-    private Button btnSignup;
-    private Button btnLogin;
+    private EditText etEmail, etPassword;
+    private Button btnSignup, btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
