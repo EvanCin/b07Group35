@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,7 +78,10 @@ public class SignupPageActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 storeUserName(user, firstName, lastName);
-                sendEmailVerification(view, user);
+                EmailUtils.sendVerificationEmail(SignupPageActivity.this, user);
+                Intent intent = new Intent(SignupPageActivity.this, EmailVerificationPageActivity.class);
+                startActivity(intent);
+                finish();
 
             } else {
                 String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
@@ -98,33 +100,6 @@ public class SignupPageActivity extends AppCompatActivity {
                 } else {
                     Snackbar.make(view, "Error: " + errorMessage, Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
                 }
-            }
-        });
-    }
-
-    /**
-     * Send an email verification to the user
-     * @param view The view that was clicked
-     * @param user The user's address in database
-     */
-    private void sendEmailVerification(View view, FirebaseUser user) {
-        if (user == null) {
-            return;
-        }
-
-        user.sendEmailVerification().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(SignupPageActivity.this, "Verification email sent", Toast.LENGTH_SHORT)
-                        .show();
-
-                // go to the email verification page
-                Intent intent = new Intent(SignupPageActivity.this, EmailVerificationPageActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Snackbar.make(view, "Failed to send verification email, please try again", Snackbar.LENGTH_SHORT)
-                        .setTextColor(Color.RED)
-                        .show();
             }
         });
     }

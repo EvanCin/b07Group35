@@ -40,7 +40,14 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
 
         btnVerify.setOnClickListener(this::checkEmailVerification);
 
-        btnResendVerificationEmail.setOnClickListener(this::resendVerificationEmail);
+        btnResendVerificationEmail.setOnClickListener(view -> {
+            if (!user.isEmailVerified()) {
+                EmailUtils.sendVerificationEmail(EmailVerificationPageActivity.this, user);
+            } else {
+                Toast.makeText(this, "Email already verified", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     /**
@@ -62,25 +69,6 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
                             .setTextColor(Color.RED)
                             .show();
                 }
-            }
-        });
-    }
-
-    /**
-     * Resend the verification email
-     * @param view the view that was clicked
-     */
-    private void resendVerificationEmail(View view) {
-        if (user == null) {
-            return;
-        }
-        user.sendEmailVerification().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(EmailVerificationPageActivity.this, "Verification email sent", Toast.LENGTH_SHORT)
-                        .show();
-            } else {
-                Snackbar.make(view, "Failed to send verification email, please try again", Toast.LENGTH_SHORT)
-                        .show();
             }
         });
     }
