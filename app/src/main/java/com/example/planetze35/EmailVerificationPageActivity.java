@@ -2,8 +2,10 @@ package com.example.planetze35;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +22,7 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
 
     private Button btnVerify;
     private Button btnResendVerificationEmail;
+    private TextView tvCountDownTimer;
     private FirebaseUser user;
 
     @Override
@@ -35,14 +38,18 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
 
         btnVerify = this.findViewById(R.id.btnVerify);
         btnResendVerificationEmail = this.findViewById(R.id.btnResendVerificationEmail);
+        tvCountDownTimer = this.findViewById(R.id.tvCountDownTimer);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        setCountDownTimer();
         btnVerify.setOnClickListener(this::checkEmailVerification);
 
         btnResendVerificationEmail.setOnClickListener(view -> {
             if (!user.isEmailVerified()) {
                 EmailUtils.sendVerificationEmail(EmailVerificationPageActivity.this, user);
+                setCountDownTimer();
+
             } else {
                 Toast.makeText(this, "Email already verified", Toast.LENGTH_SHORT).show();
                 finish();
@@ -71,5 +78,19 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setCountDownTimer() {
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                btnResendVerificationEmail.setEnabled(false);
+                tvCountDownTimer.setText(((Long)(millisUntilFinished/1000)).toString());
+            }
+
+            public void onFinish() {
+                btnResendVerificationEmail.setEnabled(true);
+            }
+        }.start();
     }
 }
