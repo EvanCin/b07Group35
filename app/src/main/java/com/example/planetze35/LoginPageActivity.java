@@ -92,7 +92,7 @@ public class LoginPageActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Snackbar.make(view, "Email not verified", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(view, "Email not verified", Snackbar.LENGTH_INDEFINITE)
                             .setTextColor(Color.RED)
                             .setAction("Send verification email", new View.OnClickListener() {
                                 @Override
