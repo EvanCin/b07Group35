@@ -61,6 +61,15 @@ public class LoginPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnForgotPassword = this.findViewById(R.id.btnForgotPassword);
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -125,15 +134,6 @@ public class LoginPageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(LoginPageActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        btnForgotPassword = this.findViewById(R.id.btnForgotPassword);
-        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ForgotPasswordActivity.class);
-                startActivity(intent);
             }
         });
     }
