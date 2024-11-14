@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginPageActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword, etPasswordConfirmation;
     private Button btnSignup, btnLogin, btnForgotPassword;
@@ -34,7 +34,7 @@ public class LoginPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -57,7 +57,7 @@ public class LoginPageActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SignupPageActivity.class);
+                Intent intent = new Intent(view.getContext(), SignupActivity.class);
                 startActivity(intent);
             }
         });
@@ -106,9 +106,9 @@ public class LoginPageActivity extends AppCompatActivity {
                             .setAction("Send verification email", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    EmailUtils.sendVerificationEmail(LoginPageActivity.this, user);
+                                    EmailUtils.sendVerificationEmail(LoginActivity.this, user);
                                     // send user to the email verification page to verify their email
-                                    Intent intent = new Intent(v.getContext(), EmailVerificationPageActivity.class);
+                                    Intent intent = new Intent(v.getContext(), EmailVerificationActivity.class);
                                     startActivity(intent);
                                 }
                             })
@@ -128,12 +128,12 @@ public class LoginPageActivity extends AppCompatActivity {
         dbRef.child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(LoginPageActivity.this, "Hello " + dataSnapshot.getValue(String.class), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Hello " + dataSnapshot.getValue(String.class), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(LoginPageActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

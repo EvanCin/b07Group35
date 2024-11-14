@@ -24,7 +24,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Objects;
 
-public class SignupPageActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private EditText etFirstName, etLastName, etEmail, etPassword, etPasswordConfirmation;
     private Button btnSignup;
@@ -34,7 +34,7 @@ public class SignupPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup_page);
+        setContentView(R.layout.activity_signup);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -78,8 +78,8 @@ public class SignupPageActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 storeUserName(user, firstName, lastName);
-                EmailUtils.sendVerificationEmail(SignupPageActivity.this, user);
-                Intent intent = new Intent(SignupPageActivity.this, EmailVerificationPageActivity.class);
+                EmailUtils.sendVerificationEmail(SignupActivity.this, user);
+                Intent intent = new Intent(SignupActivity.this, EmailVerificationActivity.class);
                 startActivity(intent);
                 finish();
 

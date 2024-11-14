@@ -18,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class EmailVerificationPageActivity extends AppCompatActivity {
+public class EmailVerificationActivity extends AppCompatActivity {
 
     private Button btnVerify;
     private Button btnResendVerificationEmail;
@@ -29,7 +29,7 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_email_verification_page);
+        setContentView(R.layout.activity_email_verification);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -47,7 +47,7 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
 
         btnResendVerificationEmail.setOnClickListener(view -> {
             if (!user.isEmailVerified()) {
-                EmailUtils.sendVerificationEmail(EmailVerificationPageActivity.this, user);
+                EmailUtils.sendVerificationEmail(EmailVerificationActivity.this, user);
                 setCountDownTimer();
 
             } else {
@@ -68,7 +68,7 @@ public class EmailVerificationPageActivity extends AppCompatActivity {
         user.reload().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (user.isEmailVerified()) {
-                    Toast.makeText(EmailVerificationPageActivity.this, "Verification completed successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailVerificationActivity.this, "Verification completed successfully", Toast.LENGTH_SHORT).show();
                     // go to the login page
                     finish();
                 } else {
