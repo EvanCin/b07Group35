@@ -26,8 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginPageActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
-    private Button btnSignup, btnLogin;
+    private EditText etEmail, etPassword, etPasswordConfirmation;
+    private Button btnSignup, btnLogin, btnForgotPassword;
     private FirebaseAuth auth;
 
     @Override
@@ -125,6 +125,15 @@ public class LoginPageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(LoginPageActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnForgotPassword = this.findViewById(R.id.btnForgotPassword);
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,16 +1,19 @@
 <resources>
     <string name = "app_name">Planetze35</string>
+    <string name = "name">Name</string>
     <string name = "email">Email</string>
     <string name = "password">Password</string>
     <string name = "login">Log in</string>
     <string name = "sign_up">Sign up</string>
-    <string name = "name">Name</string>
     <string name = "create_an_account">Create an account</string>
     <string name = "title_activity_login_page">Log in to continue</string>
     <string name = "title_activity_signup_page">Sign up to continue</string>
     <string name = "dont_have_an_account">don\'t have an account?</string>
     <string name = "confirm_password">Confirm your password</string>
     <string name = "forgot_password">Forgot password?</string>
+    <string name = "title_forgot_password_page">Forgot your password?</string>
+    <string name = "forgot_password_desc">Enter your email address and we\'ll send you a link that will allow you to reset your password.</string>
+    <string name = "send_email">Send Email</string>
     <string name = "first_name">First name</string>
     <string name = "last_name">Last name</string>
     <string name = "email_verification_message">A verification email has been sent to your email address.
