@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,16 +14,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.Objects;
+
 public class SignupPageActivity extends AppCompatActivity {
 
+    private EditText etFirstName, etLastName, etEmail, etPassword, etPasswordConfirmation;
     private Button btnSignup;
-    private EditText etName;
-    private EditText etEmail;
-    private EditText etPassword;
-    private EditText etPasswordConfirmation;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,57 +41,131 @@ public class SignupPageActivity extends AppCompatActivity {
             return insets;
         });
 
-        etName = this.findViewById(R.id.etName);
+        auth = FirebaseAuth.getInstance();
+        etFirstName = this.findViewById(R.id.etFirstName);
+        etLastName = this.findViewById(R.id.etLastName);
         etEmail = this.findViewById(R.id.etSignupEmail);
         etPassword = this.findViewById(R.id.etSignupPassword);
         etPasswordConfirmation = this.findViewById(R.id.etSignupPasswordConfirmation);
         btnSignup = this.findViewById(R.id.btnSignup);
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addUser(view);
+            }
+        });
 
-                if (filledFields()) {
-                    EmailValidator emailValidator = EmailValidator.getInstance();
-                    String email = etEmail.getText().toString().trim();
-                    if (emailValidator.isValid(email) && validatePassword()) {
+    }
 
-                        // TODO: I think the login activity should be launched here, so that the user's logs in after account confirmation. Not sure tho?
-                        // TODO: Add the user to the database here.
-                        Toast.makeText(SignupPageActivity.this, "Welcome " + etName.getText().toString().trim(), Toast.LENGTH_SHORT)
-                                .show();
+    /**
+     * Add a valid user to the database
+     * @param view The view that was clicked
+     */
+    private void addUser(View view) {
+        String firstName = etFirstName.getText().toString().trim();
+        String lastName = etLastName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String passwordConfirmation = etPasswordConfirmation.getText().toString().trim();
 
-                        Intent intent = new Intent(SignupPageActivity.this, com.example.planetze35.LoginPageActivity.class);
-                        startActivity(intent);
+        if (!validateAllInputs(view, firstName, lastName, email, password, passwordConfirmation)) {
+            return;
+        }
 
-                    } else if (!emailValidator.isValid(email)) {
-                        Snackbar.make(view, "Please enter a valid email", Snackbar.LENGTH_SHORT)
-                                .setTextColor(Color.RED)
-                                .show();
-                    } else {
-                        Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_SHORT)
-                                .setTextColor(Color.RED)
-                                .show();
-                    }
-                } else {
-                    Snackbar.make(view, "Please fill all the fields", Snackbar.LENGTH_SHORT)
+        // if everything is valid then add the user to the database
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = auth.getCurrentUser();
+                storeUserName(user, firstName, lastName);
+                EmailUtils.sendVerificationEmail(SignupPageActivity.this, user);
+                Intent intent = new Intent(SignupPageActivity.this, EmailVerificationPageActivity.class);
+                startActivity(intent);
+                finish();
+
+            } else {
+                String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
+                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                    // if an account already exists under this email
+                    Snackbar.make(view, "Email already exists. Please log in!", Snackbar.LENGTH_INDEFINITE)
                             .setTextColor(Color.RED)
+                            .setAction("Log in", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    finish();
+                                }
+                            })
+                            .setActionTextColor(Color.BLUE)
                             .show();
+                } else {
+                    Snackbar.make(view, "Error: " + errorMessage, Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
                 }
             }
         });
     }
 
-    private boolean filledFields() {
-        String name = etName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+    /**
+     * Store the user's name in the Firebase database
+     * @param user The user's address in database
+     * @param firstName The user's first name
+     * @param lastName The user's last name
+     */
+    private void storeUserName(FirebaseUser user, String firstName, String lastName) {
+        if (user == null) {
+            return;
+        }
 
-        return !name.isEmpty() && !email.isEmpty() && !password.isEmpty();
+        String uid = user.getUid();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        dbRef.child("firstName").setValue(firstName);
+        dbRef.child("lastName").setValue(lastName);
+
     }
 
-    public boolean validatePassword() {
-        String password = etPassword.getText().toString().trim();
-        String passwordConfirmation = etPasswordConfirmation.getText().toString().trim();
+    /**
+     * Validate all the inputs
+     * @param view The view that was clicked
+     * @param firstName The user's first name
+     * @param lastName The user's last name
+     * @param email The user's email
+     * @param password The user's password
+     * @param passwordConfirmation The user's password confirmation
+     * @return true if all the inputs are valid, false otherwise
+     */
+    private boolean validateAllInputs(View view, String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        if (!filledFields(firstName, lastName, email, password, passwordConfirmation)) {
+            Snackbar.make(view, "Please fill all the fields", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+            return false;
+        }
+
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        if (!emailValidator.isValid(email)) {
+            Snackbar.make(view, "Please enter a valid email", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+            return false;
+        }
+
+        if (!validatePassword(password)) {
+            Snackbar.make(view, "Password must be at least 6 characters", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+            return false;
+        }
+
+        if (!validatePasswordConfirmation(password, passwordConfirmation)) {
+            Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean filledFields(String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        return !firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !passwordConfirmation.isEmpty();
+    }
+
+    private boolean validatePasswordConfirmation(String password, String passwordConfirmation) {
         return password.equals(passwordConfirmation);
+    }
+
+    private boolean validatePassword(String password) {
+        return password.length() >= 6;
     }
 }

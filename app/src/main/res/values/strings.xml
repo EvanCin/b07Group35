@@ -14,4 +14,12 @@
     <string name = "title_forgot_password_page">Forgot your password?</string>
     <string name = "forgot_password_desc">Enter your email address and we\'ll send you a link that will allow you to reset your password.</string>
     <string name = "send_email">Send Email</string>
+    <string name = "first_name">First name</string>
+    <string name = "last_name">Last name</string>
+    <string name = "email_verification_message">A verification email has been sent to your email address.
+        Please verify your email address to continue. If you did not receive any email,
+        please click on the button below after the cooldown is finished to resend the email.</string>
+    <string name = "verify">Verify</string>
+    <string name = "resend_verification_email">Resend verification email</string>
+    <string name="seconds_remaining">Seconds remaining:</string>
 </resources>

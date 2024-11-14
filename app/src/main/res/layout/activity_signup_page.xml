@@ -21,19 +21,32 @@
         android:layout_marginTop = "50dp" />
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/etFirstName"
         android:background="@drawable/edittext_background"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:hint="@string/name"
+        android:hint="@string/first_name"
         android:inputType="text"
         android:maxLines="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleSignupPage" />
 
+    <EditText
+        android:id="@+id/etLastName"
+        android:background="@drawable/edittext_background"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:hint="@string/last_name"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
 
     <EditText
         android:id="@+id/etSignupEmail"
@@ -46,7 +59,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/etLastName" />
 
     <EditText
         android:id="@+id/etSignupPassword"
@@ -79,9 +92,9 @@
         android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_an_account"
+        android:text="@string/sign_up"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/etSignupPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etSignupPasswordConfirmation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
