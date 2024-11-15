@@ -21,14 +21,14 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivityView" />
         <activity
             android:name=".SignupActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName=".LoginActivityView"
             android:label="Planetze35 - signup" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginActivityView"
             android:exported="true"
             android:theme="@style/Theme.Planetze35.Actionbar">
             <intent-filter>
