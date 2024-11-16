@@ -32,10 +32,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EcoGaugeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EcoGaugeActivity extends AppCompatActivity {
 
-    Spinner spinner;
-    TextView textViewSpinner;
+    Button totalWeeklyEmissionsButton, totalMonthlyEmissionsButton, totalYearlyEmissionsButton;
+    TextView totalEmissionsTextView;
     BarChart emissionsChart;
     LineChart lineChart;
     Button dailyButton, weeklyButton, monthlyButton;
@@ -51,11 +51,13 @@ public class EcoGaugeActivity extends AppCompatActivity implements AdapterView.O
             return insets;
         });
 
-        spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.date, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
+        totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
+        totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
+        totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
+
+        //Display weekly emissions by default
+        totalEmissionsTextView.setText("You've emitted 16 kg CO2e this week");
 
         //Emissions Chart
         emissionsChart = findViewById(R.id.emissionsChart);
@@ -112,6 +114,28 @@ public class EcoGaugeActivity extends AppCompatActivity implements AdapterView.O
         weeklyButton = findViewById(R.id.weeklyButton);
         monthlyButton = findViewById(R.id.monthlyButton);
 
+        //Display total weekly emissions for textview
+        totalWeeklyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalEmissionsTextView.setText("You've emitted 16 kg CO2e this week.");
+            }
+        });
+        //Display total monthly emissions for textview
+        totalMonthlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalEmissionsTextView.setText("You've emitted 67 kg CO2e this month.");
+            }
+        });
+        //Display total yearly emissions for textview
+        totalYearlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalEmissionsTextView.setText("You've emitted 720 kg CO2e this year.");
+            }
+        });
+
         //Display daily emissions trend graph
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,18 +160,6 @@ public class EcoGaugeActivity extends AppCompatActivity implements AdapterView.O
                 lineChart.invalidate();
             }
         });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String date = parent.getItemAtPosition(position).toString();
-        textViewSpinner = findViewById(R.id.textViewSpinner);
-        textViewSpinner.setText(date);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
     private List<Entry> getdata(){
         List<Entry> entries=new ArrayList<>();
