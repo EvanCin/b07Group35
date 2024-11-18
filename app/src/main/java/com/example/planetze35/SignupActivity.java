@@ -15,12 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Objects;
 
@@ -69,11 +66,15 @@ public class SignupActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String passwordConfirmation = etPasswordConfirmation.getText().toString().trim();
 
-        if (!validateAllInputs(view, firstName, lastName, email, password, passwordConfirmation)) {
+        if (!filedFields(firstName, lastName, email, password, passwordConfirmation)) {
+            Snackbar.make(view, "Please fill all the fields", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+        }
+
+        if (!validatePasswordConfirmation(password, passwordConfirmation)) {
+            Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
             return;
         }
 
-        // if everything is valid then add the user to the database
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
@@ -85,21 +86,10 @@ public class SignupActivity extends AppCompatActivity {
 
             } else {
                 String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
-                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                    // if an account already exists under this email
-                    Snackbar.make(view, "Email already exists. Please log in!", Snackbar.LENGTH_INDEFINITE)
-                            .setTextColor(Color.RED)
-                            .setAction("Log in", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    finish();
-                                }
-                            })
-                            .setActionTextColor(Color.BLUE)
-                            .show();
-                } else {
-                    Snackbar.make(view, "Error: " + errorMessage, Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+                if (errorMessage == null) {
+                    errorMessage = "Something went wrong!";
                 }
+                Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
             }
         });
     }
@@ -121,51 +111,12 @@ public class SignupActivity extends AppCompatActivity {
         dbRef.child("lastName").setValue(lastName);
 
     }
-
-    /**
-     * Validate all the inputs
-     * @param view The view that was clicked
-     * @param firstName The user's first name
-     * @param lastName The user's last name
-     * @param email The user's email
-     * @param password The user's password
-     * @param passwordConfirmation The user's password confirmation
-     * @return true if all the inputs are valid, false otherwise
-     */
-    private boolean validateAllInputs(View view, String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        if (!filledFields(firstName, lastName, email, password, passwordConfirmation)) {
-            Snackbar.make(view, "Please fill all the fields", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
-            return false;
-        }
-
-        EmailValidator emailValidator = EmailValidator.getInstance();
-        if (!emailValidator.isValid(email)) {
-            Snackbar.make(view, "Please enter a valid email", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
-            return false;
-        }
-
-        if (!validatePassword(password)) {
-            Snackbar.make(view, "Password must be at least 6 characters", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
-            return false;
-        }
-
-        if (!validatePasswordConfirmation(password, passwordConfirmation)) {
-            Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean filledFields(String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        return !firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !passwordConfirmation.isEmpty();
-    }
-
     private boolean validatePasswordConfirmation(String password, String passwordConfirmation) {
         return password.equals(passwordConfirmation);
     }
 
-    private boolean validatePassword(String password) {
-        return password.length() >= 6;
+    private boolean filedFields(String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        return !firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !passwordConfirmation.isEmpty();
     }
+
 }

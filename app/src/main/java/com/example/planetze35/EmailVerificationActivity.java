@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class EmailVerificationActivity extends AppCompatActivity {
 
-    private Button btnVerify;
+    private Button btnVerified;
     private Button btnResendVerificationEmail;
     private TextView tvCountDownTimer;
     private FirebaseUser user;
@@ -36,14 +36,14 @@ public class EmailVerificationActivity extends AppCompatActivity {
             return insets;
         });
 
-        btnVerify = this.findViewById(R.id.btnVerify);
+        btnVerified = this.findViewById(R.id.btnVerify);
         btnResendVerificationEmail = this.findViewById(R.id.btnResendVerificationEmail);
         tvCountDownTimer = this.findViewById(R.id.tvCountDownTimer);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         setCountDownTimer();
-        btnVerify.setOnClickListener(this::checkEmailVerification);
+        btnVerified.setOnClickListener(this::checkEmailVerification);
 
         btnResendVerificationEmail.setOnClickListener(view -> {
             if (!user.isEmailVerified()) {

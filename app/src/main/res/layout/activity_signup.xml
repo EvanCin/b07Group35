@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:hint="@string/first_name"
+        android:autofillHints="name"
         android:inputType="text"
         android:maxLines="1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:hint="@string/last_name"
+        android:autofillHints="name"
         android:inputType="text"
         android:maxLines="1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -56,6 +58,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:hint="@string/email"
+        android:autofillHints="emailAddress"
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -69,20 +72,32 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:hint="@string/password"
+        android:autofillHints="password"
         app:layout_constraintTop_toBottomOf="@id/etSignupEmail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/tvPasswordRequirements"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop="5dp"
+        android:text = "@string/password_requirements"
+        app:drawableStartCompat = "@drawable/ic_exclamation"
+        app:layout_constraintTop_toBottomOf="@id/etSignupPassword"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/etSignupPasswordConfirmation"
         android:background="@drawable/edittext_background"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:hint="@string/confirm_password"
-        app:layout_constraintTop_toBottomOf="@id/etSignupPassword"
+        android:autofillHints="password"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordRequirements"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:inputType="textPassword" />

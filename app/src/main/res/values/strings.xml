@@ -19,7 +19,8 @@
     <string name = "email_verification_message">A verification email has been sent to your email address.
         Please verify your email address to continue. If you did not receive any email,
         please click on the button below after the cooldown is finished to resend the email.</string>
-    <string name = "verify">Verify</string>
+    <string name = "verified">Verified my email</string>
     <string name = "resend_verification_email">Resend verification email</string>
     <string name="seconds_remaining">Seconds remaining:</string>
+    <string name = "password_requirements">Password must be at least 6 characters</string>
 </resources>
