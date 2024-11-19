@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Planetze35</string>
+
+    <!-- Default Text for UI Elements in item_habit.xml -->
+    <string name="habit_name_default">Habit Name</string>
+    <string name="habit_category_default">Category</string>
+    <string name="habit_impact_default">Impact</string>
+
+    <!-- Categories -->
+    <string name="category_transportation">Transportation</string>
+    <string name="category_energy">Energy</string>
+    <string name="category_food">Food</string>
+    <string name="category_consumption">Consumption</string>
+
+    <!-- Habits Recommendations Text -->
+    <string-array name="habits_recommendations_txt">
+        <item>Use public transportation</item>
+        <item>Carpool to reduce emissions</item>
+        <item>Recycle paper and plastic</item>
+        <item>Install energy-efficient LED bulbs</item>
+        <item>Eat less meat to reduce emissions</item>
+        <item>Reduce energy consumption by unplugging devices</item>
+        <item>Shop for locally produced food</item>
+    </string-array>
 </resources>
