@@ -19,7 +19,7 @@
             android:exported="false"
             android:label="Verify you email" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".ForgotPasswordActivityView"
             android:exported="false"
             android:parentActivityName=".LoginActivityView" />
         <activity
