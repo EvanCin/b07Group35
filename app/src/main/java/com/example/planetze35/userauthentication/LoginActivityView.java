@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.userauthentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.MainActivity;
+import com.example.planetze35.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivityView extends AppCompatActivity implements Contract.LoginActivityView {

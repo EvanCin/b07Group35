@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.userauthentication;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,6 +69,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (!filedFields(firstName, lastName, email, password, passwordConfirmation)) {
             Snackbar.make(view, "Please fill all the fields", Snackbar.LENGTH_SHORT).setTextColor(Color.RED).show();
+            return;
         }
 
         if (!validatePasswordConfirmation(password, passwordConfirmation)) {

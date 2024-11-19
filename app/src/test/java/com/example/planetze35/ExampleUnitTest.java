@@ -5,6 +5,8 @@ import static org.mockito.Mockito.verify;
 import android.graphics.Color;
 import android.widget.Toast;
 
+import com.example.planetze35.userauthentication.Contract;
+import com.example.planetze35.userauthentication.LoginPresenter;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.junit.Test;

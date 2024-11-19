@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.userauthentication;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ForgotPasswordActivityView extends AppCompatActivity implements Contract.ForgotPasswordActivityView {
