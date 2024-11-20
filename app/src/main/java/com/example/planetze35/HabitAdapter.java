@@ -1,13 +1,22 @@
 package com.example.planetze35;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.DiffUtil;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
@@ -31,6 +40,32 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         holder.habitName.setText(habit.getName());
         holder.habitCategory.setText(habit.getCategory());
         holder.habitImpact.setText(habit.getImpact());
+
+        // Set the appropriate drawable icon based on category
+        int iconResId = getIconForCategory(habit.getCategory());
+        holder.habitIcon.setImageResource(iconResId);
+
+        // Handle click for the reminder button
+        holder.reminderButton.setOnClickListener(v -> {
+            // Set up the alarm manager to trigger a notification
+            AlarmManager alarmManager = (AlarmManager) holder.itemView.getContext().getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(holder.itemView.getContext(), ReminderBroadcast.class);
+            intent.putExtra("habit_name", habit.getName());
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(holder.itemView.getContext(), position, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            // Set the time for the alarm
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 9); // e.g., Set reminder time to 9 AM
+            calendar.set(Calendar.MINUTE, 0);
+
+            // Set repeating alarm to trigger daily at 9 AM
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            // Show confirmation
+            Toast.makeText(holder.itemView.getContext(), "Daily reminder set for: " + habit.getName(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -39,33 +74,60 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
     }
 
     public void filterList(List<Habit> filteredList) {
-        int oldSize = habitList.size();
-        int newSize = filteredList.size();
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return habitList.size();
+            }
 
+            @Override
+            public int getNewListSize() {
+                return filteredList.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return habitList.get(oldItemPosition).getName().equals(filteredList.get(newItemPosition).getName());
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return habitList.get(oldItemPosition).equals(filteredList.get(newItemPosition));
+            }
+        });
 
         habitList.clear();
         habitList.addAll(filteredList);
+        diffResult.dispatchUpdatesTo(this);
+    }
 
-        if (newSize < oldSize) {
-            notifyItemRangeRemoved(newSize, oldSize - newSize);
-        } else if (newSize > oldSize) {
-            notifyItemRangeInserted(oldSize, newSize - oldSize);
-        } else {
-            for (int i = 0; i < newSize; i++) {
-                notifyItemChanged(i);
-            }
+    private int getIconForCategory(String category) {
+        switch (category.toLowerCase()) {
+            case "transportation":
+                return R.drawable.baseline_ac_unit_24;  // Replace with your drawable for transportation
+            case "energy":
+                return R.drawable.baseline_airplanemode_inactive_24;  // Replace with your drawable for energy
+            case "food":
+                return R.drawable.baseline_airport_shuttle_24;  // Replace with your drawable for food
+            case "consumption":
+                return R.drawable.baseline_bakery_dining_24;  // Replace with your drawable for consumption
+            default:
+                return R.drawable.ic_launcher_foreground;  // Default fallback drawable
         }
     }
 
-
     public static class HabitViewHolder extends RecyclerView.ViewHolder {
         TextView habitName, habitCategory, habitImpact;
+        ImageView habitIcon;
+        ImageButton reminderButton;
 
         public HabitViewHolder(@NonNull View itemView) {
             super(itemView);
             habitName = itemView.findViewById(R.id.habit_name);
             habitCategory = itemView.findViewById(R.id.habit_category);
             habitImpact = itemView.findViewById(R.id.habit_impact);
+            habitIcon = itemView.findViewById(R.id.habit_icon);
+            reminderButton = itemView.findViewById(R.id.reminder_button);
         }
     }
 }
