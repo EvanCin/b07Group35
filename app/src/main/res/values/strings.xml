@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Planetze35</string>
 
+    <string name="filter">Filter</string>
+    <string name="add_reminder">Reminder</string>
+
     <!-- Default Text for UI Elements in item_habit.xml -->
     <string name="habit_name_default">Habit Name</string>
     <string name="habit_category_default">Category</string>
     <string name="habit_impact_default">Impact</string>
+    <string name="habit_icon">Habit Icon</string>
 
     <!-- Categories -->
     <string name="category_transportation">Transportation</string>
