@@ -1,5 +1,6 @@
 package com.example.planetze35.userauthentication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +14,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivityView extends AppCompatActivity implements Contract.ForgotPasswordActivityView {
+import org.apache.commons.validator.routines.EmailValidator;
 
+public class ForgotPasswordActivity extends AppCompatActivity {
+    private FirebaseAuth auth;
     private EditText etForgotPasswordEmail;
     private Button btnSendEmail;
-    private Contract.LoginPresenter presenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,29 +32,28 @@ public class ForgotPasswordActivityView extends AppCompatActivity implements Con
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
+        auth = FirebaseAuth.getInstance();
         etForgotPasswordEmail = this.findViewById(R.id.etForgotPasswordEmail);
         btnSendEmail = this.findViewById(R.id.btnForgotPasswordEmail);
-
-        presenter = new LoginPresenter(this, new LoginModel());
-
         btnSendEmail.setOnClickListener(view -> {
-            String email = etForgotPasswordEmail.getText().toString();
-            presenter.sendPasswordResetEmail(email);
+            EmailValidator emailValidator = EmailValidator.getInstance();
+            String email = etForgotPasswordEmail.getText().toString().trim();
+            if (emailValidator.isValid(email)) {
+                auth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ForgotPasswordActivity.this,
+                                                "An email has been sent to " + email,
+                                                Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
+                finish();
+            } else {
+                Snackbar.make(view, "Please enter a valid email.", Snackbar.LENGTH_SHORT)
+                        .setTextColor(Color.RED)
+                        .show();
+            }
         });
     }
-
-    public void goBackToLoginActivity() {
-        finish();
-    }
-
-    public void showToast(String message, int length) {
-        Toast.makeText(this, message, length).show();
-    }
-
-    public void showSnackbar(String message, int length, int color) {
-        Snackbar.make(findViewById(R.id.main), message, length).setTextColor(color).show();
-    }
-
 }

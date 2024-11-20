@@ -1,17 +1,16 @@
 package com.example.planetze35.userauthentication;
 
 import android.graphics.Color;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginModel implements Contract.LoginModel {
+public class LoginActivityModel implements Contract.LoginActivityModel {
 
     private FirebaseAuth auth;
 
-    public LoginModel() {
+    public LoginActivityModel() {
         auth = FirebaseAuth.getInstance();
     }
 
@@ -21,7 +20,7 @@ public class LoginModel implements Contract.LoginModel {
      * @param email The email
      * @param password The password
      */
-    public void processLogin(Contract.LoginPresenter presenter, String email, String password) {
+    public void processLogin(Contract.LoginActivityPresenter presenter, String email, String password) {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -42,17 +41,6 @@ public class LoginModel implements Contract.LoginModel {
 
             } else {
                 presenter.setLoginViewSnackbar("Invalid email or password", Snackbar.LENGTH_SHORT, Color.RED);
-            }
-        });
-    }
-
-    public void processSendingPasswordResetEmail(Contract.LoginPresenter presenter, String email) {
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                presenter.setForgotPasswordViewToast("An email has been sent to " + email, Toast.LENGTH_SHORT);
-                presenter.navigateToLoginActivity();
-            } else {
-                presenter.setForgotPasswordViewToast("An error occurred. Please try again!", Toast.LENGTH_SHORT);
             }
         });
     }

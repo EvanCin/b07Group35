@@ -20,7 +20,7 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
 
     private EditText etEmail, etPassword;
     private Button btnSignup, btnLogin, btnForgotPassword;
-    private Contract.LoginPresenter presenter;
+    private Contract.LoginActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
         btnLogin = this.findViewById(R.id.btnLogin);
         btnSignup = this.findViewById(R.id.btnSignup);
 
-        presenter = new LoginPresenter(this, new LoginModel());
+        presenter = new LoginActivityPresenter(this, new LoginActivityModel());
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
         btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ForgotPasswordActivityView.class);
+                Intent intent = new Intent(view.getContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });

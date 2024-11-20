@@ -8,24 +8,14 @@ public interface Contract {
         void showSnackbar(String message, int length, int color);
     }
 
-    public interface ForgotPasswordActivityView {
-        void goBackToLoginActivity();
-        void showToast(String message, int length);
-        void showSnackbar(String message, int length, int color);
-    }
-
-    public interface LoginPresenter {
+    public interface LoginActivityPresenter {
         void loginUser(String email, String password);
-        void sendPasswordResetEmail(String email);
         void navigateToMainActivity();
         void navigateToEmailVerificationActivity();
-        void navigateToLoginActivity();
         void setLoginViewSnackbar(String message, int length, int color);
-        void setForgotPasswordViewToast(String message, int length);
     }
 
-    public interface LoginModel {
-        void processLogin(LoginPresenter presenter, String email, String password);
-        void processSendingPasswordResetEmail(LoginPresenter presenter, String email);
+    public interface LoginActivityModel {
+        void processLogin(LoginActivityPresenter presenter, String email, String password);
     }
 }
