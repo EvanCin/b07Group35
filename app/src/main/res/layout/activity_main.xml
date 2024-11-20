@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Search View for keyword search -->
+    <!-- Search View  -->
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
@@ -27,7 +27,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/filter" />
 
-    <!-- Recycler View for displaying habits -->
+    <!-- Recycler View -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
