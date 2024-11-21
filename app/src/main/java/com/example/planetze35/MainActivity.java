@@ -39,20 +39,37 @@ public class MainActivity extends AppCompatActivity {
         // this is how to get the user's UID
         String uid = user.getUid();
 
-        // this code block retrieves the user data from the database and perform the operations
-        com.example.planetze35.User.fetchUserData(uid, new com.example.planetze35.User.UserCallback() {
+        // this code block retrieves all the user data from the database and perform the operations
+        User.fetchAllUserData(uid, new User.UserObjectCallback() {
             @Override
-            public void onSuccess(com.example.planetze35.User userObject) {
+            public void onSuccess(User userObject) {
                 // this is where you should do the operations I think
 
                 // show users data
-                ((TextView)findViewById(R.id.textView)).setText("Welcome, " + userObject.getFirstName());
+                ((TextView)findViewById(R.id.textView1)).setText("Welcome, " + userObject.getFirstName() + " " + userObject.getLastName());
             }
 
             @Override
             public void onFailure(String errorMessage) {
-                Log.e("UserData", "Error: " + errorMessage);
+                Log.e("UserObject", "Error: " + errorMessage);
             }
         });
+
+        // this code block retrieves one specific user data field from the database and perform the operations
+        User.fetchOneUserData(uid, "firstName", new User.DataFieldCallback() {
+            @Override
+            public void onSuccess(String dataField) {
+                // this is where you should do the operations I think
+
+                // show users data
+                ((TextView)findViewById(R.id.textView2)).setText("First Name: " + dataField);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                Log.e("UserObject", "Error: " + errorMessage);
+            }
+        });
+
     }
 }

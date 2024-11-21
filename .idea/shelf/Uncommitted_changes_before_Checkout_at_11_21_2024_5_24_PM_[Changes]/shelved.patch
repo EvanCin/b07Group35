@@ -1,0 +1,166 @@
+Index: app/src/main/java/com/example/Planetze35/Food_Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/Planetze35/Food_Activity.java b/app/src/main/java/com/example/planetze35/Food_Activity.java
+rename from app/src/main/java/com/example/Planetze35/Food_Activity.java
+rename to app/src/main/java/com/example/planetze35/Food_Activity.java
+--- a/app/src/main/java/com/example/Planetze35/Food_Activity.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/main/java/com/example/planetze35/Food_Activity.java	(date 1732222296467)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+@@ -16,6 +16,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
++import com.example.Planetze35.R;
++
+ public class Food_Activity extends AppCompatActivity {
+     private Button mealButton, addButton, doneButton;
+     private LinearLayout questionsLayout;
+Index: app/src/main/java/com/example/Planetze35/EnergyBills_Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/Planetze35/EnergyBills_Activity.java b/app/src/main/java/com/example/planetze35/EnergyBills_Activity.java
+rename from app/src/main/java/com/example/Planetze35/EnergyBills_Activity.java
+rename to app/src/main/java/com/example/planetze35/EnergyBills_Activity.java
+--- a/app/src/main/java/com/example/Planetze35/EnergyBills_Activity.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/main/java/com/example/planetze35/EnergyBills_Activity.java	(date 1732222296476)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+@@ -16,6 +16,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
++import com.example.Planetze35.R;
++
+ public class EnergyBills_Activity extends AppCompatActivity {
+     private Button energyBillsButton, addEnergyBillButton, doneButton;
+     private LinearLayout questionsLayout;
+@@ -100,7 +102,7 @@
+     private void setupDoneButton() {
+         doneButton.setOnClickListener(v -> {
+             // Redirect to another activity or perform a summary action
+-            Intent intent = new Intent(EnergyBills_Activity.this, MainActivity.class);
++            Intent intent = new Intent(EnergyBills_Activity.this, com.example.planetze35.MainActivity.class);
+             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+             startActivity(intent);
+             finish(); // End current activity
+Index: app/src/main/java/com/example/Planetze35/Transportation_Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/Planetze35/Transportation_Activity.java b/app/src/main/java/com/example/planetze35/Transportation_Activity.java
+rename from app/src/main/java/com/example/Planetze35/Transportation_Activity.java
+rename to app/src/main/java/com/example/planetze35/Transportation_Activity.java
+--- a/app/src/main/java/com/example/Planetze35/Transportation_Activity.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/main/java/com/example/planetze35/Transportation_Activity.java	(date 1732222296462)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+@@ -17,6 +17,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
++import com.example.Planetze35.R;
++
+ public class Transportation_Activity extends AppCompatActivity {
+     private Button buttonPersonalVehicle, buttonPublicTransport, buttonCycling, buttonFlight, Done_button;
+     private LinearLayout questionsPersonVehicle, questionsTransportation, questionsCyclingWalking, questionsFlight;
+Index: app/src/main/java/com/example/Planetze35/Shop_Consumption.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/Planetze35/Shop_Consumption.java b/app/src/main/java/com/example/planetze35/Shop_Consumption.java
+rename from app/src/main/java/com/example/Planetze35/Shop_Consumption.java
+rename to app/src/main/java/com/example/planetze35/Shop_Consumption.java
+--- a/app/src/main/java/com/example/Planetze35/Shop_Consumption.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/main/java/com/example/planetze35/Shop_Consumption.java	(date 1732222296458)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+@@ -17,6 +17,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
++import com.example.Planetze35.R;
++
+ public class Shop_Consumption extends AppCompatActivity {
+     private Button buttonNewClothes, addNewClothesButton;
+     private LinearLayout questionsNewClothes;
+Index: app/src/test/java/com/example/Planetze35/ExampleUnitTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/example/Planetze35/ExampleUnitTest.java b/app/src/test/java/com/example/planetze35/ExampleUnitTest.java
+rename from app/src/test/java/com/example/Planetze35/ExampleUnitTest.java
+rename to app/src/test/java/com/example/planetze35/ExampleUnitTest.java
+--- a/app/src/test/java/com/example/Planetze35/ExampleUnitTest.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/test/java/com/example/planetze35/ExampleUnitTest.java	(date 1732221997435)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import org.junit.Test;
+ 
+Index: app/src/main/java/com/example/Planetze35/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/Planetze35/MainActivity.java b/app/src/main/java/com/example/planetze35/MainActivity.java
+rename from app/src/main/java/com/example/Planetze35/MainActivity.java
+rename to app/src/main/java/com/example/planetze35/MainActivity.java
+--- a/app/src/main/java/com/example/Planetze35/MainActivity.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/main/java/com/example/planetze35/MainActivity.java	(date 1732222296472)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+@@ -10,6 +10,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
++import com.example.Planetze35.R;
++
+ public class MainActivity extends AppCompatActivity {
+ 
+     @Override
+Index: app/src/androidTest/java/com/example/Planetze35/ExampleInstrumentedTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/example/Planetze35/ExampleInstrumentedTest.java b/app/src/androidTest/java/com/example/planetze35/ExampleInstrumentedTest.java
+rename from app/src/androidTest/java/com/example/Planetze35/ExampleInstrumentedTest.java
+rename to app/src/androidTest/java/com/example/planetze35/ExampleInstrumentedTest.java
+--- a/app/src/androidTest/java/com/example/Planetze35/ExampleInstrumentedTest.java	(revision 22ed1a2b9490a5f1de2066bc529d53087f7ed1c3)
++++ b/app/src/androidTest/java/com/example/planetze35/ExampleInstrumentedTest.java	(date 1732221997451)
+@@ -1,4 +1,4 @@
+-package com.example.Planetze35;
++package com.example.planetze35;
+ 
+ import android.content.Context;
+ 
