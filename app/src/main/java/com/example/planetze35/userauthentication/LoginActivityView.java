@@ -52,6 +52,7 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), SignupActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

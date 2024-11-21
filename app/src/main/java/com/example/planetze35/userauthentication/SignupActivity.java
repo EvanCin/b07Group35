@@ -25,7 +25,7 @@ import java.util.Objects;
 public class SignupActivity extends AppCompatActivity {
 
     private EditText etFirstName, etLastName, etEmail, etPassword, etPasswordConfirmation;
-    private Button btnSignup;
+    private Button btnSignup, btnLogin;
     private FirebaseAuth auth;
 
     @Override
@@ -46,11 +46,21 @@ public class SignupActivity extends AppCompatActivity {
         etPassword = this.findViewById(R.id.etSignupPassword);
         etPasswordConfirmation = this.findViewById(R.id.etSignupPasswordConfirmation);
         btnSignup = this.findViewById(R.id.btnSignup);
+        btnLogin = this.findViewById(R.id.btnLogin);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addUser(view);
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivityView.class);
+                startActivity(intent);
+                finish();
             }
         });
 
