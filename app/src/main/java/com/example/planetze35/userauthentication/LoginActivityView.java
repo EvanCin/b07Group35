@@ -75,6 +75,7 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
     public void launchEmailVerificationActivity() {
         Intent intent = new Intent(this, EmailVerificationActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void showSnackbar(String message, int length, int color) {

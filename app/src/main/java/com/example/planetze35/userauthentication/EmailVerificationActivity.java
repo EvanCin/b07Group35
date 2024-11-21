@@ -1,5 +1,6 @@
 package com.example.planetze35.userauthentication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -71,6 +72,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
                 if (user.isEmailVerified()) {
                     Toast.makeText(EmailVerificationActivity.this, "Verification completed successfully", Toast.LENGTH_SHORT).show();
                     // go to the login page
+                    Intent intent = new Intent(EmailVerificationActivity.this, LoginActivityView.class);
+                    startActivity(intent);
                     finish();
                 } else {
                     Snackbar.make(view, "Email not verified", Snackbar.LENGTH_SHORT)

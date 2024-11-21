@@ -1,5 +1,5 @@
 <resources>
-    <string name = "app_name">Planetze35</string>
+    <string name = "app_name">Planetze</string>
     <string name = "name">Name</string>
     <string name = "email">Email</string>
     <string name = "password">Password</string>

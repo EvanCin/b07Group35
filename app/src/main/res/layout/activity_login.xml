@@ -27,17 +27,6 @@
         app:layout_constraintRight_toRightOf = "parent"
         app:layout_constraintTop_toBottomOf="@+id/guidelineForLogoOutsideTop">
 
-        <ImageView
-            android:id = "@+id/ivLogo"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:scaleType="fitCenter"
-            android:src = "@mipmap/ic_big_planetze_foreground"
-            app:layout_constraintBottom_toBottomOf = "@id/guidelineForLogoInsideBottom"
-            app:layout_constraintLeft_toLeftOf = "parent"
-            app:layout_constraintRight_toRightOf = "parent"
-            app:layout_constraintTop_toTopOf = "@+id/guidelineForLogoInsideTop" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id = "@+id/guidelineForLogoInsideTop"
             android:layout_width = "wrap_content"
@@ -52,7 +41,6 @@
             android:orientation = "horizontal"
             app:layout_constraintGuide_percent="0.9" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -63,11 +51,9 @@
         android:background = "@drawable/hybrid_background"
         android:elevation = "100dp"
         app:layout_constraintBottom_toBottomOf = "@id/guidelineBottom"
-        app:layout_constraintHorizontal_bias = "0.0"
         app:layout_constraintLeft_toLeftOf = "@id/guidelineLeft"
         app:layout_constraintRight_toRightOf = "@id/guidelineRight"
-        app:layout_constraintTop_toTopOf = "@id/guidelineTop"
-        app:layout_constraintVertical_bias = "1.0">
+        app:layout_constraintTop_toTopOf = "@id/guidelineTop">
 
         <TextView
             android:id = "@+id/tvTitleLoginPage"
@@ -88,9 +74,10 @@
             android:layout_marginTop = "50dp"
             android:autofillHints = "emailAddress"
             android:background = "@drawable/edittext_background_hybrid"
+            android:elevation="1dp"
             android:hint = "@string/email"
             android:inputType = "textEmailAddress"
-            android:padding = "14dp"
+            android:padding = "12dp"
             app:layout_constraintLeft_toLeftOf = "parent"
             app:layout_constraintRight_toRightOf = "parent"
             app:layout_constraintTop_toBottomOf = "@id/tvTitleLoginPage" />
@@ -102,6 +89,7 @@
             android:layout_marginTop = "20dp"
             android:autofillHints = "password"
             android:background = "@drawable/edittext_background_hybrid"
+            android:elevation="1dp"
             android:hint = "@string/password"
             android:inputType = "textPassword"
             android:padding = "12dp"
@@ -115,6 +103,7 @@
             android:layout_height = "wrap_content"
             android:text = "@string/login"
             android:textAllCaps = "false"
+            android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf = "parent"
             app:layout_constraintLeft_toLeftOf = "parent"
             app:layout_constraintRight_toRightOf = "parent"
@@ -136,7 +125,7 @@
             android:id = "@+id/constraintLayout"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
-            app:layout_constraintBottom_toBottomOf = "parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintLeft_toLeftOf = "parent"
             app:layout_constraintRight_toRightOf = "parent"
             app:layout_constraintTop_toBottomOf = "@+id/btnLogin">

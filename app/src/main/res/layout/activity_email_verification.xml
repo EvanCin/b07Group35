@@ -7,19 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".userauthentication.EmailVerificationActivity">
 
+    <ImageView
+        android:id = "@+id/ivScientistPenguin"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom = "2dp"
+        android:scaleType = "centerCrop"
+        android:src = "@mipmap/ic_scientist_penguin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf = "parent" />
+
     <TextView
         android:id="@+id/tvEmailVerificationMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/cloud_box_background"
+        android:elevation="10dp"
         android:lineSpacingExtra="5dp"
-        android:padding="12dp"
+        android:padding="18dp"
         android:text="@string/email_verification_message"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/ivScientistPenguin" />
 
     <Button
         android:id="@+id/btnVerify"
