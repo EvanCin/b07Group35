@@ -13,8 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,8 +27,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,12 +161,12 @@ public class EcoGaugeActivity extends AppCompatActivity {
         });
 
         // Average comparison
-        loadFragment(new AvgComparisonFragment());
+        loadFragment(R.id.gaugeAvgComparisonFragmentContainer, new AvgComparisonFragment());
     }
 
-    private void loadFragment(Fragment fragment) {
+    private void loadFragment(int fragContainerID, Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.gaugeAvgComparisonFragmentContainer, new AvgComparisonFragment());
+        transaction.replace(fragContainerID, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
