@@ -25,6 +25,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     private Button btnVerified;
     private Button btnResendVerificationEmail;
     private TextView tvCountDownTimer;
+    private CountDownTimer countDownTimer;
     private FirebaseUser user;
 
     @Override
@@ -42,15 +43,25 @@ public class EmailVerificationActivity extends AppCompatActivity {
         btnResendVerificationEmail = this.findViewById(R.id.btnResendVerificationEmail);
         tvCountDownTimer = this.findViewById(R.id.tvCountDownTimer);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                btnResendVerificationEmail.setEnabled(false);
+                tvCountDownTimer.setText(((Long)(millisUntilFinished/1000)).toString());
+            }
 
+            public void onFinish() {
+                btnResendVerificationEmail.setEnabled(true);
+            }
+        };
 
-        setCountDownTimer();
+        countDownTimer.start();
+
         btnVerified.setOnClickListener(this::checkEmailVerification);
 
         btnResendVerificationEmail.setOnClickListener(view -> {
             if (!user.isEmailVerified()) {
                 EmailUtils.sendVerificationEmail(EmailVerificationActivity.this, user);
-                setCountDownTimer();
+                countDownTimer.start();
 
             } else {
                 Toast.makeText(this, "Email already verified", Toast.LENGTH_SHORT).show();
@@ -84,17 +95,4 @@ public class EmailVerificationActivity extends AppCompatActivity {
         });
     }
 
-    private void setCountDownTimer() {
-        new CountDownTimer(60000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                btnResendVerificationEmail.setEnabled(false);
-                tvCountDownTimer.setText(((Long)(millisUntilFinished/1000)).toString());
-            }
-
-            public void onFinish() {
-                btnResendVerificationEmail.setEnabled(true);
-            }
-        }.start();
-    }
 }
