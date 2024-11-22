@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         String uid = user.getUid();
 
         // this code block retrieves all the user data from the database and perform the operations
-        User.fetchAllUserData(uid, new User.UserObjectCallback() {
+        DatabaseUtils.fetchAllUserData(uid, new DatabaseUtils.UserInfoCallback() {
             @Override
-            public void onSuccess(User userObject) {
+            public void onSuccess(UserInfo userInfo) {
                 // this is where you should do the operations I think
 
                 // show users data
-                ((TextView)findViewById(R.id.textView1)).setText("Welcome, " + userObject.getFirstName() + " " + userObject.getLastName());
+                ((TextView)findViewById(R.id.textView1)).setText("Welcome, " + userInfo.toString());
             }
 
             @Override
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // this code block retrieves one specific user data field from the database and perform the operations
-        User.fetchOneUserData(uid, "firstName", new User.DataFieldCallback() {
+        DatabaseUtils.fetchOneUserData(uid, "firstName", new DatabaseUtils.DataFieldCallback() {
             @Override
             public void onSuccess(String dataField) {
                 // this is where you should do the operations I think
