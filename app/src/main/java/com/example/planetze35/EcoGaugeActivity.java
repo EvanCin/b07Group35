@@ -34,6 +34,8 @@ import java.util.List;
 
 public class EcoGaugeActivity extends AppCompatActivity {
 
+//    Spinner spinner;
+//    TextView textViewSpinner;
     Button totalWeeklyEmissionsButton, totalMonthlyEmissionsButton, totalYearlyEmissionsButton;
     TextView totalEmissionsTextView;
     BarChart emissionsChart;
@@ -55,45 +57,12 @@ public class EcoGaugeActivity extends AppCompatActivity {
         totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
         totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
         totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
-
         //Display weekly emissions by default
         totalEmissionsTextView.setText("You've emitted 16 kg CO2e this week");
 
         //Emissions Chart
         emissionsChart = findViewById(R.id.emissionsChart);
-        emissionsChart.getAxisRight().setDrawLabels(false);
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(1f, 20));
-        entries.add(new BarEntry(2f, 38));
-        entries.add(new BarEntry(3f, 69));
-        entries.add(new BarEntry(4f, 27));
-
-        YAxis yAxis = emissionsChart.getAxisLeft();
-        yAxis.setAxisMinimum(0f);
-        yAxis.setAxisMaximum(100f);
-        yAxis.setAxisLineWidth(2f);
-        yAxis.setAxisLineColor(Color.BLACK);
-        yAxis.setLabelCount(10);
-
-        BarDataSet dataSet = new BarDataSet(entries, "Subjects");
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.85f);
-        emissionsChart.setData(barData);
-
-        emissionsChart.getDescription().setEnabled(false);
-        emissionsChart.invalidate();
-        ArrayList<String> xValues = new ArrayList<>();
-        xValues.add("one");xValues.add("one");xValues.add("two");xValues.add("three");xValues.add("four");
-        emissionsChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
-        emissionsChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        emissionsChart.getXAxis().setGranularity(1f);
-        emissionsChart.getXAxis().setGranularityEnabled(true);
-        emissionsChart.getAxisLeft().setDrawGridLines(false);
-        emissionsChart.getAxisRight().setDrawGridLines(false);
-        emissionsChart.getXAxis().setDrawGridLines(false);
-        emissionsChart.setAutoScaleMinMaxEnabled(true);
-
+        setDefaultBarChart(emissionsChart);
 
         //Line chart for emissions trend graph
         lineChart = findViewById(R.id.linechart);
@@ -160,6 +129,52 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 lineChart.invalidate();
             }
         });
+    }
+
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        String date = parent.getItemAtPosition(position).toString();
+//        textViewSpinner = findViewById(R.id.textViewSpinner);
+//        textViewSpinner.setText(date);
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
+    private void setDefaultBarChart(BarChart emissionsChart) {
+        emissionsChart.getAxisRight().setDrawLabels(false);
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(1f, 20));
+        entries.add(new BarEntry(2f, 38));
+        entries.add(new BarEntry(3f, 69));
+        entries.add(new BarEntry(4f, 27));
+
+        YAxis yAxis = emissionsChart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(100f);
+        yAxis.setAxisLineWidth(2f);
+        yAxis.setAxisLineColor(Color.BLACK);
+        yAxis.setLabelCount(10);
+
+        BarDataSet dataSet = new BarDataSet(entries, "Subjects");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.85f);
+        emissionsChart.setData(barData);
+
+        emissionsChart.getDescription().setEnabled(false);
+        emissionsChart.invalidate();
+        ArrayList<String> xValues = new ArrayList<>();
+        xValues.add("one");xValues.add("one");xValues.add("two");xValues.add("three");xValues.add("four");
+        emissionsChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
+        emissionsChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        emissionsChart.getXAxis().setGranularity(1f);
+        emissionsChart.getXAxis().setGranularityEnabled(true);
+        emissionsChart.getAxisLeft().setDrawGridLines(false);
+        emissionsChart.getAxisRight().setDrawGridLines(false);
+        emissionsChart.getXAxis().setDrawGridLines(false);
+        emissionsChart.setAutoScaleMinMaxEnabled(true);
     }
     private List<Entry> getdata(){
         List<Entry> entries=new ArrayList<>();

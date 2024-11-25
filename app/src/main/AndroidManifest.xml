@@ -15,15 +15,41 @@
         android:theme="@style/Theme.Planetze35"
         tools:targetApi="31">
         <activity
-            android:name=".EcoGaugeActivity"
+            android:name=".setup.FoodC3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.ConsumptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.HouseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.FoodC2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.FoodC1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.TransportationC2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".setup.TransportationC1Activity"
+            android:exported="false"
+            android:label="Transportation" />
+        <activity
+            android:name=".setup.AnnualCarbonFootprintActivity"
             android:exported="true"
-            android:label="Eco Gauge">
+            android:label="Planetze35 - Annual Carbon Footprint">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".EcoGaugeActivity"
+            android:exported="false"
+            android:label="Eco Gauge" />
         <activity
             android:name=".EmailVerificationPageActivity"
             android:exported="false"
@@ -36,9 +62,7 @@
         <activity
             android:name=".LoginPageActivity"
             android:exported="false"
-            android:theme="@style/Theme.Planetze35.Actionbar">
-
-        </activity>
+            android:theme="@style/Theme.Planetze35.Actionbar" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
