@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Planetze35</string>
+    <string-array name="meal_types">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Plant-based</item>
+    </string-array>
+    <string-array name="energy_bill_types">
+        <item>Electricity</item>
+        <item>Gas</item>
+        <item>Water</item>
+    </string-array>
+    <string-array name="electronics_types">
+        <item>smartphone</item>
+        <item>laptop</item>
+        <item>TV</item>
+    </string-array>
+    <string-array name="purchase_types">
+        <item>furniture</item>
+        <item>appliances</item>
+    </string-array>
+    <string-array name="public_transport_options">
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Subway</item>
+    </string-array>
+    <string-array name="vehicle_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+        <item>I don\'t Know</item>
+    </string-array>
 </resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/eco_tracker_activity_bg"
+    tools:context=".EcoTrackerDailyActivityHub">
+
+    <GridLayout
+        android:id="@+id/grid_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="456dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="52dp"
+        android:columnCount="1"
+        android:rowCount="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button_transport"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#a3d6d6"
+            android:text="Transport"
+            android:fontFamily="serif"
+            android:textSize="26dp"
+            android:textColor="#009999"
+            android:contentDescription="Transport Button" />
+
+        <Button
+            android:id="@+id/button_Food"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#a3d6d6"
+            android:text="Food"
+            android:fontFamily="serif"
+            android:textSize="26dp"
+            android:textColor="#009999"
+            android:contentDescription="Food Button" />
+
+        <Button
+            android:id="@+id/button_Consumption"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#a3d6d6"
+            android:text="Consumption"
+            android:fontFamily="serif"
+            android:textSize="26dp"
+            android:textColor="#009999"
+            android:contentDescription="Consumption Button" />
+        <Button
+            android:id="@+id/button_Energy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#a3d6d6"
+            android:text="Energy"
+            android:fontFamily="serif"
+            android:textSize="26dp"
+            android:textColor="#009999"
+            android:contentDescription="Energy Button" />
+
+
+    </GridLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

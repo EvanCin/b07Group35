@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/transport"
+    android:paddingTop="0dp"
+    android:background="@drawable/transport_background"
+    tools:context=".TransportationActivity">
+
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:padding="16dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/button_personal_vehicle"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/green"
+            android:text="Personal Vehicle"
+            android:textSize="23sp"
+            android:textColor="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/questionsPersonVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What type of Vehicle do you use?"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinnerPersonalVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter the Distance driven (in km)"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/driveVehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Distance in km"
+                android:textColor="@color/white"
+                android:inputType="numberDecimal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_personalVehicle"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/button_publicTransport"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/green_shade"
+            android:text="Public Transport"
+            android:textSize="23sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:id="@+id/questionsTransportation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What type of public transport do you use"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinnerTransportation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How much time do you spend on public transport in hours"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtTimePublicTransport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="Enter time in hours"
+                android:inputType="numberDecimal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_publicTransport"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonCycling"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/green_shade2"
+            android:text="Cycling/Walking"
+            android:textSize="23sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:id="@+id/questionsCyclingWalking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Enter the Distance Cycled/Walked (in km)"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/walkingDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter distance (in km)"
+                android:inputType="numberDecimal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_Cycling"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonFlight"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/green_shade3"
+            android:text="Flight"
+            android:textSize="23sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:id="@+id/questionsFlight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Enter the number of Flights taken Today"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/num_Flights"
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Short-haul (less than 1,500 km) or long-haul (greater than 1,500 km)?"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/typeFlights"
+                android:textColorHint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_Flight"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="190dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/green_shade"
+            android:text="Done"
+            android:textColor="@android:color/white"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+</ScrollView>
