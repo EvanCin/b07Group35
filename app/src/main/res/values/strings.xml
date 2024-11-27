@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Planetze35</string>
+    <string name="ann_carbon_foot">Annual Carbon Footprint</string>
+    <string name="daily_carbon_foot">Daily Carbon Footprint</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="view_activities">View Activities</string>
 </resources>
