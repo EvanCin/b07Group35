@@ -14,6 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,9 +64,12 @@ public class ConsumptionActivity extends AppCompatActivity {
                 Log.i("Total Emissions", Double.toString(totalEmissions));
 
                 //Temporarily store data to firebase using dummy user
-                mDatabase = FirebaseDatabase.getInstance().getReference("users");
-                mDatabase.child("Bob/totalEmissions").setValue(totalEmissions);
-                mDatabase.child("Bob/completedSetup").setValue(true);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                assert user != null;
+                String uid = user.getUid();
+                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                mDatabase.child("totalEmissions").setValue(totalEmissions);
+                mDatabase.child("completedSetup").setValue(true);
                 finish();
             }
         });
