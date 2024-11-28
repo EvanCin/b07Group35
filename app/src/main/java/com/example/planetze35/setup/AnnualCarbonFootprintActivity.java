@@ -1,5 +1,6 @@
 package com.example.planetze35.setup;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,

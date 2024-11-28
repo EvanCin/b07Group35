@@ -1,9 +1,11 @@
 package com.example.planetze35.setup;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +50,12 @@ public class ConsumptionActivity extends AppCompatActivity {
                 selectedChoices.add(listViewCF2.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF3.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF4.getListView().getCheckedItemPosition());
+
+                //Temporarily calculate and display the total emission here
+                AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
+                annualEmissionsCalculator.readData();
+                double totalEmissions = annualEmissionsCalculator.calculateEmissions(selectedChoices);
+                Log.i("Total Emissions", Double.toString(totalEmissions));
                 finish();
             }
         });
