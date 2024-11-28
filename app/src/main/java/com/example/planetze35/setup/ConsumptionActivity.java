@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class ConsumptionActivity extends AppCompatActivity {
     ListViewCF listViewCF1, listViewCF2, listViewCF3, listViewCF4;
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
+    DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,11 @@ public class ConsumptionActivity extends AppCompatActivity {
                 annualEmissionsCalculator.readData();
                 double totalEmissions = annualEmissionsCalculator.calculateEmissions(selectedChoices);
                 Log.i("Total Emissions", Double.toString(totalEmissions));
+
+                //Temporarily store data to firebase using dummy user
+                mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                mDatabase.child("Bob/totalEmissions").setValue(totalEmissions);
+                mDatabase.child("Bob/completedSetup").setValue(true);
                 finish();
             }
         });
