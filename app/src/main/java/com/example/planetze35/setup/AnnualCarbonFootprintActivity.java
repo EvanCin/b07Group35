@@ -24,6 +24,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,12 +76,17 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                 }
                 intent.putExtra("selectedChoices", selectedChoices);
                 //Temporarily store data to firebase using dummy user
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                assert user != null;
+//                String uid = user.getUid();
+//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
+//                mDatabase.child("country").setValue(selectedCountry);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-                mDatabase.child("country").setValue(selectedCountry);
+                DatabaseUtils.storeOneDataField(uid,"country",selectedCountry);
                 startActivity(intent);
+                finish();
             }
         });
     }

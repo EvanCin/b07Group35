@@ -1,6 +1,8 @@
 package com.example.planetze35.setup;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
+import com.example.planetze35.SignupPageActivity;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,10 +71,15 @@ public class ConsumptionActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-                mDatabase.child("totalEmissions").setValue(totalEmissions);
-                mDatabase.child("completedSetup").setValue(true);
+//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
+//                mDatabase.child("totalEmissions").setValue(totalEmissions);
+//                mDatabase.child("completedSetup").setValue(true);
+                DatabaseUtils.storeOneDataField(uid, "totalEmissions",totalEmissions);
+                DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
+                // TODO: Launch main menu here. (Launches signupPage as placeholder)
+                Intent intent = new Intent(ConsumptionActivity.this, SignupPageActivity.class);
+                startActivity(intent);
             }
         });
     }

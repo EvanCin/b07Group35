@@ -3,6 +3,7 @@ package com.example.planetze35;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.setup.AnnualCarbonFootprintActivity;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -34,6 +38,9 @@ public class LoginPageActivity extends AppCompatActivity {
             return insets;
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        String uid = user.getUid();
         etEmail = this.findViewById(R.id.etLoginEmail);
         etPassword = this.findViewById(R.id.etLoginPassword);
         btnLogin = this.findViewById(R.id.btnLogin);
@@ -54,6 +61,24 @@ public class LoginPageActivity extends AppCompatActivity {
                         // TODO: Launch the main activity here after it is created. That is, after greeting the user,the main menu should show up.
                         Toast.makeText(LoginPageActivity.this, "Welcome " + name, Toast.LENGTH_SHORT)
                                 .show();
+                        //Go to initial setup page if it has not been completed
+                        DatabaseUtils.fetchOneUserData(uid, "completedSetup", new DatabaseUtils.DataFieldCallback() {
+                            @Override
+                            public void onSuccess(String dataField) {
+                                Intent intent;
+                                // TODO: Launch the main menu here. (Launches SignupPage as placeholder)
+                                if(dataField.equals("false")) {
+                                    intent = new Intent(view.getContext(), AnnualCarbonFootprintActivity.class);
+                                } else {
+                                    intent = new Intent(view.getContext(), SignupPageActivity.class);
+                                }
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onFailure(String errorMessage) {
+                                Log.e("UserObject", "Error: " + errorMessage);
+                            }
+                        });
 
                     } else if (!emailValidator.isValid(email)) {
                         Snackbar.make(view, "Please enter a valid email", Snackbar.LENGTH_SHORT)
