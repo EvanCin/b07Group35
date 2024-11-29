@@ -40,6 +40,11 @@
             android:name=".setup.AnnualCarbonFootprintActivity"
             android:exported="true"
             android:label="Planetze35 - Annual Carbon Footprint">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -53,18 +58,8 @@
         <activity
             android:name=".SignupPageActivity"
             android:exported="false"
-            android:label="Planetze35 - signup"
-            android:parentActivityName=".LoginPageActivity" />
-        <activity
-            android:name=".LoginPageActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Planetze35.Actionbar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="Planetze35 - signup" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
