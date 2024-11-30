@@ -2,12 +2,10 @@ package com.example.planetze35.setup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.DatabaseUtils;
+import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
-import com.example.planetze35.userauthentication.SignupActivity;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -78,7 +74,7 @@ public class ConsumptionActivity extends AppCompatActivity {
                 DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
                 // TODO: Launch main menu here. (Launches signupPage as placeholder)
-                Intent intent = new Intent(ConsumptionActivity.this, SignupActivity.class);
+                Intent intent = new Intent(ConsumptionActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

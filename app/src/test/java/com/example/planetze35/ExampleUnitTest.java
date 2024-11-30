@@ -63,6 +63,13 @@ public class ExampleUnitTest {
         verify(loginView).launchMainActivity();
     }
 
+    @Test
+    public void testNavigateToAnnualCarbonFootprintActivity() {
+        Contract.LoginActivityPresenter presenter = new LoginActivityPresenter(loginView, model);
+        presenter.navigateToInitialSetupActivity();
+        verify(loginView).launchAnnualCarbonFootprintActivity();
+    }
+
    @Test
     public void setLoginViewSnackbar() {
         Contract.LoginActivityPresenter presenter = new LoginActivityPresenter(loginView, model);
