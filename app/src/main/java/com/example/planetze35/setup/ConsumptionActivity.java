@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
-import com.example.planetze35.SignupPageActivity;
+import com.example.planetze35.userauthentication.SignupActivity;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -78,7 +78,7 @@ public class ConsumptionActivity extends AppCompatActivity {
                 DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
                 // TODO: Launch main menu here. (Launches signupPage as placeholder)
-                Intent intent = new Intent(ConsumptionActivity.this, SignupPageActivity.class);
+                Intent intent = new Intent(ConsumptionActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
