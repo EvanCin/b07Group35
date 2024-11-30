@@ -1,7 +1,5 @@
 package com.example.planetze35;
 
-import android.view.View;
-import android.widget.TextView;
 import java.util.List;
 
 public class ActivityAdapterNoButtons extends ActivityAdapterBase {
