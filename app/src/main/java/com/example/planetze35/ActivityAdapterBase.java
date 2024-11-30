@@ -35,14 +35,13 @@ public abstract class ActivityAdapterBase extends RecyclerView.Adapter<ActivityA
 
     public static class ActivityViewHolder extends RecyclerView.ViewHolder {
         TextView activityName, co2Value;
-        Button editButton, deleteButton;
+        Button deleteButton;
 
         public ActivityViewHolder(View itemView) {
             super(itemView);
             activityName = itemView.findViewById(R.id.activity_name);
             co2Value = itemView.findViewById(R.id.co2_value);
-            // editButton and deleteButton will only be used in ActivityAdapterWithButtons
-            editButton = itemView.findViewById(R.id.edit_button);
+            // deleteButton will only be used in ActivityAdapterWithButtons
             deleteButton = itemView.findViewById(R.id.delete_button);
         }
     }

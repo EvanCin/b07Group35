@@ -22,6 +22,9 @@
             android:layout_height="wrap_content"
             android:text="Activity Name"
             android:textSize="18sp"
+            android:textColor="#541195"
+            android:textStyle="italic"
+            android:typeface="serif"
             android:layout_weight="1"
             android:paddingEnd="8dp"
             android:ellipsize="end"
@@ -33,20 +36,12 @@
             android:layout_height="wrap_content"
             android:text="CO2 Value"
             android:textSize="16sp"
+            android:textColor="#12B36B"
+            android:textStyle="bold"
+            android:typeface="monospace"
             android:layout_weight="1"
             android:gravity="end"
             android:maxLines="1" />
-
-        <Button
-            android:id="@+id/edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:typeface="monospace"
-            android:textStyle="bold"
-            android:backgroundTint="@color/teal"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/delete_button"
@@ -55,7 +50,9 @@
             android:text="Delete"
             android:typeface="monospace"
             android:textStyle="bold"
-            android:backgroundTint="@color/teal" />
+            android:backgroundTint="@color/teal"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

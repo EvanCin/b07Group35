@@ -38,10 +38,16 @@ public class SelectDateActionsActivity extends AppCompatActivity {
         Button buttonAddActivity = findViewById(R.id.button_add_activity);
         Button buttonViewActivities = findViewById(R.id.button_view_activities);
 
-        // Set up the "Add Activity" button (implement functionality later)
+        // Set up the "Add Activity" button to navigate to EcoTrackerDailyActivityHub
         buttonAddActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Create an Intent to open EcoTrackerDailyActivityHub
+                Intent ecoTrackerIntent = new Intent(SelectDateActionsActivity.this, EcoTrackerDailyActivityHub.class);
+
+                // Pass the selected date to EcoTrackerDailyActivityHub
+                ecoTrackerIntent.putExtra("selectedDate", selectedDate);
+                startActivity(ecoTrackerIntent);
             }
         });
 

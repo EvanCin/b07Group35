@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -38,7 +39,10 @@ public class DatePickerActivity extends AppCompatActivity {
                 int year = datePicker.getYear();
 
                 // Format the date as a string
-                String selectedDate = day + "/" + (month + 1) + "/" + year;
+                String selectedDate = year + "-" + (month + 1) + "-" + day;
+
+                // Show a Toast message with the selected date
+                Toast.makeText(DatePickerActivity.this, "Selected Date: " + selectedDate, Toast.LENGTH_SHORT).show();
 
                 // Pass the selected date to SelectDateActionsActivity
                 Intent intent = new Intent(DatePickerActivity.this, SelectDateActionsActivity.class);

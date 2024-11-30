@@ -23,16 +23,6 @@ public class ActivityAdapterWithButtons extends ActivityAdapterBase {
         holder.activityName.setText(activityItem.getActivityName());
         holder.co2Value.setText(activityItem.getCo2Value());
 
-        // Set listeners for buttons
-        holder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (activityClickListener != null) {
-                    activityClickListener.onEditClick(activityItem);
-                }
-            }
-        });
-
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,12 +35,11 @@ public class ActivityAdapterWithButtons extends ActivityAdapterBase {
 
     @Override
     protected int getItemLayout() {
-        return R.layout.activity_item; // Layout with edit and delete buttons
+        return R.layout.activity_item; // Layout with delete button
     }
 
-    // Interface to handle edit and delete button clicks
+    // Interface to handle delete button clicks
     public interface ActivityClickListener {
-        void onEditClick(ActivityItem activityItem);
         void onDeleteClick(ActivityItem activityItem);
     }
 }
