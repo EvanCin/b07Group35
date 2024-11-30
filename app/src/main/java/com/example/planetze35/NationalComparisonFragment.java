@@ -58,15 +58,5 @@ public class NationalComparisonFragment extends Fragment {
         }
 
         // TODO: Get the user's emission average once that is implemented
-
-//        FirebaseDatabase db = FirebaseDatabase.getInstance();
-////        db.getReference().child("users/asdf").setValue(new HashMap<String, String>()).addOnCompleteListener(new OnCompleteListener<Void>() {
-//        db.getReference().child("users/asdf").setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-////        db.getReference().child("users/asdf").setValue("hello").addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                Log.d("Firebase Test", "Should be done? " + task.isSuccessful());
-//            }
-//        });
     }
 }

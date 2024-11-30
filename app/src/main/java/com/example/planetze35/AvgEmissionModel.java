@@ -38,9 +38,9 @@ public class AvgEmissionModel {
     }
 
     /**
-     * Gets the <@code>AvgEmissionModel</@code> instance.
+     * Gets the <code>AvgEmissionModel</code> instance.
      * @param context the application context (to be able to find the raw file)
-     * @return the <@code>AvgEmissionModel</@code> instance
+     * @return the <code>AvgEmissionModel</code> instance
      * @throws IOException if the AvgEmissionModel constructor fails to access the raw file
      */
     public static AvgEmissionModel getInstance(@NonNull Context context) throws IOException {

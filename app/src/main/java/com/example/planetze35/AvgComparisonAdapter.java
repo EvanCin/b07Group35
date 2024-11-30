@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class AvgComparisonAdapter extends FragmentStateAdapter {
-    public AvgComparisonAdapter(Fragment fragment){
+    public AvgComparisonAdapter(Fragment fragment) {
         super(fragment);
     }
 
