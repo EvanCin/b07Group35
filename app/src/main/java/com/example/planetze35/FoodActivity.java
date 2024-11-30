@@ -29,7 +29,7 @@ import java.util.Objects;
 public class FoodActivity extends AppCompatActivity {
     private DatabaseReference databaseRef;
     private String selectedDate;
-
+    private String userId;
     private Button mealButton, addButton, doneButton;
     private LinearLayout questionsLayout;
     private Spinner mealSpinner;
@@ -46,9 +46,15 @@ public class FoodActivity extends AppCompatActivity {
             return insets;
         });
         // Retrieve the selected date passed from EcoTrackerDailyActivityHub
-        selectedDate = getIntent().getStringExtra("SELECTED_DATE");
+        selectedDate = getIntent().getStringExtra("selectedDate");
         //initialize firebase
         databaseRef = FirebaseDatabase.getInstance().getReference();
+        userId = getUserId();
+        if (userId == null) {
+            // Handle the case where no user is logged in
+            showToast("You must be logged in to add meal data.");
+            return;
+        }
         initializeViews();
         setupMealButton();
         setupAddButton();
@@ -101,12 +107,6 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     public void addMeal(String mealType, int servings) {
-        String userId = getUserId();
-        if (userId == null) {
-            // Handle the case where no user is logged in
-            showToast("You must be logged in to add meal data.");
-            return;
-        }
         Meal meal = new Meal(servings, mealType);
         Map<String, Object> mealData = meal.toMap();
         Log.d("FoodActivity", "Adding meal data for user: " + userId + " on " + selectedDate);

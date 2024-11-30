@@ -20,7 +20,7 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_eco_tracker_daily_hub);
         // Get the selected date passed from the previous activity
-        String selectedDate = getIntent().getStringExtra("SELECTED_DATE");
+        String selectedDate = getIntent().getStringExtra("selectedDate");
 
         // Apply window insets for immersive mode
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -35,23 +35,23 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
         // Set up click listeners for each button to navigate to respective activities
         transportButton.setOnClickListener(v -> {
             Intent intent = new Intent(EcoTrackerDailyActivityHub.this, TransportationActivity.class);
-            intent.putExtra("SELECTED_DATE", selectedDate);  // Pass the date to the next activity
+            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
             startActivity(intent);
         });
 
         foodButton.setOnClickListener(v -> {
             Intent intent = new Intent(EcoTrackerDailyActivityHub.this, FoodActivity.class);
-            intent.putExtra("SELECTED_DATE", selectedDate);  // Pass the date to the next activity
+            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
             startActivity(intent);
         });
         energyButton.setOnClickListener(v -> {
             Intent intent = new Intent(EcoTrackerDailyActivityHub.this, EnergyBillsActivity.class);
-            intent.putExtra("SELECTED_DATE", selectedDate);  // Pass the date to the next activity
+            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
             startActivity(intent);
         });
         consumptionButton.setOnClickListener(v -> {
             Intent intent = new Intent(EcoTrackerDailyActivityHub.this, ConsumptionActivity.class);
-            intent.putExtra("SELECTED_DATE", selectedDate);  // Pass the date to the next activity
+            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
             startActivity(intent);
         });
 

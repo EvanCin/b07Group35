@@ -47,7 +47,7 @@ public class TransportationActivity extends AppCompatActivity {
         });
         // Initialize Firebase reference
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        selectedDate = getIntent().getStringExtra("SELECTED_DATE");
+        selectedDate = getIntent().getStringExtra("selectedDate");
         userId = getUserId();
         if (userId == null) {
             // Handle the case where no user is logged in

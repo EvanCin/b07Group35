@@ -17,10 +17,6 @@
         <item>laptop</item>
         <item>TV</item>
     </string-array>
-    <string-array name="purchase_types">
-        <item>furniture</item>
-        <item>appliances</item>
-    </string-array>
     <string-array name="public_transport_options">
         <item>Bus</item>
         <item>Train</item>
