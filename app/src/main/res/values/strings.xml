@@ -33,4 +33,8 @@
         <item>Electric</item>
         <item>I don\'t Know</item>
     </string-array>
+    <string-array name="flight_types">
+        <item>Short-haul</item>
+        <item>Long-haul</item>
+    </string-array>
 </resources>

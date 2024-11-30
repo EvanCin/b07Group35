@@ -2,6 +2,7 @@ package com.example.planetze35;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,13 +17,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Map;
+import java.util.Objects;
 
 public class TransportationActivity extends AppCompatActivity {
-
+    private DatabaseReference databaseRef;
+    private String selectedDate;
+    private String userId;
     private Button buttonPersonalVehicle, buttonPublicTransport, buttonCycling, buttonFlight, Done_button;
     private LinearLayout questionsPersonVehicle, questionsTransportation, questionsCyclingWalking, questionsFlight;
-    private Spinner spinnerPersonalVehicle, spinnerTransportation;
-    private EditText driveVehicle, edtTimePublicTransport, walkingDistance, numFlights, typeFlights;
+    private Spinner spinnerPersonalVehicle, spinnerTransportation, spinnerTypeFlights;
+    private EditText driveVehicle, edtTimePublicTransport, walkingDistance, numFlights;
     private Button addPersonalVehicleButton, addPublicTransportButton, addCyclingButton, addFlightButton;
 
     @Override
@@ -35,12 +45,19 @@ public class TransportationActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Initialize Firebase reference
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        selectedDate = getIntent().getStringExtra("SELECTED_DATE");
+        userId = getUserId();
+        if (userId == null) {
+            // Handle the case where no user is logged in
+            showToast("You must be logged in to add meal data.");
+            return;
+        }
         // Initialize components
         initUIComponents();
-
         // Initialize ScrollView for scrolling down when new content appears
         ScrollView scrollView = findViewById(R.id.transport);
-
         // Set up onClick listeners for each transportation option
         setOnClickListeners(scrollView);
     }
@@ -70,13 +87,14 @@ public class TransportationActivity extends AppCompatActivity {
         buttonFlight = findViewById(R.id.buttonFlight);
         questionsFlight = findViewById(R.id.questionsFlight);
         numFlights = findViewById(R.id.num_Flights);
-        typeFlights = findViewById(R.id.typeFlights);
+        spinnerTypeFlights = findViewById(R.id.spinnerTypeFlights);
         addFlightButton = findViewById(R.id.add_button_Flight);
         Done_button = findViewById(R.id.done_button);
 
         // Set up Spinners
         setUpSpinner(spinnerPersonalVehicle, R.array.vehicle_types);
         setUpSpinner(spinnerTransportation, R.array.public_transport_options);
+        setUpSpinner(spinnerTypeFlights, R.array.flight_types);
     }
     // Helper method to set up spinner with array resource
     private void setUpSpinner(Spinner spinner, int arrayResourceId) {
@@ -119,57 +137,120 @@ public class TransportationActivity extends AppCompatActivity {
         questionsTransportation.setVisibility(View.GONE);
         questionsCyclingWalking.setVisibility(View.GONE);
         questionsFlight.setVisibility(View.GONE);
-
         selectedLayout.setVisibility(View.VISIBLE);
-
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
     }
-    // Helper method to handle adding Personal Vehicle data
+    // Add Personal Vehicle Data
     private void handleAddPersonalVehicle() {
+        String distanceText = driveVehicle.getText().toString();
         String vehicleType = spinnerPersonalVehicle.getSelectedItem().toString();
-        String distance = driveVehicle.getText().toString();
 
-        if (!distance.isEmpty()) {
-            showToast("Added: " + vehicleType + " - " + distance);
+        if (!distanceText.isEmpty() && !vehicleType.isEmpty()) {
+            double distance = Double.parseDouble(distanceText);
+            DrivePersonalVehicle personalVehicle = new DrivePersonalVehicle(distance, vehicleType);
+            // Prepare the data to be stored in the database
+            Map<String, Object> vehicleData = personalVehicle.toMap();
+            // Store data in Firebase
+            updateOrAddTransportData(userId, selectedDate, "drivePersonalVehicle", vehicleType, vehicleData);
+            // Clear input fields
             driveVehicle.setText("");
         } else {
-            showToast("Please enter the distance");
+            showToast("Please enter the distance and select a vehicle type");
         }
     }
-    // Helper method to handle adding Public Transport data
+    // Add Public Transport Data
     private void handleAddPublicTransport() {
+        String timeText = edtTimePublicTransport.getText().toString();
         String transportType = spinnerTransportation.getSelectedItem().toString();
-        String timeSpent = edtTimePublicTransport.getText().toString();
 
-        if (!timeSpent.isEmpty()) {
-            showToast("Added: " + transportType + " - " + timeSpent + " hours");
+        if (!timeText.isEmpty() && !transportType.isEmpty()) {
+            double timeSpent = Double.parseDouble(timeText);
+            TakePublicTransportation publicTransport = new TakePublicTransportation(timeSpent, transportType);
+            // Prepare data to be stored
+            Map<String, Object> transportData = publicTransport.toMap();
+            // Store data in Firebase
+            updateOrAddTransportData(userId, selectedDate, "takePublicTransportation", transportType, transportData);
+            // Clear input fields
             edtTimePublicTransport.setText("");
         } else {
-            showToast("Please enter the time spent");
+            showToast("Please enter the time spent and select a transport mode");
         }
     }
-    // Helper method to handle adding Cycling data
-    private void handleAddCycling() {
-        String distanceWalked = walkingDistance.getText().toString();
 
-        if (!distanceWalked.isEmpty()) {
-            showToast("Added: " + distanceWalked);
+    // Add Cycling Data
+    private void handleAddCycling() {
+        String distanceText = walkingDistance.getText().toString();
+
+        if (!distanceText.isEmpty()) {
+            double distance = Double.parseDouble(distanceText);
+            CyclingOrWalking cycling = new CyclingOrWalking(distance);
+            // Prepare data to be stored
+            Map<String, Object> cyclingData = cycling.toMap();
+            // Store data in Firebase
+            updateOrAddTransportData(userId, selectedDate, "cyclingOrWalking", null, cyclingData);
+            // Clear input fields
             walkingDistance.setText("");
         } else {
-            showToast("Please enter the distance");
+            showToast("Please enter the cycling distance");
         }
     }
-    // Helper method to handle adding Flight data
-    private void handleAddFlight() {
-        String numOfFlights = numFlights.getText().toString();
-        String flightType = typeFlights.getText().toString();
 
-        if (!numOfFlights.isEmpty() && !flightType.isEmpty()) {
-            showToast("Added: " + numOfFlights + " flights - " + flightType);
-            numFlights.setText("");  // Clear the number of Flights field
-            typeFlights.setText("");
+    // Add Flight Data
+    private void handleAddFlight() {
+        String flightCountText = numFlights.getText().toString();
+        String flightType = spinnerTypeFlights.getSelectedItem().toString();
+
+        if (!flightCountText.isEmpty() && !flightType.isEmpty()) {
+            int flightCount = Integer.parseInt(flightCountText);
+            Flight flight = new Flight(flightCount, flightType);
+            // Prepare Data to be stored
+            Map<String, Object> flightData = flight.toMap();
+            // Store data in Firebase
+            updateOrAddTransportData(userId, selectedDate, "flight", flightType, flightData);
+            // Clear input fields
+            numFlights.setText("");
         } else {
-            showToast("Please enter the details");
+            showToast("Please enter the flight count and select a flight type");
+        }
+    }
+    // Helper method to update or add data in Firebase
+    private void updateOrAddTransportData(String userId, String date, String transportType, String subType, Map<String, Object> transportData) {
+        if (subType != null) {
+            // Store data under the specific transportation subtype (e.g., gasoline, bus)
+            databaseRef.child("users").child(userId).child("DailyActivities").child(date)
+                    .child("transportation").child(transportType).child(subType)
+                    .setValue(transportData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Added " + transportType + " data for " + date);
+                        } else {
+                            showToast("Error: " + Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    });
+        } else {
+            // For cycling/walking data (no subtype)
+            databaseRef.child("users").child(userId).child("DailyActivities").child(date)
+                    .child("transportation").child(transportType)
+                    .setValue(transportData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Added " + transportType + " data for " + date);
+                        } else {
+                            showToast("Error: " + Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    });
+        }
+    }
+    // Helper function to get user ID (replace with Firebase Auth method)
+    private String getUserId() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // If a user is logged in, return their UID
+            return currentUser.getUid();
+        } else {
+            // Handle case when no user is logged in
+            Log.e("TransportationActivity", "No user is logged in");
+            return null;  // or throw an exception, or handle as needed
         }
     }
     // Helper method to show a Toast message

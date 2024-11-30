@@ -253,12 +253,11 @@
                 android:text="Short-haul (less than 1,500 km) or long-haul (greater than 1,500 km)?"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/typeFlights"
-                android:textColorHint="@color/white"
+            <Spinner
+                android:id="@+id/spinnerTypeFlights"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:backgroundTint="@color/white" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

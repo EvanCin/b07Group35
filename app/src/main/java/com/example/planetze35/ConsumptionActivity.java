@@ -2,6 +2,7 @@ package com.example.planetze35;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +18,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class ConsumptionActivity extends AppCompatActivity {
 
     private Button buttonNewClothes, addNewClothesButton;
+    private DatabaseReference databaseRef;
+    private String selectedDate;
+    private String userId;
     private LinearLayout questionsNewClothes;
     private EditText numClothes;
 
@@ -28,12 +41,6 @@ public class ConsumptionActivity extends AppCompatActivity {
     private LinearLayout questionsElectronics;
     private EditText numDevices;
     private Spinner spinnerElectronics;  // Spinner for electronics selection
-
-    // UI components for Other Purchases
-    private Button buttonOtherPurchase, addOtherPurchaseButton;
-    private LinearLayout questionsOtherPurchase;
-    private EditText numPurchase;
-    private Spinner spinnerOtherPurchase;  // Spinner for other purchase selection
 
     // UI components for Done Button
     private Button doneButton;
@@ -48,11 +55,18 @@ public class ConsumptionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        // Retrieve the selected date passed from EcoTrackerDailyActivityHub
+        selectedDate = getIntent().getStringExtra("SELECTED_DATE");
+        userId = getUserId();
+        if (userId == null) {
+            // Handle the case where no user is logged in
+            showToast("You must be logged in to add meal data.");
+            return;
+        }
         initUIComponents();
-
         // Set up ScrollView for scrolling when sections appear
         ScrollView scrollView = findViewById(R.id.consumption);
-
         // Set onClick listeners
         setOnClickListeners(scrollView);
     }
@@ -70,13 +84,6 @@ public class ConsumptionActivity extends AppCompatActivity {
         addElectronicsButton = findViewById(R.id.add_button_Electronics);
         spinnerElectronics = findViewById(R.id.spinnerElectronics);  // Initialize the Electronics spinner
 
-        // Other Purchases components
-        buttonOtherPurchase = findViewById(R.id.button_other_purchase);
-        questionsOtherPurchase = findViewById(R.id.questions_other_purchase);
-        numPurchase = findViewById(R.id.num_purchase);
-        addOtherPurchaseButton = findViewById(R.id.add_button_other_purchase);
-        spinnerOtherPurchase = findViewById(R.id.spinner_Other_Purchase);  // Initialize the Other Purchases spinner
-
         // Done button
         doneButton = findViewById(R.id.done_button);
 
@@ -89,12 +96,6 @@ public class ConsumptionActivity extends AppCompatActivity {
                 R.array.electronics_types, android.R.layout.simple_spinner_item);
         electronicsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerElectronics.setAdapter(electronicsAdapter);
-
-        // Spinner for Other Purchases - categories of purchases
-        ArrayAdapter<CharSequence> otherPurchaseAdapter = ArrayAdapter.createFromResource(this,
-                R.array.purchase_types, android.R.layout.simple_spinner_item);
-        otherPurchaseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerOtherPurchase.setAdapter(otherPurchaseAdapter);
     }
     private void setOnClickListeners(ScrollView scrollView) {
         // New Clothes button action
@@ -102,9 +103,6 @@ public class ConsumptionActivity extends AppCompatActivity {
 
         // Electronics button action
         buttonElectronics.setOnClickListener(v -> toggleVisibility(questionsElectronics, scrollView));
-
-        // Other Purchases button action
-        buttonOtherPurchase.setOnClickListener(v -> toggleVisibility(questionsOtherPurchase, scrollView));
 
         // Done button action
         doneButton.setOnClickListener(v -> scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN)));
@@ -116,62 +114,89 @@ public class ConsumptionActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
         // Add New Clothes button action
         addNewClothesButton.setOnClickListener(v -> handleAddNewClothes());
-
         // Add Electronics button action
         addElectronicsButton.setOnClickListener(v -> handleAddElectronics());
-
-        // Add Other Purchases button action
-        addOtherPurchaseButton.setOnClickListener(v -> handleAddOtherPurchases());
     }
     // Helper method to toggle visibility of each section
     private void toggleVisibility(LinearLayout selectedLayout, ScrollView scrollView) {
         questionsNewClothes.setVisibility(View.GONE);
         questionsElectronics.setVisibility(View.GONE);
-        questionsOtherPurchase.setVisibility(View.GONE);
-
         selectedLayout.setVisibility(View.VISIBLE);
-
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
     }
     // Method to handle adding New Clothes
     private void handleAddNewClothes() {
-        String clothesCount = numClothes.getText().toString();
-        if (!clothesCount.isEmpty()) {
-            showToast("Added: " + clothesCount + " clothing items");
+        String clothesCountText = numClothes.getText().toString();
+        if (!clothesCountText.isEmpty()) {
+            int clothCount = Integer.parseInt(clothesCountText);
+            NewClothes clothes = new NewClothes(clothCount);
+            // Prepare data to be stored
+            Map<String, Object> purchaseData = clothes.toMap();
+            //store to firebase
+            updateOrAddConsumptionData(userId, selectedDate, "newClothes", null, purchaseData);
             numClothes.setText("");
         } else {
             showToast("Please enter the number of clothing items");
         }
     }
-
     // Method to handle adding Electronics
     private void handleAddElectronics() {
-        String devicesCount = numDevices.getText().toString();
+        String devicesCountText = numDevices.getText().toString();
         String deviceType = spinnerElectronics.getSelectedItem().toString(); // Get selected item from Spinner
 
-        if (!devicesCount.isEmpty()) {
-            showToast("Added: " + devicesCount + " " + deviceType + " electronics");
+        if (!devicesCountText.isEmpty()) {
+            int deviceCount = Integer.parseInt(devicesCountText);
+            Electronics electronics = new Electronics(deviceCount, deviceType);
+            // Prepare data to be stored
+            Map<String, Object> purchaseData = electronics.toMap();
+            updateOrAddConsumptionData(userId, selectedDate, "electronics", deviceType, purchaseData);
             numDevices.setText("");
         } else {
             showToast("Please enter the number of electronics");
         }
     }
-    // Method to handle adding Other Purchases
-    private void handleAddOtherPurchases() {
-        String purchaseCount = numPurchase.getText().toString();
-        String purchaseType = spinnerOtherPurchase.getSelectedItem().toString(); // Get selected item from Spinner
-
-        if (!purchaseCount.isEmpty()) {
-            showToast("Added: " + purchaseCount + " " + purchaseType + " purchases");
-            numPurchase.setText("");
+    private void updateOrAddConsumptionData(String userId, String date, String ConsumptionType, String subItemType, Map<String, Object> purchaseData) {
+        if (subItemType != null) {
+            // Store data under the specific transportation subtype (e.g., gasoline, bus)
+            databaseRef.child("users").child(userId).child("DailyActivities").child(date)
+                    .child("consumption").child(ConsumptionType).child(subItemType)
+                    .setValue(purchaseData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Added " + ConsumptionType + " data for " + date);
+                        } else {
+                            showToast("Error: " + Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    });
         } else {
-            showToast("Please enter the number of purchases");
+            // For newClothes data (no subtype)
+            databaseRef.child("users").child(userId).child("DailyActivities").child(date)
+                    .child("consumption").child(ConsumptionType)
+                    .setValue(purchaseData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Added " + ConsumptionType + " data for " + date);
+                        } else {
+                            showToast("Error: " + Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    });
         }
     }
 
+    // Helper function to get user ID (replace with Firebase Auth method)
+    private String getUserId() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // If a user is logged in, return their UID
+            return currentUser.getUid();
+        } else {
+            // Handle case when no user is logged in
+            Log.e("ConsumptionActivity", "No user is logged in");
+            return null;  // or throw an exception, or handle as needed
+        }
+    }
     // Helper method to show Toast messages
     private void showToast(String message) {
         Toast.makeText(ConsumptionActivity.this, message, Toast.LENGTH_SHORT).show();
