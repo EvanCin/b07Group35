@@ -28,6 +28,7 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         Button transportButton = findViewById(R.id.button_transport);
         Button foodButton = findViewById(R.id.button_Food);
         Button consumptionButton = findViewById(R.id.button_Consumption);

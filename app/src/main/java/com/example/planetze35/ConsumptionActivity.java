@@ -184,7 +184,6 @@ public class ConsumptionActivity extends AppCompatActivity {
                     });
         }
     }
-
     // Helper function to get user ID (replace with Firebase Auth method)
     private String getUserId() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

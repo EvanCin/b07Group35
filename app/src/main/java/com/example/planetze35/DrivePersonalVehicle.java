@@ -45,7 +45,6 @@ public class DrivePersonalVehicle implements AbstractActivity {
         vehicleData.put("CO2e", calculateCO2e());
         return vehicleData;
     }
-
     //for future purposes to get/set data
     public String getVehicleType() {
         return vehicleType;

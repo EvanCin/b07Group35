@@ -124,7 +124,6 @@ public class TransportationActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
         // Add Button Actions
         addPersonalVehicleButton.setOnClickListener(v -> handleAddPersonalVehicle());
         addPublicTransportButton.setOnClickListener(v -> handleAddPublicTransport());

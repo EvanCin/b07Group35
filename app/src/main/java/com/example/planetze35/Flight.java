@@ -8,9 +8,6 @@ public class Flight implements AbstractActivity {
     public int flightCount;
     public String flightType; // "Short-haul" or "Long-haul"
 
-    public Flight() {
-
-    }
     public Flight(int flightCount, String flightType) {
         this.flightCount = flightCount;
         this.flightType = flightType;

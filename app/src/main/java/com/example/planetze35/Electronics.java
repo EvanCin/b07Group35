@@ -11,7 +11,6 @@ public class Electronics implements AbstractActivity {
         this.numDevices = numDevices;
         this.itemType = itemType;
     }
-
     //calculation based on the annual CO2e data provided for number of electronics purchased.
     @Override
     public double calculateCO2e() {

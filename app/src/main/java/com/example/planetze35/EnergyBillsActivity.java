@@ -135,7 +135,6 @@ public class EnergyBillsActivity extends AppCompatActivity {
     private void checkIfEnergyBillExistsForMonth(String userId, String selectedDate, String energyType, Map<String, Object> energyData) {
         // Extract the year and month (yyyy-MM) from the selected date (yyyy-MM-dd)
         String selectedYearMonth = getYearMonth(selectedDate); // "yyyy-MM"
-
         // Reference to all daily activities for the user
         DatabaseReference userRef = databaseRef.child("users").child(userId)
                 .child("DailyActivities");

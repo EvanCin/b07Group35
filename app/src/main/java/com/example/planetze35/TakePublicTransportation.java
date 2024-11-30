@@ -14,6 +14,7 @@ public class TakePublicTransportation implements AbstractActivity {
         this.timeSpent = timeSpent;
     }
 
+    //For future purposes to get/set data
     public String getVehicleType() {
         return vehicleType;
     }

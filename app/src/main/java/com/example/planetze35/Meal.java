@@ -22,7 +22,6 @@ public class Meal implements AbstractActivity {
     public void setMealType(String mealType) {
         this.mealType = mealType;
     }
-
     public int getNumServings() {
         return numServings;
     }

@@ -5,9 +5,6 @@ import java.util.Map;
 
 public class CyclingOrWalking implements AbstractActivity {
     public double distance;
-    public CyclingOrWalking() {
-
-    }
     public CyclingOrWalking(double distance) {
         this.distance = distance;
     }

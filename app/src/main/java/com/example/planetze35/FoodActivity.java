@@ -149,7 +149,6 @@ public class FoodActivity extends AppCompatActivity {
             finish(); // Close the current activity
         });
     }
-
     // Helper function to get user ID (replace with Firebase Auth method)
     private String getUserId() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

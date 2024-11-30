@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class NewClothes implements AbstractActivity {
     public int numItems;
-    public NewClothes() {}
     public NewClothes(int numItems) {
         this.numItems = numItems;
     }

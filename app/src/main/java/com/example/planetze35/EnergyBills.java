@@ -92,7 +92,6 @@ public class EnergyBills implements AbstractActivity {
         Map<String, Object> energyData = new HashMap<>();
         energyData.put("amount", amount);
         energyData.put("CO2e", calculateCO2e());
-
         return energyData;
     }
 
