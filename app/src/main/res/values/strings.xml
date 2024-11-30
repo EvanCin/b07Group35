@@ -30,4 +30,25 @@
         and employees to track, reduce, and offset their carbon footprint. As climate action becomes increasingly vital,
         our app offers personalized insights into your environmental impact, helping you make informed decisions every day.</string>
     <string name = "moto">Empowering You to Live Sustainability\nEVERYDAY</string>
+    <string name = "title_activity_main">MainActivity</string>
+    <string name = "navigation_drawer_open">Open navigation drawer</string>
+    <string name = "navigation_drawer_close">Close navigation drawer</string>
+    <string name = "nav_header_title">Android Studio</string>
+    <string name = "nav_header_subtitle">android.studio@android.com</string>
+    <string name = "nav_header_desc">Navigation header</string>
+    <string name = "action_settings">Settings</string>
+
+    <string name = "menu_home">Home</string>
+    <string name = "menu_gallery">Gallery</string>
+    <string name = "menu_slideshow">Slideshow</string>
+    <string name = "eco_tracker_title">Eco Tracker</string>
+    <string name = "eco_tracker_description">Eco Tracker helps you monitor your carbon emissions in real time.
+        Easily input your daily activities to receive immediate feedback on your carbon footprint.</string>
+    <string name = "eco_gauge_title">Eco Gauge</string>
+    <string name = "annual_footprint_title">Annual Carbon Footprint</string>
+    <string name = "eco_gauge_description">Eco Gauge dashboard displays your total CO2e emissions, category breakdowns, and trends over time, and allows you to compare your emissions to regional and global averages for better sustainability tracking.</string>
+    <string name = "annual_footprint_description">We will ask you a few questions to help us gather necessary information to calculate your annual carbon footprint.</string>
+    <string name = "logout">Log Out</string>
+    <string name = "logout_question">Are sure you want to log out?</string>
+    <string name = "cancel">Cancel</string>
 </resources>
