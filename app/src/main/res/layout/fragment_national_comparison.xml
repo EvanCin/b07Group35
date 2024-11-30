@@ -31,9 +31,10 @@
                     android:layout_height="wrap_content"
                     android:text="You've emitted"/>
                 <TextView
+                    android:id="@+id/gaugeAvgComparisonNationalUserEmissions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12.3"
+                    android:text="\?\?\?"
                     style="@style/TextAppearance.AppCompat.Headline"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,13 +48,15 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="15dp">
                 <TextView
+                    android:id="@+id/gaugeAvgComparisonNationalAvgHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="The average in Canada is"/>
+                    android:text="The average in ??? is"/>
                 <TextView
+                    android:id="@+id/gaugeAvgComparisonNationalAvgEmissions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12.3"
+                    android:text="\?\?\?"
                     style="@style/TextAppearance.AppCompat.Headline"/>
                 <TextView
                     android:layout_width="wrap_content"

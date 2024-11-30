@@ -31,9 +31,10 @@
                     android:layout_height="wrap_content"
                     android:text="You've emitted"/>
                 <TextView
+                    android:id="@+id/gaugeAvgComparisonGlobalUserEmissions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12.3"
+                    android:text="\?\?\?"
                     style="@style/TextAppearance.AppCompat.Headline"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,9 +52,10 @@
                     android:layout_height="wrap_content"
                     android:text="The global average is"/>
                 <TextView
+                    android:id="@+id/gaugeAvgComparisonGlobalAvgEmissions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12.3"
+                    android:text="\?\?\?"
                     style="@style/TextAppearance.AppCompat.Headline"/>
                 <TextView
                     android:layout_width="wrap_content"
