@@ -15,11 +15,16 @@ public class EnergyBills implements AbstractActivity {
         double co2e = 0.0;
 
         switch (billType.toLowerCase()) {
-            // For a monthly electricity bill <$50: CO₂ emissions are approximately 617,848 g CO₂ / 2880. Calculated from averages of housing types and water heating sources.
-            // For a monthly electricity bill $50–$100: CO₂ emissions are approximately 859,196 g CO₂ / 2880. Calculated from averages of housing types and water heating sources.
-            // For a monthly electricity bill $100–$150: CO₂ emissions are approximately 1,051,930 g CO₂ / 2880. Calculated from averages of housing types and water heating sources.
-            // For a monthly electricity bill $150–$200: CO₂ emissions are approximately 1,203,587 g CO₂ / 2880. Calculated from averages of housing types and water heating sources.
-            // For a monthly electricity bill >$200: CO₂ emissions are approximately 1,430,270 g CO₂ / 2880. Calculated from averages of housing types and water heating sources.
+            // For a monthly electricity bill <$50: CO₂ emissions are approximately 617,848 g CO₂ / 2880.
+            // Calculated from averages of housing types and water heating sources.
+            // For a monthly electricity bill $50–$100: CO₂ emissions are approximately 859,196 g CO₂ / 2880.
+            // Calculated from averages of housing types and water heating sources.
+            // For a monthly electricity bill $100–$150: CO₂ emissions are approximately 1,051,930 g CO₂ / 2880.
+            // Calculated from averages of housing types and water heating sources.
+            // For a monthly electricity bill $150–$200: CO₂ emissions are approximately 1,203,587 g CO₂ / 2880.
+            // Calculated from averages of housing types and water heating sources.
+            // For a monthly electricity bill >$200: CO₂ emissions are approximately 1,430,270 g CO₂ / 2880.
+            // Calculated from averages of housing types and water heating sources.
 
             case "electricity":
                 if (amount < 50) {
