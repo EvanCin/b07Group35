@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bottom Layer: Gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/teal_200" />
+            <gradient android:endColor="@color/white" />
+            <gradient android:angle="90" />
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color = "@color/white" />
+        </shape>
+    </item>
+
+    <!-- Top Layer: Overlay with Transparency -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#DDFFFFFF" />
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color = "@color/white" />
+        </shape>
+    </item>
+
+</layer-list>

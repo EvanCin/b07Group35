@@ -10,6 +10,7 @@ constraintlayout = "2.2.0"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
 mpandroidchart = "v3.1.0"
+mockitoCoreVersion = "5.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -22,6 +23,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+mockito-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCoreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
