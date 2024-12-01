@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +52,12 @@ public class ConsumptionActivity extends AppCompatActivity {
                 if(listViewCF1.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
                         listViewCF2.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
                         listViewCF3.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
-                        listViewCF4.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) return;
+                        listViewCF4.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Unanswered questions", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 selectedChoices.add(listViewCF1.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF2.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF3.getListView().getCheckedItemPosition());

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,12 +21,14 @@ import java.util.ArrayList;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +45,7 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                             ,"European Union (28)","High-income countries","Low-income countries"
                             ,"Lower-middle-income countries","North America","North America (excl. USA)","Oceania"
                             ,"South America","Upper-middle-income countries","World"};
+    final String DEFAULT_CHOICE = "---Select Country---";
     String selectedCountry;
     DatabaseReference mDatabase;
 
@@ -69,7 +73,18 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if(listViewCF.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION || selectedCountry == null) return;
+                if(listViewCF.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Unanswered questions", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
+                if(selectedCountry == null || selectedCountry.equals(DEFAULT_CHOICE)) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Country not selected", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 selectedChoices.add(listViewCF.getListView().getCheckedItemPosition());
                 if(selectedChoices.get(0) == 0) {
                     intent = new Intent(AnnualCarbonFootprintActivity.this, TransportationC1Activity.class);
@@ -98,6 +113,7 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
 
     public void readCSV() {
         countries = new ArrayList<>();
+        countries.add(DEFAULT_CHOICE);
         InputStream stream = AnnualCarbonFootprintActivity.this.getResources()
                 .openRawResource(R.raw.global_averages);
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
