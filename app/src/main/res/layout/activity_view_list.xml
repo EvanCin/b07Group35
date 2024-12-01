@@ -5,7 +5,7 @@
     android:id="@+id/view_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_button1"
+    android:background="@drawable/bg_1"
     tools:context=".ViewListActivity">
 
     <!-- Header TextView -->
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAllCaps="true"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:typeface="serif"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
