@@ -111,15 +111,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
     private int getIconForCategory(String category) {
         switch (category.toLowerCase()) {
             case "transportation":
-                return R.drawable.baseline_ac_unit_24;  // Replace with your drawable for transportation
+                return R.drawable.baseline_airport_shuttle_24;
             case "energy":
-                return R.drawable.baseline_airplanemode_inactive_24;  // Replace with your drawable for energy
+                return R.drawable.baseline_ac_unit_24;
             case "food":
-                return R.drawable.baseline_airport_shuttle_24;  // Replace with your drawable for food
+                return R.drawable.baseline_bakery_dining_24;
             case "consumption":
-                return R.drawable.baseline_bakery_dining_24;  // Replace with your drawable for consumption
+                return R.drawable.baseline_add_shopping_cart_24;
             default:
-                return R.drawable.ic_launcher_foreground;  // Default fallback drawable
+                return R.drawable.ic_launcher_foreground;
         }
     }
 
