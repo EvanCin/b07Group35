@@ -45,16 +45,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         int iconResId = getIconForCategory(habit.getCategory());
         holder.habitIcon.setImageResource(iconResId);
 
-        holder.reminderButton.setOnClickListener(v -> {
+        holder.reminderButton.setOnClickListener(v ->
             new AlertDialog.Builder(holder.itemView.getContext())
                     .setTitle("Set Reminder")
-                    .setMessage("Do you want to set a reminder for \"" + habit.getName() + "\"?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        setReminder(holder, position, habit);
-                    })
+                    .setMessage("Do you want to set a reminder for \"" + habit.getName() + "\"?").setPositiveButton("Yes", (dialog, which) -> setReminder(holder, position, habit))
+                    .setPositiveButton("Yes", (dialog, which) -> setReminder(holder, position, habit))
+
                     .setNegativeButton("No", null)
-                    .show();
-        });
+                    .show()
+        );
     }
 
     private void setReminder(@NonNull HabitViewHolder holder, int position, Habit habit) {

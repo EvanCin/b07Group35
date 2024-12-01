@@ -21,11 +21,13 @@
     <!-- ImageView  habit icon -->
         <ImageView
             android:id="@+id/habit_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="72dp"
+            android:layout_height="68dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:contentDescription="@string/habit_icon"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             app:tint="@color/teal"
             tools:ignore="ImageContrastCheck,ImageContrastCheck" />
 
@@ -80,12 +82,15 @@
         <!-- Reminder Button -->
         <ImageButton
             android:id="@+id/reminder_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/add_reminder"
             android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+
             android:src="@drawable/baseline_circle_notifications_24"
             app:tint="@color/teal" />
     </LinearLayout>
