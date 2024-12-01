@@ -22,11 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class EcoTrackerHomepageActivity extends AppCompatActivity {
 
@@ -67,8 +64,8 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
             // User is logged in, proceed with fetching data
             String userId = currentUser.getUid(); // Get current user ID
 
-            //Get the current date formatted without leading zeros
-            String currentDate = getCurrentDateFormatted();
+            // Get the current date formatted using DateUtils
+            String currentDate = DateUtils.getCurrentDateFormatted();
 
             // Reference to the current day's activities
             dailyActivitiesRef = database.getReference("users").child(userId).child("DailyActivities").child(currentDate);
@@ -99,28 +96,6 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
         }
     }
 
-    private String getCurrentDateFormatted() {
-        // Get today's date
-        Date today = new Date();
-
-        // Create SimpleDateFormat to format month and day without leading zeros
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("M-d", Locale.getDefault());
-
-        // Extract month and day without leading zeros
-        String monthDay = monthDayFormat.format(today);
-
-        // Get the full year (4 digits), convert to integer and format it to remove leading zeros for 2-digit or 3-digit years
-        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
-        String yearString = yearFormat.format(today);
-        int yearInt = Integer.parseInt(yearString); // Remove leading zeros by converting to integer
-        String year = String.valueOf(yearInt); // Convert back to string
-
-        // Combine the custom year, month, and day (no leading zeros)
-        String currentDate = year + "-" + monthDay;
-
-        return currentDate;
-    }
-
     private void fetchDailyActivities() {
         dailyActivitiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -131,8 +106,6 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
 
                     // Loop through categories
                     for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
-                        String categoryName = categorySnapshot.getKey();  // e.g., 'transportation', 'food'
-
                         // Loop through the subcategories (e.g., 'drivePersonalVehicle', 'beef')
                         for (DataSnapshot subCategorySnapshot : categorySnapshot.getChildren()) {
                             String subCategoryName = subCategorySnapshot.getKey();

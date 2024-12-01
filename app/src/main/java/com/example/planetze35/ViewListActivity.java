@@ -46,7 +46,7 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
 
         if (selectedDate != null) {
             // You can use the selectedDate as needed, for example, displaying it
-            Toast.makeText(this, "Selected Date: " + selectedDate, Toast.LENGTH_SHORT).show();
+            showToast("Selected Date: " + selectedDate);
         }
 
         // Initialize RecyclerView
@@ -76,8 +76,13 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
             fetchActivitiesFromFirebase();
         } else {
             // Handle the case when no user is logged in
-            Toast.makeText(this, "No user is logged in.", Toast.LENGTH_SHORT).show();
+            showToast("No user is logged in.");
         }
+    }
+
+    // Show a toast message
+    private void showToast(String message) {
+        Toast.makeText(ViewListActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void fetchActivitiesFromFirebase() {
@@ -89,8 +94,6 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
 
                     // Loop through categories
                     for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
-                        String categoryName = categorySnapshot.getKey();  // e.g., 'transportation', 'food'
-
                         // Loop through the subcategories (e.g., 'drivePersonalVehicle', 'beef')
                         for (DataSnapshot subCategorySnapshot : categorySnapshot.getChildren()) {
                             String subCategoryName = subCategorySnapshot.getKey();
@@ -120,29 +123,29 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
                     adapter.notifyDataSetChanged();
                 } else {
                     // If no activities exist for this date, show a message
-                    Toast.makeText(ViewListActivity.this, "No activities for this date", Toast.LENGTH_SHORT).show();
+                    showToast("No activities for this date");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle database error
-                Toast.makeText(ViewListActivity.this, "Error fetching data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                showToast("Error fetching data: " + databaseError.getMessage());
             }
         });
     }
 
     @Override
     public void onDeleteClick(ActivityItem activityItem) {
-        // Step 1: Remove the activity from the list
+        // Remove the activity from the list
         activityList.remove(activityItem);
         adapter.notifyDataSetChanged();  // Refresh the RecyclerView to show updated data
 
-        // Step 2: Now, remove the activity from Firebase
+        // Remove the activity from Firebase
         removeActivityFromFirebase(activityItem);
 
-        // Step 3: Show a confirmation toast
-        Toast.makeText(this, "Deleted: " + activityItem.getActivityName(), Toast.LENGTH_SHORT).show();
+        // Show a confirmation toast
+        showToast("Deleted: " + activityItem.getActivityName());
     }
 
     // Helper method to remove the activity from Firebase
@@ -181,7 +184,7 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle database error
-                Toast.makeText(ViewListActivity.this, "Error removing data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                showToast("Error removing data: " + databaseError.getMessage());
             }
         });
     }
