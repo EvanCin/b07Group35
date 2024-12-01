@@ -15,6 +15,7 @@
     <string name="category_energy">Energy</string>
     <string name="category_food">Food</string>
     <string name="category_consumption">Consumption</string>
+    <string name="go_back">Go Back</string>
 
     <!-- Habits Recommendations Text -->
     <string-array name="habits_recommendations_txt">
