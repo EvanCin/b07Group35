@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SearchView;
 
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,42 +17,69 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.planetze35.data.UserDataHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class RecommendationsActivity extends AppCompatActivity {
 
     private HabitAdapter habitAdapter;
     private List<Habit> habitList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recommendations);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         SearchView searchView = findViewById(R.id.search_view);
         Button filterButton = findViewById(R.id.filter_button);
+        Button backButton = findViewById(R.id.back_button);  // Initialize the back button here
 
+        // Initialize habit list and add habits
         habitList = new ArrayList<>();
-        habitList.add(new Habit("Use public transportation", "Transportation", "High"));
-        habitList.add(new Habit("Recycle paper", "Consumption", "Medium"));
-        habitList.add(new Habit("Eat less meat", "Food", "High"));
-        habitList.add(new Habit("Install LED bulbs", "Energy", "Medium"));
-        habitList.add(new Habit("Carpool", "Transportation", "High"));
 
+
+
+        // Transportation Habits
+        habitList.add(new Habit("Drive Personal Vehicle (Gasoline)", "Transportation", "High"));
+        habitList.add(new Habit("Drive Personal Vehicle (Electric)", "Transportation", "Low"));
+        habitList.add(new Habit("Take Public Transportation (Bus)", "Transportation", "Low"));
+        habitList.add(new Habit("Take Public Transportation (Train)", "Transportation", "Medium"));
+        habitList.add(new Habit("Cycling or Walking", "Transportation", "Low"));
+        habitList.add(new Habit("Flight (Short Haul)", "Transportation", "High"));
+
+        // Food Habits
+        habitList.add(new Habit("Beef Consumption", "Food", "High"));
+        habitList.add(new Habit("Plant-Based Meal", "Food", "Low"));
+
+        // Consumption Habits
+        habitList.add(new Habit("Buy New Clothes", "Consumption", "High"));
+        habitList.add(new Habit("Buy Electronics (Smartphone)", "Consumption", "Medium"));
+        habitList.add(new Habit("Buy Electronics (Laptop)", "Consumption", "High"));
+
+        // Energy Bills Habits
+        habitList.add(new Habit("Electricity Usage", "Energy", "Medium"));
+        habitList.add(new Habit("Gas Usage", "Energy", "Medium"));
+
+        // Set up RecyclerView with Adapter
         habitAdapter = new HabitAdapter(new ArrayList<>(habitList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(habitAdapter);
 
+        // Create Notification Channel
         createNotificationChannel();
 
+        // Request notification permission for Android 13 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
             }
         }
 
+        // Set up the SearchView to filter habits by keyword
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -70,9 +98,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set up the filter button to show filter options
         filterButton.setOnClickListener(v -> showFilterDialog());
-    }
 
+        // Set up the back button to go to the previous screen
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+
+
+    }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -86,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 
     private void showFilterDialog() {
         String[] filterOptions = {"Filter by Category", "Filter by Impact"};
