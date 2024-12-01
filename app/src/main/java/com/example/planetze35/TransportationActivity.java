@@ -51,7 +51,7 @@ public class TransportationActivity extends AppCompatActivity {
         userId = getUserId();
         if (userId == null) {
             // Handle the case where no user is logged in
-            showToast("You must be logged in to add meal data.");
+            showToast("You must be logged in to add transportation data.");
             return;
         }
         // Initialize components

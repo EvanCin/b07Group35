@@ -33,7 +33,7 @@
             android:name=".EnergyBillsActivity"
             android:exported="false" />
         <activity
-            android:name=".ConsumptionActivity"
+            android:name=".ConsumptionEcoTrackerActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

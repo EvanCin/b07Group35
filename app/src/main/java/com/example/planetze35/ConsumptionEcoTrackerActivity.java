@@ -23,11 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ConsumptionActivity extends AppCompatActivity {
+public class ConsumptionEcoTrackerActivity extends AppCompatActivity {
 
     private Button buttonNewClothes, addNewClothesButton;
     private DatabaseReference databaseRef;
@@ -49,7 +48,7 @@ public class ConsumptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_consumption);
+        setContentView(R.layout.activity_consumption_eco_tracker);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consumption), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -61,7 +60,7 @@ public class ConsumptionActivity extends AppCompatActivity {
         userId = getUserId();
         if (userId == null) {
             // Handle the case where no user is logged in
-            showToast("You must be logged in to add meal data.");
+            showToast("You must be logged in to add consumption data.");
             return;
         }
         initUIComponents();
@@ -109,7 +108,7 @@ public class ConsumptionActivity extends AppCompatActivity {
 
         doneButton.setOnClickListener(v -> {
             // Redirect to the main page
-            Intent intent = new Intent(ConsumptionActivity.this, EcoTrackerDailyActivityHub.class);
+            Intent intent = new Intent(ConsumptionEcoTrackerActivity.this, EcoTrackerDailyActivityHub.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
@@ -198,7 +197,7 @@ public class ConsumptionActivity extends AppCompatActivity {
     }
     // Helper method to show Toast messages
     private void showToast(String message) {
-        Toast.makeText(ConsumptionActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ConsumptionEcoTrackerActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
 }

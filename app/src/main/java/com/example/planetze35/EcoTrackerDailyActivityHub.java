@@ -51,7 +51,7 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
             startActivity(intent);
         });
         consumptionButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, ConsumptionActivity.class);
+            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, ConsumptionEcoTrackerActivity.class);
             intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
             startActivity(intent);
         });

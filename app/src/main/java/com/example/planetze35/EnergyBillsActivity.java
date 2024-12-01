@@ -52,7 +52,7 @@ public class EnergyBillsActivity extends AppCompatActivity {
         userId = getUserId();
         if (userId == null) {
             // Handle the case where no user is logged in
-            showToast("You must be logged in to add meal data.");
+            showToast("You must be logged in to add energy bills data.");
             return;
         }
         initializeViews();
