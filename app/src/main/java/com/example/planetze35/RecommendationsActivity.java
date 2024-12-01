@@ -64,22 +64,18 @@ public class RecommendationsActivity extends AppCompatActivity {
         habitList.add(new Habit("Electricity Usage", "Energy", "Medium"));
         habitList.add(new Habit("Gas Usage", "Energy", "Medium"));
 
-        // Set up RecyclerView with Adapter
         habitAdapter = new HabitAdapter(new ArrayList<>(habitList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(habitAdapter);
 
-        // Create Notification Channel
         createNotificationChannel();
 
-        // Request notification permission for Android 13 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
             }
         }
 
-        // Set up the SearchView to filter habits by keyword
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -98,10 +94,8 @@ public class RecommendationsActivity extends AppCompatActivity {
             }
         });
 
-        // Set up the filter button to show filter options
         filterButton.setOnClickListener(v -> showFilterDialog());
 
-        // Set up the back button to go to the previous screen
         backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
 
