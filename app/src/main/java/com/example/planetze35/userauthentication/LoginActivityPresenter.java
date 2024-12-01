@@ -31,6 +31,9 @@ public class LoginActivityPresenter implements Contract.LoginActivityPresenter {
     public void navigateToEmailVerificationActivity() {
         view.launchEmailVerificationActivity();
     }
+    public void navigateToInitialSetupActivity() {
+        view.launchAnnualCarbonFootprintActivity();
+    }
 
     public void setLoginViewSnackbar(String message, int length, int color) {
         view.showSnackbar(message, length, color);

@@ -121,6 +121,7 @@ public class SignupActivity extends AppCompatActivity {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.child("firstName").setValue(firstName);
         dbRef.child("lastName").setValue(lastName);
+        dbRef.child("completedSetup").setValue(false);
 
     }
     private boolean validatePasswordConfirmation(String password, String passwordConfirmation) {

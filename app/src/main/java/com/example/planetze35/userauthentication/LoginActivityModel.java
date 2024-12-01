@@ -5,6 +5,8 @@ import android.graphics.Color;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivityModel implements Contract.LoginActivityModel {
 
@@ -32,8 +34,16 @@ public class LoginActivityModel implements Contract.LoginActivityModel {
 
                 // check if the email is verified
                 if (user.isEmailVerified()) {
-                    // send them to the home page
-                    presenter.navigateToMainActivity();
+                    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+                    dbRef.child("completedSetup").get().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            if (Boolean.TRUE.equals(task1.getResult().getValue(boolean.class))) {
+                                presenter.navigateToMainActivity();
+                            } else {
+                                presenter.navigateToInitialSetupActivity();
+                            }
+                        }
+                    });
                 } else {
                     // send user to the email verification page to verify their email
                     presenter.navigateToEmailVerificationActivity();
