@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -45,22 +46,34 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         holder.habitIcon.setImageResource(iconResId);
 
         holder.reminderButton.setOnClickListener(v -> {
-
-            AlarmManager alarmManager = (AlarmManager) holder.itemView.getContext().getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(holder.itemView.getContext(), ReminderBroadcast.class);
-            intent.putExtra("habit_name", habit.getName());
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(holder.itemView.getContext(), position, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 9); // e.g., Set reminder time to 9 AM
-            calendar.set(Calendar.MINUTE, 0);
-
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-            Toast.makeText(holder.itemView.getContext(), "Daily reminder set for: " + habit.getName(), Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(holder.itemView.getContext())
+                    .setTitle("Set Reminder")
+                    .setMessage("Do you want to set a reminder for \"" + habit.getName() + "\"?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        setReminder(holder, position, habit);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
+    }
+
+    private void setReminder(@NonNull HabitViewHolder holder, int position, Habit habit) {
+        AlarmManager alarmManager = (AlarmManager) holder.itemView.getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(holder.itemView.getContext(), ReminderBroadcast.class);
+        intent.putExtra("habit_name", habit.getName());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(holder.itemView.getContext(), position, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Set the time for the alarm
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 9); // e.g., Set reminder time to 9 AM
+        calendar.set(Calendar.MINUTE, 0);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            Toast.makeText(holder.itemView.getContext(), "Daily reminder set for: " + habit.getName(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
