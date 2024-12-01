@@ -37,6 +37,11 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
     ArrayList<String> countries;
+    String[] nonCountries = {"Africa","Asia","Asia (excl. China and India)","Australia","Europe"
+                            ,"Europe (excl. EU-27)","Europe (excl. EU-28)","European Union (27)"
+                            ,"European Union (28)","High-income countries","Low-income countries"
+                            ,"Lower-middle-income countries","North America","North America (excl. USA)","Oceania"
+                            ,"South America","Upper-middle-income countries","World"};
     String selectedCountry;
     DatabaseReference mDatabase;
 
@@ -99,7 +104,14 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
         try {
             String line = br.readLine();
             line = br.readLine();
-            while(line != null) {
+            readLoop: while(line != null) {
+                String country = line.split(",")[0];
+                for(String str:nonCountries) {
+                    if(str.equals(country)) {
+                        line = br.readLine();
+                        continue readLoop;
+                    }
+                }
                 countries.add(line.split(",")[0]);
                 line = br.readLine();
             }
