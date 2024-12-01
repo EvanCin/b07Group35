@@ -2,6 +2,7 @@ package com.example.planetze35;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -28,9 +30,18 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EcoGaugeActivity extends AppCompatActivity {
 
@@ -39,6 +50,8 @@ public class EcoGaugeActivity extends AppCompatActivity {
     BarChart emissionsChart;
     LineChart lineChart;
     Button dailyButton, weeklyButton, monthlyButton;
+    FirebaseUser user;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,36 @@ public class EcoGaugeActivity extends AppCompatActivity {
             return insets;
         });
 
+        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId/DailyActivities");
+        dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("Firebase", "Success");
+                HashMap<String,Object> datesHS = (HashMap<String, Object>) snapshot.getValue();
+                Log.d("HI","HI");
+                //System.out.println(String.valueOf(datesHS));
+
+                HashMap<String, Object> datesMap = new HashMap<>();
+                HashMap<String, String > dateEmissionMap = new HashMap<>();
+                for (Map.Entry<String, Object> entry : datesHS.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    datesMap.put(key, value);
+                    HashMap<String,Object> temp = (HashMap<String, Object>) datesHS.get(key);
+                    if(key != null) {
+                        dateEmissionMap.put(key, String.valueOf(temp.get("total_daily_emissions")));
+                    }
+                }
+                for(String key: dateEmissionMap.keySet()) {
+                    System.out.println(key + " " + dateEmissionMap.get(key));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
         totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
         totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
