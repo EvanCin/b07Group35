@@ -30,7 +30,6 @@ public class UserDataHandler {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String category = snapshot.child("category").getValue(String.class);
 
-                    // Update count for each category
                     if (category != null) {
                         categoryCounts.put(category, categoryCounts.getOrDefault(category, 0) + 1);
                     }
