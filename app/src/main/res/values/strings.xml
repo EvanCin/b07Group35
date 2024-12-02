@@ -47,7 +47,7 @@
     <string name = "eco_gauge_title">Eco Gauge</string>
     <string name = "annual_footprint_title">Annual Carbon Footprint</string>
     <string name = "eco_gauge_description">Eco Gauge dashboard displays your total CO2e emissions, category breakdowns, and trends over time, and allows you to compare your emissions to regional and global averages for better sustainability tracking.</string>
-    <string name = "annual_footprint_description">We will ask you a few questions to help us gather necessary information to calculate your annual carbon footprint.</string>
+    <string name = "annual_footprint_description">Monitor your annual carbon emissions or recalculate it. We will ask you a few questions to help us gather necessary information to calculate your annual carbon footprint.</string>
     <string name = "logout">Log Out</string>
     <string name = "logout_question">Are sure you want to log out?</string>
     <string name = "cancel">Cancel</string>

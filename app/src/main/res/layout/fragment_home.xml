@@ -192,16 +192,16 @@
 
         <TextView
             android:id = "@+id/tvAnnualFootprintDescription"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:layout_width = "0dp"
             android:layout_height = "wrap_content"
-            android:lineSpacingExtra="1.5pt"
-            android:textSize="20sp"
             android:fontFamily = "@font/lato_bold"
+            android:justificationMode = "inter_word"
             android:text = "@string/annual_footprint_description"
             android:textColor = "@color/white"
-            android:justificationMode="inter_word"
             app:layout_constraintBottom_toBottomOf = "@+id/ibAnnualFootprint"
             app:layout_constraintEnd_toStartOf = "@+id/guidelineAnnualFootprint2"
+            app:layout_constraintHorizontal_bias = "0.0"
             app:layout_constraintStart_toStartOf = "@+id/guidelineAnnualFootprint1"
             app:layout_constraintTop_toTopOf = "parent"
             tools:ignore = "UnusedAttribute" />
