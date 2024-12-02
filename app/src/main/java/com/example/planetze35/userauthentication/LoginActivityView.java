@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
+import com.example.planetze35.setup.AnnualCarbonFootprintActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivityView extends AppCompatActivity implements Contract.LoginActivityView {
@@ -74,6 +75,12 @@ public class LoginActivityView extends AppCompatActivity implements Contract.Log
 
     public void launchEmailVerificationActivity() {
         Intent intent = new Intent(this, EmailVerificationActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void launchAnnualCarbonFootprintActivity() {
+        Intent intent = new Intent(this, AnnualCarbonFootprintActivity.class);
         startActivity(intent);
         finish();
     }

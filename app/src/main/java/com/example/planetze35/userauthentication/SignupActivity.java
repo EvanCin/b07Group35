@@ -123,6 +123,7 @@ public class SignupActivity extends AppCompatActivity {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.child("firstName").setValue(firstName);
         dbRef.child("lastName").setValue(lastName);
+        dbRef.child("completedSetup").setValue(false);
 
         // store the user's name in Firebase Authentication
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
