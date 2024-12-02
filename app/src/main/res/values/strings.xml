@@ -30,4 +30,6 @@
         and employees to track, reduce, and offset their carbon footprint. As climate action becomes increasingly vital,
         our app offers personalized insights into your environmental impact, helping you make informed decisions every day.</string>
     <string name = "moto">Empowering You to Live Sustainability\nEVERYDAY</string>
+    <string name = "total_annual_emission_text">Your total annual emissions are:</string>
+    <string name = "total_annual_emissions_unit">tons of CO2e/year</string>
 </resources>
