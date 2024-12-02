@@ -14,8 +14,8 @@ import java.util.HashMap;
  * This class is used for getting data from the CSV file stored in the res/raw folder containing
  * the average CO2 emissions of countries/regions around the world.
  */
-public class AvgEmissionModel {
-    private static AvgEmissionModel instance = null;
+public class GlobalAveragesCSVModel {
+    private static GlobalAveragesCSVModel instance = null;
     private final HashMap<String, Double> averages = new HashMap<>();
 
     /**
@@ -23,7 +23,7 @@ public class AvgEmissionModel {
      * @param context the application context (to be able to find the raw file)
      * @throws IOException if the method fails to access the raw file
      */
-    private AvgEmissionModel(@NonNull Context context) throws IOException {
+    private GlobalAveragesCSVModel(@NonNull Context context) throws IOException {
         InputStream stream = context.getResources().openRawResource(R.raw.global_averages);
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -43,9 +43,9 @@ public class AvgEmissionModel {
      * @return the <code>AvgEmissionModel</code> instance
      * @throws IOException if the AvgEmissionModel constructor fails to access the raw file
      */
-    public static AvgEmissionModel getInstance(@NonNull Context context) throws IOException {
+    public static GlobalAveragesCSVModel getInstance(@NonNull Context context) throws IOException {
         if (instance == null) {
-            instance = new AvgEmissionModel(context);
+            instance = new GlobalAveragesCSVModel(context);
         }
         return instance;
     }

@@ -37,7 +37,7 @@ public class GlobalComparisonFragment extends Fragment {
         Context context = view.getContext();
 
         try {
-            AvgEmissionModel model = AvgEmissionModel.getInstance(context);
+            GlobalAveragesCSVModel model = GlobalAveragesCSVModel.getInstance(context);
             String globalEmissionAvgTxt = String.format("%.2f", model.getAvgEmission("World"));
             gaugeAvgComparisonGlobalAvgEmissions.setText(globalEmissionAvgTxt);
         } catch (IOException e) {

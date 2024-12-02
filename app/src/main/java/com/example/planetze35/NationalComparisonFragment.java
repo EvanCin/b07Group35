@@ -84,7 +84,7 @@ public class NationalComparisonFragment extends Fragment {
                     gaugeAvgComparisonNationalAvgHeader.setText("The average in " + country + " is");
 
                     try {
-                        AvgEmissionModel model = AvgEmissionModel.getInstance(context);
+                        GlobalAveragesCSVModel model = GlobalAveragesCSVModel.getInstance(context);
                         String countryEmissionAvgTxt = !country.equals("???")
                                 ? String.format("%.2f", model.getAvgEmission(country)) : country;
                         gaugeAvgComparisonNationalAvgEmissions.setText(countryEmissionAvgTxt);
