@@ -1,6 +1,8 @@
 package com.example.planetze35.setup;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.GlobalAveragesCSVModel;
+import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +27,7 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
 
     private TextView tvTotalAnnualEmissionsNumber, tvCompareWithRegionalAverage;
     private TextView tbRowTransportation, tbRowFood, tbRowHousing, tbRowConsumption;
+    private Button btnRecalculate, btnGoToMainMenu;
     private DatabaseReference dbRef;
     private FirebaseUser user;
 
@@ -44,6 +48,8 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
         tbRowFood = findViewById(R.id.tbRowFood);
         tbRowHousing = findViewById(R.id.tbRowHousing);
         tbRowConsumption = findViewById(R.id.tbRowConsumption);
+        btnRecalculate = findViewById(R.id.btnRecalculate);
+        btnGoToMainMenu = findViewById(R.id.btnGoToMainMenu);
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
@@ -51,6 +57,18 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
         }
 
         displayAnnualCarbonFootprint();
+
+        btnRecalculate.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AnnualCarbonFootprintActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnGoToMainMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void displayAnnualCarbonFootprint() {

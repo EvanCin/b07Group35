@@ -39,4 +39,6 @@
     <string name = "food">Food</string>
     <string name = "housing">Housing</string>
     <string name = "consumption">Consumption</string>
+    <string name = "continue_to_main_menu">Continue to main menu</string>
+    <string name = "recalculate_your_total_annual_emissions">Recalculate your total annual emissions</string>
 </resources>
