@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AnnualEmissionsCalculator {
@@ -247,11 +248,11 @@ public class AnnualEmissionsCalculator {
         totalConsumptionEmissions = totalEmissions - totalHousingEmissions - totalFoodEmissions - totalTransportationEmissions;
 
         Map<String, String> emissionsByCategory = new HashMap<>();
-        emissionsByCategory.put("total", String.valueOf(totalEmissions/1000));
-        emissionsByCategory.put("transportation", String.valueOf(totalTransportationEmissions/1000));
-        emissionsByCategory.put("food", String.valueOf(totalFoodEmissions/1000));
-        emissionsByCategory.put("housing", String.valueOf(totalHousingEmissions/1000));
-        emissionsByCategory.put("consumption", String.valueOf(totalConsumptionEmissions/1000));
+        emissionsByCategory.put("total", String.format(Locale.CANADA, "%5f", totalEmissions/1000));
+        emissionsByCategory.put("transportation", String.format(Locale.CANADA, "%4f", totalTransportationEmissions/1000));
+        emissionsByCategory.put("food", String.format(Locale.CANADA, "%4f", totalFoodEmissions/1000));
+        emissionsByCategory.put("housing", String.format(Locale.CANADA, "%4f", totalHousingEmissions/1000));
+        emissionsByCategory.put("consumption", String.format(Locale.CANADA, "%4f", totalConsumptionEmissions/1000));
 
         return emissionsByCategory;
     }

@@ -19,7 +19,7 @@
             android:exported = "false" />
         <activity
             android:name = ".MainActivity"
-            android:exported = "true"
+            android:exported = "false"
             android:label = "@string/title_activity_main"
             android:theme = "@style/Theme.Planetze35.NoActionBar" />
         <activity
@@ -59,7 +59,7 @@
             android:label = "Planetze35 - Annual Carbon Footprint" />
         <activity
             android:name = ".setup.AnnualCarbonFootprintDisplayerActivity"
-            android:exported = "true" />
+            android:exported = "false" />
         <activity
             android:name = ".EcoGaugeActivity"
             android:exported = "false"
