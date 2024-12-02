@@ -18,6 +18,12 @@
         tools:layout="@layout/activity_login" />
 
     <activity
+        android:id = "@+id/nav_annual_footprint"
+        android:name = "com.example.planetze35.setup.AnnualCarbonFootprintDisplayerActivity"
+        android:label = "@string/annual_footprint_title"
+        tools:layout="@layout/activity_annual_carbon_footprint_displayer" />
+
+    <activity
         android:id = "@+id/nav_logout"
         android:name = "com.example.planetze35.mainmenu.LogoutActivity"
         android:label = "@string/logout"

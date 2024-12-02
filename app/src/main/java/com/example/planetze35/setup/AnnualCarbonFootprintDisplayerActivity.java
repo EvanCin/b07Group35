@@ -108,13 +108,13 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
                     double diff = calculatePercentageDifference(Double.parseDouble(totalAnnualEmissions),Double.parseDouble(regionalEmissionsAverage));
                     if (diff > 0) {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.red));
-                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format("%.2f", Math.abs(diff)) + "% higher than the regional average.");
+                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format("%.2f", Math.abs(diff)) + "% higher than the national average for " + country);
                     } else if (diff < 0) {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.teal_200));
-                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format("%.2f", Math.abs(diff)) + "% lower than the regional average.");
+                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format("%.2f", Math.abs(diff)) + "% lower than the national average for " + country);
                     } else {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.teal_200));
-                        tvCompareWithRegionalAverage.setText("Your total annual emissions are equal to the regional average.");
+                        tvCompareWithRegionalAverage.setText("Your total annual emissions are equal to the national average for " + country);
                     }
                 }
             });

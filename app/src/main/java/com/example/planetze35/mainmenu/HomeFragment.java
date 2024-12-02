@@ -1,5 +1,6 @@
 package com.example.planetze35.mainmenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.planetze35.databinding.FragmentHomeBinding;
+import com.example.planetze35.setup.AnnualCarbonFootprintDisplayerActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -46,7 +48,8 @@ public class HomeFragment extends Fragment {
         ibAnnualFootprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Annual Report", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), AnnualCarbonFootprintDisplayerActivity.class);
+                startActivity(intent);
             }
         });
 
