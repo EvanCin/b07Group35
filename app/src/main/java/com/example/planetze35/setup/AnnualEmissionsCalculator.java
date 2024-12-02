@@ -44,7 +44,7 @@ public class AnnualEmissionsCalculator {
             Log.d("AnnualEmissionsCalculator", "Invalid File");
         }
     }
-    public Map<String, Double> calculateEmissions(ArrayList<Integer> selectedChoices) {
+    public Map<String, String> calculateEmissions(ArrayList<Integer> selectedChoices) {
         totalEmissions = 0;
         double totalTransportationEmissions = 0;
         //Transportation Questions
@@ -246,12 +246,12 @@ public class AnnualEmissionsCalculator {
         totalEmissions += consumptionEmissions;
         totalConsumptionEmissions = totalEmissions - totalHousingEmissions - totalFoodEmissions - totalTransportationEmissions;
 
-        Map<String, Double> emissionsByCategory = new HashMap<>();
-        emissionsByCategory.put("total", totalEmissions/1000);
-        emissionsByCategory.put("transportation", totalTransportationEmissions/1000);
-        emissionsByCategory.put("food", totalFoodEmissions/1000);
-        emissionsByCategory.put("housing", totalHousingEmissions/1000);
-        emissionsByCategory.put("consumption", totalConsumptionEmissions/1000);
+        Map<String, String> emissionsByCategory = new HashMap<>();
+        emissionsByCategory.put("total", String.valueOf(totalEmissions/1000));
+        emissionsByCategory.put("transportation", String.valueOf(totalTransportationEmissions/1000));
+        emissionsByCategory.put("food", String.valueOf(totalFoodEmissions/1000));
+        emissionsByCategory.put("housing", String.valueOf(totalHousingEmissions/1000));
+        emissionsByCategory.put("consumption", String.valueOf(totalConsumptionEmissions/1000));
 
         return emissionsByCategory;
     }

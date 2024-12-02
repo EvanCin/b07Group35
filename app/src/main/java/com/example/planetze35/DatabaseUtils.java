@@ -128,7 +128,7 @@ public class DatabaseUtils {
         dbRef.child(dataField).setValue(data);
     }
 
-    public static void storeOneDataField(String uid, String dataField, Map<String, Double> data) {
+    public static void storeOneDataField(String uid, String dataField, Map<String, String> data) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.child(dataField).setValue(data);
     }

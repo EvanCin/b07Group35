@@ -62,7 +62,7 @@ public class ConsumptionActivity extends AppCompatActivity {
                 //Temporarily calculate and display the total emission here
                 AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
                 annualEmissionsCalculator.readData();
-                Map<String, Double> emissionsByCategory = annualEmissionsCalculator.calculateEmissions(selectedChoices);
+                Map<String, String> emissionsByCategory = annualEmissionsCalculator.calculateEmissions(selectedChoices);
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
