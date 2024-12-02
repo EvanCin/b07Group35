@@ -29,7 +29,7 @@
     <string name = "application_description">Welcome to Planetze!\nPlanetze is your go-to sustainability platform, dedicated to empowering individuals
         and employees to track, reduce, and offset their carbon footprint. As climate action becomes increasingly vital,
         our app offers personalized insights into your environmental impact, helping you make informed decisions every day.</string>
-    <string name = "moto">Empowering You to Live Sustainability\nEVERYDAY</string>
+    <string name = "motto">Empowering You to Live Sustainability\nEVERYDAY</string>
     <string name = "title_activity_main">MainActivity</string>
     <string name = "navigation_drawer_open">Open navigation drawer</string>
     <string name = "navigation_drawer_close">Close navigation drawer</string>

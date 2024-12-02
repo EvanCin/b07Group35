@@ -21,9 +21,9 @@ import com.example.planetze35.R;
 public class WelcomeScreenActivity extends AppCompatActivity {
 
     private Button btnLogin, btnSignUp;
-    private TextView tvMoto;
+    private TextView tvMotto;
     private int index = 0;
-    private String moto;
+    private String motto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnSignUp = findViewById(R.id.btnSignup);
 
-        tvMoto = findViewById(R.id.tvMoto);
-        moto = getString(R.string.moto);
+        tvMotto = findViewById(R.id.tvMotto);
+        motto = getString(R.string.motto);
         typeWriter();
         makeTextGradient();
 
@@ -62,8 +62,8 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (index < moto.length()) {
-                    tvMoto.setText(moto.substring(0, index + 1));
+                if (index < motto.length()) {
+                    tvMotto.setText(motto.substring(0, index + 1));
                     index++;
                     handler.postDelayed(this, 50);
                 }
@@ -72,16 +72,16 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     }
 
     private void makeTextGradient() {
-        TextPaint paint = tvMoto.getPaint();
-        float width = paint.measureText(moto);
+        TextPaint paint = tvMotto.getPaint();
+        float width = paint.measureText(motto);
 
-        Shader textShader = new LinearGradient(0, 0, width, tvMoto.getTextSize(),
+        Shader textShader = new LinearGradient(0, 0, width, tvMotto.getTextSize(),
                 new int[]{
                         Color.parseColor("#FF038C7A"),
                         Color.parseColor("#FF03DAC5"),      // teal_200
                         Color.parseColor("#FF036A54"),
                         Color.parseColor("#FF03AFA1"),
                 }, null, Shader.TileMode.CLAMP);
-        tvMoto.getPaint().setShader(textShader);
+        tvMotto.getPaint().setShader(textShader);
     }
 }
