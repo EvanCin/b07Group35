@@ -234,39 +234,18 @@ public class EcoGaugeActivity extends AppCompatActivity {
 
                 //Emissions Chart
                 emissionsChart = findViewById(R.id.emissionsChart);
-                emissionsChart.getAxisRight().setDrawLabels(false);
+                EmissionsBarChart.setDefaultBarChart(emissionsChart);
+
                 ArrayList<BarEntry> entries = new ArrayList<>();
                 entries.add(new BarEntry(1f, 20));
                 entries.add(new BarEntry(2f, 38));
                 entries.add(new BarEntry(3f, 69));
-                entries.add(new BarEntry(4f, 27));
 
-                YAxis yAxis = emissionsChart.getAxisLeft();
-                yAxis.setAxisMinimum(0f);
-                yAxis.setAxisMaximum(100f);
-                yAxis.setAxisLineWidth(2f);
-                yAxis.setAxisLineColor(Color.BLACK);
-                yAxis.setLabelCount(10);
-
-                BarDataSet dataSet = new BarDataSet(entries, "Subjects");
+                BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
                 dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 BarData barData = new BarData(dataSet);
                 barData.setBarWidth(0.85f);
                 emissionsChart.setData(barData);
-
-                emissionsChart.getDescription().setEnabled(false);
-                emissionsChart.invalidate();
-                ArrayList<String> xValues = new ArrayList<>();
-                xValues.add("one");xValues.add("one");xValues.add("two");xValues.add("three");xValues.add("four");
-                emissionsChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
-                emissionsChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                emissionsChart.getXAxis().setGranularity(1f);
-                emissionsChart.getXAxis().setGranularityEnabled(true);
-                emissionsChart.getAxisLeft().setDrawGridLines(false);
-                emissionsChart.getAxisRight().setDrawGridLines(false);
-                emissionsChart.getXAxis().setDrawGridLines(false);
-                emissionsChart.setAutoScaleMinMaxEnabled(true);
-
 
                 //Line chart for emissions trend graph
                 LineDataSet dataset1 = new LineDataSet(dailyEmissions,"Daily Emissions");
@@ -300,7 +279,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 dailyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        lineChart.setData(new LineData(new LineDataSet(dailyEmissions, "Daily Emissions")));
+                        lineChart.setData(new LineData(new LineDataSet(dailyEmissions, "Daily Emissions (kg CO2e)")));
                         EmissionsLineChart.setBottomLabelDaily(lineChart);
                         lineChart.invalidate();
                     }
@@ -309,7 +288,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 weeklyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        lineChart.setData(new LineData(new LineDataSet(weeklyEmissionsEntry, "Weekly Emissions")));
+                        lineChart.setData(new LineData(new LineDataSet(weeklyEmissionsEntry, "Weekly Emissions (kg CO2e)")));
                         EmissionsLineChart.setBottomLabelWeekly(lineChart);
                         lineChart.invalidate();
                     }
@@ -318,7 +297,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 monthlyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        lineChart.setData(new LineData(new LineDataSet(monthlyEmissionsEntry, "Monthly Emissions")));
+                        lineChart.setData(new LineData(new LineDataSet(monthlyEmissionsEntry, "Monthly Emissions (kg CO2e)")));
                         EmissionsLineChart.setBottomLabelMonthly(lineChart);
                         lineChart.invalidate();
                     }
