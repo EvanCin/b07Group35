@@ -53,6 +53,10 @@
     <string name="category_food">Food</string>
     <string name="category_consumption">Consumption</string>
     <string name="go_back">Go Back</string>
+    <string name="adopted_habits_header">adopted_habits_header</string>
+    <string name="recommended_habits_header">recommended_habits_header</string>
+    <string name="habits_you_have_adopted">Habits You Have Adopted:</string>
+    <string name="new_habits_for_you_to_try">New Habits for You to Try:</string>
 
     <!-- Habits Recommendations Text -->
     <string-array name="habits_recommendations_txt">
