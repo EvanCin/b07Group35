@@ -32,4 +32,11 @@
     <string name = "moto">Empowering You to Live Sustainability\nEVERYDAY</string>
     <string name = "total_annual_emission_text">Your total annual emissions are:</string>
     <string name = "total_annual_emissions_unit">tons of CO2e/year</string>
+    <string name = "emissions_with_unit">Emissions (tons of CO2e/year)</string>
+    <string name = "category">Category</string>
+    <string name = "number_placeholder">100</string>
+    <string name = "transportation">Transportation</string>
+    <string name = "food">Food</string>
+    <string name = "housing">Housing</string>
+    <string name = "consumption">Consumption</string>
 </resources>

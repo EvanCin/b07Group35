@@ -25,7 +25,7 @@
         android:layout_height = "wrap_content"
         android:fontFamily = "@font/bevan_italic"
         android:gravity = "start"
-        android:text = "0"
+        android:text = "@string/number_placeholder"
         android:textColor = "@color/teal_200"
         android:textSize = "50sp"
         app:layout_constraintBottom_toTopOf = "@+id/guideline2"
@@ -45,11 +45,127 @@
         app:layout_constraintStart_toStartOf = "parent"
         app:layout_constraintTop_toBottomOf = "@+id/tvTotalAnnualEmissionsNumber" />
 
+    <TableLayout
+        android:id = "@+id/tlEmissionsByCategory"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline1"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "@+id/guideline2">
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:background = "@color/teal_200"
+                android:padding = "8dp"
+                android:text = "@string/category"
+                android:textColor = "@color/black" />
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:background = "@color/teal_200"
+                android:padding = "8dp"
+                android:text = "@string/emissions_with_unit"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/transportation"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowTransportation"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/food"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowFood"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/housing"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowHousing"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/consumption"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowConsumption"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+    </TableLayout>
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id = "@+id/guideline1"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:orientation = "vertical"
+        android:orientation = "horizontal"
         app:layout_constraintGuide_percent = "0.5" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -57,5 +173,6 @@
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:orientation = "horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent = "0.2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

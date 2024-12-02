@@ -15,9 +15,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Map;
+
 public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
 
     private TextView tvTotalAnnualEmissionsNumber;
+    private TextView tbRowTransportation, tbRowFood, tbRowHousing, tbRowConsumption;
     private DatabaseReference dbRef;
     private FirebaseUser user;
 
@@ -33,20 +36,42 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
         });
 
         tvTotalAnnualEmissionsNumber = findViewById(R.id.tvTotalAnnualEmissionsNumber);
+        tbRowTransportation = findViewById(R.id.tbRowTransportation);
+        tbRowFood = findViewById(R.id.tbRowFood);
+        tbRowHousing = findViewById(R.id.tbRowHousing);
+        tbRowConsumption = findViewById(R.id.tbRowConsumption);
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             return;
         }
 
-        showTotalAnnualEmissions();
+        showEmissions();
     }
 
-    private void showTotalAnnualEmissions() {
-        dbRef.child("users").child(user.getUid()).child("totalAnnualEmissionsByCategory/total").get().addOnCompleteListener(task -> {
+    private void showEmissions() {
+        dbRef.child("users").child(user.getUid()).child("totalAnnualEmissionsByCategory").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                tvTotalAnnualEmissionsNumber.setText(task.getResult().getValue(Double.class).toString());
+                Object value = task.getResult().getValue();
+                if (!(value instanceof Map)) {
+                    return;
+                }
+                Map<String, Object> emissionsByCategory = (Map<String, Object>) value;
+                showTotalAnnualEmissions(emissionsByCategory.get("total").toString());
+                emissionsByCategory.remove("total");
+                showEmissionsByCategory(emissionsByCategory);
             }
         });
+    }
+
+    private void showTotalAnnualEmissions(String totalAnnualEmissions) {
+        tvTotalAnnualEmissionsNumber.setText(totalAnnualEmissions);
+    }
+
+    private void showEmissionsByCategory(Map<String, Object> map) {
+        tbRowTransportation.setText(map.get("transportation").toString());
+        tbRowFood.setText(map.get("food").toString());
+        tbRowHousing.setText(map.get("housing").toString());
+        tbRowConsumption.setText(map.get("consumption").toString());
     }
 }

@@ -2,7 +2,6 @@ package com.example.planetze35.setup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -64,17 +63,11 @@ public class ConsumptionActivity extends AppCompatActivity {
                 AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
                 annualEmissionsCalculator.readData();
                 Map<String, Double> emissionsByCategory = annualEmissionsCalculator.calculateEmissions(selectedChoices);
-                double totalEmissions = emissionsByCategory.get("total");
-                Log.i("Total Emissions", Double.toString(totalEmissions));
 
-                //Temporarily store data to firebase using dummy user
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-//                mDatabase.child("totalEmissions").setValue(totalEmissions);
-//                mDatabase.child("completedSetup").setValue(true);
-                DatabaseUtils.storeOneDataField(uid, "totalEmissions",totalEmissions);
+
                 DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
                 DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
