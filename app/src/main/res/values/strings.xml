@@ -1,5 +1,38 @@
 <resources>
     <string name="app_name">Planetze35</string>
+    <string-array name="meal_types">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Plant-based</item>
+    </string-array>
+    <string-array name="energy_bill_types">
+        <item>Electricity</item>
+        <item>Gas</item>
+        <item>Water</item>
+    </string-array>
+    <string-array name="electronics_types">
+        <item>smartphone</item>
+        <item>laptop</item>
+        <item>TV</item>
+    </string-array>
+    <string-array name="public_transport_options">
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Subway</item>
+    </string-array>
+    <string-array name="vehicle_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+        <item>I don\'t Know</item>
+    </string-array>
+    <string-array name="flight_types">
+        <item>Short-haul</item>
+        <item>Long-haul</item>
+    </string-array>
     <string name="ann_carbon_foot">Annual Carbon Footprint</string>
     <string name="daily_carbon_foot">Daily Carbon Footprint</string>
     <string name="add_activity">Add/Edit Activity</string>

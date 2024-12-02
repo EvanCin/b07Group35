@@ -25,6 +25,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".EcoTrackerDailyActivityHub"
+            android:exported="false" />
+        <activity
+            android:name=".TransportationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnergyBillsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsumptionEcoTrackerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewListActivity"
             android:exported="false" />
         <activity

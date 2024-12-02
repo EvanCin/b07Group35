@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/consumption"
+    android:paddingTop="0dp"
+    android:background="@drawable/consumption_background"
+    tools:context=".ConsumptionEcoTrackerActivity">
+
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:padding="16dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/button_new_clothes"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="125dp"
+            android:backgroundTint="@color/green"
+            android:text="New Clothes"
+            android:textSize="23sp"
+            android:textColor="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/questionsNewClothes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter the number of clothing items purchased?"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/num_clothes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter a number"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_new_clothes"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_electronics"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:backgroundTint="@color/green_shade"
+            android:text="Electronics"
+            android:textSize="23sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:id="@+id/questionsElectronics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select the type of Electronic Device"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinnerElectronics"
+                android:dropDownSelector="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter the number of devices purchased?"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/num_devices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="enter a number"
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/add_button_Electronics"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginEnd="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    android:backgroundTint="@color/green_shade4"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="190dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/green_shade"
+            android:text="Done"
+            android:textColor="@android:color/white"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+</ScrollView>
