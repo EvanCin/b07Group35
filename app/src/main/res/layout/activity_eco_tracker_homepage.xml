@@ -66,7 +66,7 @@
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/teal"
                 android:text="Activity Management"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:typeface="serif"/>
 
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/teal"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:typeface="serif"/>
         </LinearLayout>
 
