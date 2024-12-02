@@ -247,11 +247,11 @@ public class AnnualEmissionsCalculator {
         totalConsumptionEmissions = totalEmissions - totalHousingEmissions - totalFoodEmissions - totalTransportationEmissions;
 
         Map<String, Double> emissionsByCategory = new HashMap<>();
-        emissionsByCategory.put("total", totalEmissions);
-        emissionsByCategory.put("transportation", totalTransportationEmissions);
-        emissionsByCategory.put("food", totalFoodEmissions);
-        emissionsByCategory.put("housing", totalHousingEmissions);
-        emissionsByCategory.put("consumption", totalConsumptionEmissions);
+        emissionsByCategory.put("total", totalEmissions/1000);
+        emissionsByCategory.put("transportation", totalTransportationEmissions/1000);
+        emissionsByCategory.put("food", totalFoodEmissions/1000);
+        emissionsByCategory.put("housing", totalHousingEmissions/1000);
+        emissionsByCategory.put("consumption", totalConsumptionEmissions/1000);
 
         return emissionsByCategory;
     }
