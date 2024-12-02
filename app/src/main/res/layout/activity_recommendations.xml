@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/background_blue"
+    android:padding="16dp">
 
     <!-- Top Layout for Search and Filter -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="8dp">
 
         <!-- Search View -->
         <SearchView
@@ -18,43 +19,78 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
             android:queryHint="Search habits..."
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/rounded_search_background"/>
+            android:background="@drawable/rounded_search_background" />
 
         <!-- Filter Button -->
         <Button
             android:id="@+id/filter_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:backgroundTint="@color/teal"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/rounded_button"
-            android:text="@string/filter" />
+            android:backgroundTint="@color/teal"
+            android:text="@string/filter"
+            android:textColor="@color/white" />
     </LinearLayout>
 
-    <!-- Recycler View for displaying habits -->
+    <!-- Divider for User-Adopted Habits -->
+    <TextView
+        android:id="@+id/user_adopted_habits_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/habits_you_have_adopted"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/blackish_gray" />
+
+    <!-- Single Recycler View for non-logged-in users -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:visibility="visible" />
+
+    <!-- Recycler View for displaying user's adopted habits -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_user_habits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/new_habits_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_habits_for_you_to_try"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/blackish_gray" />
+
+    <!-- Recycler View for displaying new habit suggestions -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_new_habits"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+
 
     <!-- Back Button at the bottom left -->
     <Button
         android:id="@+id/back_button"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/baseline_arrow_circle_left_24"
         android:contentDescription="@string/go_back"
-        android:textSize="24sp"
-        android:textColor="@android:color/white" />
+        android:textColor=" @android:color/white" />
 
 </LinearLayout>
