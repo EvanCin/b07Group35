@@ -3,7 +3,6 @@ package com.example.planetze35;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,7 +14,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -25,7 +23,6 @@ public class DailyActivityEmissionsModel {
     private static DailyActivityEmissionsModel instance = null;
     private DatabaseReference dbRef;
     private final HashMap<String, Double> dateToEmissionMap = new HashMap<>();
-//    private final HashSet<ValueEventListener> listeners = new HashSet<>();
     private final HashMap<String, DatabaseFetchCallback> backloadedCallbacks = new HashMap<>();
     private boolean fetchComplete = false;
 
@@ -117,9 +114,6 @@ public class DailyActivityEmissionsModel {
      * Mainly used for if the user switches to a different account.
      */
     public static void resetInstance() {
-//        for (ValueEventListener listener : instance.listeners) {
-//            instance.dbRef.removeEventListener(listener);
-//        }
         instance = null;
     }
 
