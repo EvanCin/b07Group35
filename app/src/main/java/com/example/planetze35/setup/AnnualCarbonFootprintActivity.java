@@ -1,6 +1,5 @@
 package com.example.planetze35.setup;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +26,6 @@ import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class AnnualCarbonFootprintActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;

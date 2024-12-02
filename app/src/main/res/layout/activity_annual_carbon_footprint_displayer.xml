@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:id = "@+id/main"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    tools:context = ".setup.AnnualCarbonFootprintDisplayerActivity">
+
+    <TextView
+        android:id = "@+id/tvTotalAnnualEmissionsText"
+        style = "@android:style/TextAppearance.DeviceDefault.Medium"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/total_annual_emission_text"
+        android:textColor = "@color/black"
+        app:layout_constraintBottom_toTopOf = "@+id/tvTotalAnnualEmissionsNumber"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "parent" />
+
+    <TextView
+        android:id = "@+id/tvTotalAnnualEmissionsNumber"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:fontFamily = "@font/bevan_italic"
+        android:gravity = "start"
+        android:text = "@string/number_placeholder"
+        android:textColor = "@color/teal_200"
+        android:textSize = "50sp"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline2"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "parent" />
+
+    <TextView
+        android:id = "@+id/tvTotalAnnualEmissionsUnit"
+        style = "@android:style/TextAppearance.DeviceDefault.Medium"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/total_annual_emissions_unit"
+        android:textColor = "@color/black"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline2"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@+id/tvTotalAnnualEmissionsNumber" />
+
+    <TableLayout
+        android:id = "@+id/tlEmissionsByCategory"
+        android:background="@drawable/cloud_box_background"
+        android:elevation="10dp"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline1"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "@+id/guideline2">
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:background = "@color/teal_200"
+                android:padding = "8dp"
+                android:text = "@string/category"
+                android:textColor = "@color/black" />
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:background = "@color/teal_200"
+                android:padding = "8dp"
+                android:text = "@string/emissions_with_unit"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/transportation"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowTransportation"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/food"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowFood"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/housing"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowHousing"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/consumption"
+                android:textColor = "@color/black" />
+
+            <TextView
+                android:id = "@+id/tbRowConsumption"
+                style = "@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:padding = "8dp"
+                android:text = "@string/number_placeholder"
+                android:textAlignment = "center"
+                android:textColor = "@color/black" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id = "@+id/tvCompareWithRegionalAverage"
+        android:layout_width = "0dp"
+        android:layout_height = "0dp"
+        android:padding="15dp"
+        android:background = "@drawable/cloud_box_background"
+        android:elevation = "10dp"
+        android:fontFamily = "@font/lato_bold"
+        android:gravity = "center"
+        android:text = "@string/number_placeholder"
+        android:textSize="20sp"
+        android:lineSpacingExtra="8pt"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline3"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "@+id/guideline1" />
+
+    <Button
+        android:id = "@+id/btnGoToMainMenu"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:background = "@drawable/cloud_box_background"
+        android:elevation="10dp"
+        android:text = "@string/continue_to_main_menu"
+        android:textAllCaps = "false"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "@+id/guideline4" />
+
+    <TextView
+        android:id = "@+id/tvSeparator"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "or"
+        app:layout_constraintBottom_toTopOf = "@+id/btnRecalculate"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@+id/btnGoToMainMenu" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id = "@+id/btnRecalculate"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:background = "@drawable/cloud_box_background"
+        android:elevation = "10dp"
+        android:padding = "16dp"
+        android:text = "@string/recalculate_your_total_annual_emissions"
+        android:textAllCaps = "false"
+        app:layout_constraintBottom_toBottomOf = "parent"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@+id/btnGoToMainMenu" />
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline1"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent = "0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline2"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent = "0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline3"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline4"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

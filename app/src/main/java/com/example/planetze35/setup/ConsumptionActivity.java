@@ -2,7 +2,6 @@ package com.example.planetze35.setup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,16 +13,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.DatabaseUtils;
-import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import org.apache.commons.logging.LogFactory;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ConsumptionActivity extends AppCompatActivity {
 
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(ConsumptionActivity.class);
     ListViewCF listViewCF1, listViewCF2, listViewCF3, listViewCF4;
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
@@ -60,21 +62,16 @@ public class ConsumptionActivity extends AppCompatActivity {
                 //Temporarily calculate and display the total emission here
                 AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
                 annualEmissionsCalculator.readData();
-                double totalEmissions = annualEmissionsCalculator.calculateEmissions(selectedChoices);
-                Log.i("Total Emissions", Double.toString(totalEmissions));
+                Map<String, String> emissionsByCategory = annualEmissionsCalculator.calculateEmissions(selectedChoices);
 
-                //Temporarily store data to firebase using dummy user
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-//                mDatabase.child("totalEmissions").setValue(totalEmissions);
-//                mDatabase.child("completedSetup").setValue(true);
-                DatabaseUtils.storeOneDataField(uid, "totalEmissions",totalEmissions);
+
+                DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
                 DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
-                // TODO: Launch main menu here. (Launches signupPage as placeholder)
-                Intent intent = new Intent(ConsumptionActivity.this, MainActivity.class);
+                Intent intent = new Intent(ConsumptionActivity.this, AnnualCarbonFootprintDisplayerActivity.class);
                 startActivity(intent);
             }
         });
