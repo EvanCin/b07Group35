@@ -34,7 +34,11 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_habit, parent, false);
         return new HabitViewHolder(view);
     }
-
+    public void updateHabitList(List<Habit> newHabitList) {
+        this.habitList.clear();
+        this.habitList.addAll(newHabitList);
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull HabitViewHolder holder, int position) {
         Habit habit = habitList.get(position);
