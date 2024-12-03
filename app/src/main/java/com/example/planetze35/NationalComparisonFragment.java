@@ -38,14 +38,14 @@ public class NationalComparisonFragment extends Fragment {
     private TextView gaugeAvgComparisonNationalAvgEmissions;
     private TextView gaugeAvgComparisonNationalAvgErrorMsg;
     private ProgressBar gaugeAvgComparisonNationalAvgProgressBar;
-
-    private int loadProgress = 0;
-    private final int PROGRESS_MAX = 3;
-
+    
     private FirebaseUser currentUser;
     private String uid;
     private DatabaseReference dbUserRef;
     private String country;
+
+    private int loadProgress = 0;
+    private final int PROGRESS_MAX = 3;
 
     public NationalComparisonFragment() {
     }
