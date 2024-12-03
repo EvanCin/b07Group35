@@ -45,7 +45,6 @@ public class RecommendationsActivity extends BaseRecommendationsActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommendations);
 
-        // Initialize views
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewUserHabits = findViewById(R.id.recycler_view_user_habits);
         recyclerViewNewHabits = findViewById(R.id.recycler_view_new_habits);
@@ -56,7 +55,6 @@ public class RecommendationsActivity extends BaseRecommendationsActivity impleme
         adoptedHabitsDivider = findViewById(R.id.user_adopted_habits_divider);
         newHabitsDivider = findViewById(R.id.new_habits_divider);
 
-        // Initialize lists and adapters
         habitList = new ArrayList<>();
         adoptedHabitsList = new ArrayList<>();
         recommendedHabitsList = new ArrayList<>();
@@ -78,10 +76,8 @@ public class RecommendationsActivity extends BaseRecommendationsActivity impleme
         String userId = (user != null) ? user.getUid() : null;
 
         if (userId == null) {
-            // Non-logged-in user setup
             setupNonLoggedInUser();
         } else {
-            // Logged-in user setup
             setupLoggedInUser(userId);
         }
 
@@ -113,7 +109,6 @@ public class RecommendationsActivity extends BaseRecommendationsActivity impleme
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(habitAdapter);
 
-        // Set up search and filter
         searchView.setOnQueryTextListener(this);
         filterButton.setOnClickListener(v -> showFilterDialog());
     }

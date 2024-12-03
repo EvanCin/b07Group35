@@ -40,7 +40,6 @@ public abstract class BaseRecommendationsActivity extends AppCompatActivity impl
 
         setContentView(R.layout.activity_recommendations);
 
-        // Initialize views
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewUserHabits = findViewById(R.id.recycler_view_user_habits);
         recyclerViewNewHabits = findViewById(R.id.recycler_view_new_habits);
@@ -48,12 +47,10 @@ public abstract class BaseRecommendationsActivity extends AppCompatActivity impl
         filterButton = findViewById(R.id.filter_button);
         backButton = findViewById(R.id.back_button);
 
-        // Initialize lists and adapters
         habitList = new ArrayList<>();
         adoptedHabitsList = new ArrayList<>();
         recommendedHabitsList = new ArrayList<>();
 
-        // Set up adapters and RecyclerViews
         habitAdapter = new HabitAdapter(habitList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(habitAdapter);
@@ -66,19 +63,14 @@ public abstract class BaseRecommendationsActivity extends AppCompatActivity impl
         recyclerViewNewHabits.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewNewHabits.setAdapter(recommendedHabitsAdapter);
 
-        // Set up SearchView listener
         searchView.setOnQueryTextListener(this);
 
-        // Set up FilterButton listener
         filterButton.setOnClickListener(v -> showFilterDialog());
 
-        // Set up BackButton listener
         backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
-        // Create notification channel
         createNotificationChannel();
 
-        // Request permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
@@ -103,7 +95,6 @@ public abstract class BaseRecommendationsActivity extends AppCompatActivity impl
         return false;
     }
 
-    // Abstract methods for filtering
     protected abstract void filterHabitsByKeyword(String text);
 
     protected abstract void resetHabitList();
