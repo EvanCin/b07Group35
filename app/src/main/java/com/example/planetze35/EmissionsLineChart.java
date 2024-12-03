@@ -2,10 +2,14 @@ package com.example.planetze35;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EmissionsLineChart {
 
@@ -17,6 +21,15 @@ public class EmissionsLineChart {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getAxisLeft().setAxisMinimum(0);
         lineChart.setDescription(null);
+    }
+    public static void setDefaultValues(LineChart lineChart) {
+        List<Entry> tempEntries = new ArrayList<>();
+        for(int i = 0; i < 7; i++) {
+            tempEntries.add(new Entry(i,0));
+        }
+        LineDataSet dataset1 = new LineDataSet(tempEntries,null);
+        lineChart.setData(new LineData(dataset1));
+        lineChart.invalidate();
     }
     public static void setBottomLabelDaily(LineChart lineChart) {
         ArrayList<String> xValues = new ArrayList<>();

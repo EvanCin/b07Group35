@@ -60,7 +60,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
     float weeklyEmissionsForTextView, monthlyEmissionsForTextView, yearlyEmissionsForTextView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,16 +71,34 @@ public class EcoGaugeActivity extends AppCompatActivity {
             return insets;
         });
 
+        //Gets Category emissions for barchart
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                EmissionsCategoryModel post = dataSnapshot.getValue(EmissionsCategoryModel.class);
+                if(post != null) {
+                    double transportationEmissions = post.transportationEmissions;
+                    double energyEmissions = post.energyEmissions;
+                    double consumptionEmissions = post.consumptionEmissions;
+                    ArrayList<BarEntry> entries = new ArrayList<>();
+                    entries.add(new BarEntry(1f, (float) transportationEmissions));
+                    entries.add(new BarEntry(2f, (float) energyEmissions));
+                    entries.add(new BarEntry(3f, (float) consumptionEmissions));
+                    EmissionsBarChart.setBarChartData(entries);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.d("Post Error","Getting post failed");
+            }
+        });
+
         lineChart = findViewById(R.id.linechart);
         EmissionsLineChart.setDefaultLineChart(lineChart);
-        List<Entry> tempEntries = new ArrayList<>();
-        for(int i = 0; i < 7; i++) {
-            tempEntries.add(new Entry(i,0));
-        }
-        LineDataSet dataset1 = new LineDataSet(tempEntries,null);
-        lineChart.setData(new LineData(dataset1));
-        lineChart.invalidate();
-        EmissionsLineChart.setBottomLabelDaily(lineChart);
+        EmissionsLineChart.setDefaultValues(lineChart);
 
         DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId/DailyActivities");
         dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,9 +120,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
                         dateEmissionMap.put(key, String.valueOf(temp.get("total_daily_emissions")));
                     }
                 }
-//                for(String key: dateEmissionMap.keySet()) {
-//                    System.out.println(key + " " + dateEmissionMap.get(key));
-//                }
 
                 Date d = Calendar.getInstance().getTime();
                 //System.out.println("Current time => " + d);
@@ -235,17 +249,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 emissionsChart = findViewById(R.id.emissionsChart);
                 EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
                 EmissionsBarChart.setDefaultBarChart();
-                ArrayList<BarEntry> entries = new ArrayList<>();
-                entries.add(new BarEntry(1f, 20));
-                entries.add(new BarEntry(2f, 38));
-                entries.add(new BarEntry(3f, 69));
-                EmissionsBarChart.setBarChartData(entries);
-//                EmissionsBarChart.setBarChartData(entries);
-//                BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
-//                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-//                BarData barData = new BarData(dataSet);
-//                barData.setBarWidth(0.85f);
-//                emissionsChart.setData(barData);
 
                 //Line chart for emissions trend graph
                 LineDataSet dataset1 = new LineDataSet(dailyEmissions,"Daily Emissions");
