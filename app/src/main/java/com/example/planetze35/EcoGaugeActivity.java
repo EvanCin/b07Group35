@@ -71,6 +71,10 @@ public class EcoGaugeActivity extends AppCompatActivity {
             return insets;
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        UpdateCategoryEmissions updateCategoryEmissions = new UpdateCategoryEmissions(user.getUid());
+
         //Gets Category emissions for barchart
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId");
         ref.addValueEventListener(new ValueEventListener() {
