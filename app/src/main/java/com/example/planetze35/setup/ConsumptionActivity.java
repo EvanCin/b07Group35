@@ -24,11 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 
 public class ConsumptionActivity extends AppCompatActivity {
-
     ListViewCF listViewCF1, listViewCF2, listViewCF3, listViewCF4;
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
-    DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +60,14 @@ public class ConsumptionActivity extends AppCompatActivity {
                 selectedChoices.add(listViewCF2.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF3.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF4.getListView().getCheckedItemPosition());
-
                 //Temporarily calculate and display the total emission here
                 AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
                 annualEmissionsCalculator.readData();
                 double totalEmissions = annualEmissionsCalculator.calculateEmissions(selectedChoices);
-                Log.i("Total Emissions", Double.toString(totalEmissions));
 
-                //Temporarily store data to firebase using dummy user
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-//                mDatabase.child("totalEmissions").setValue(totalEmissions);
-//                mDatabase.child("completedSetup").setValue(true);
                 DatabaseUtils.storeOneDataField(uid, "totalEmissions",totalEmissions);
                 DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();

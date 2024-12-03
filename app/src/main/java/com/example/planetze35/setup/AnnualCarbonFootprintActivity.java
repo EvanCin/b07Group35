@@ -60,6 +60,7 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             return insets;
         });
         readCSV();
+        //Spinner for the countries
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,countries);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,7 +68,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
         spinner.setOnItemSelectedListener(this);
 
         listViewCF = new ListViewCF(findViewById(R.id.listView),0);
-
         nextPageButton = findViewById(R.id.nextPageButton);
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,12 +95,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                     selectedChoices.add(-1);
                 }
                 intent.putExtra("selectedChoices", selectedChoices);
-                //Temporarily store data to firebase using dummy user
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                assert user != null;
-//                String uid = user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-//                mDatabase.child("country").setValue(selectedCountry);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
@@ -110,7 +104,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             }
         });
     }
-
     public void readCSV() {
         countries = new ArrayList<>();
         countries.add(DEFAULT_CHOICE);
@@ -135,14 +128,11 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             Log.d("AnnualCarbonFootprintActivity", "IOException");
         }
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         selectedCountry = countries.get(pos);
     }
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

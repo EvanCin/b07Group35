@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 public class FoodC1Activity extends AppCompatActivity {
-
     ListViewCF listViewCF1;
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;

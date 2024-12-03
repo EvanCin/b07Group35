@@ -113,7 +113,6 @@ public class AnnualEmissionsCalculator {
             case 4: flightEmission = 6600; break;
         }
         totalEmissions += flightEmission;
-
         //Food Questions
         currQChoice = selectedChoices.get(7);
         double foodEmissions = 0;
@@ -151,7 +150,6 @@ public class AnnualEmissionsCalculator {
             case 3: foodEmissions = 140.4; break;
         }
         totalEmissions += foodEmissions;
-
         //Housing Questions
         int typeOfHome = selectedChoices.get(13);
         int numOfOccupants = selectedChoices.get(14);
@@ -163,7 +161,6 @@ public class AnnualEmissionsCalculator {
         int housingEmissions = 0;
         //Calculations for other type of home is same as townhouse
         if(typeOfHome == 4) typeOfHome = 2;
-
         int[] currArr = houseData.get(typeOfHome*3 + sizeOfHome).get(numOfOccupants);
         housingEmissions = currArr[energyForHeat + monthlyElectricBill*5];
         totalEmissions += housingEmissions;
@@ -174,7 +171,6 @@ public class AnnualEmissionsCalculator {
             case 0: totalEmissions -= 6000;
             case 1: totalEmissions -= 4000;
         }
-
         //Consumption Questions
         int buyClothFrequency = selectedChoices.get(20);
         int buySecondHand = selectedChoices.get(21);
@@ -238,9 +234,6 @@ public class AnnualEmissionsCalculator {
             }
         }
         totalEmissions += consumptionEmissions;
-
         return totalEmissions;
     }
-
-
 }
