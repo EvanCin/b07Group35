@@ -44,18 +44,19 @@
         android:text="@string/habits_you_have_adopted"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/blackish_gray" />
+        android:textColor="@color/blackish_gray"
+        android:visibility="gone" />
 
-    <!-- Single Recycler View for non-logged-in users -->
+    <!-- RecyclerView for Non-Logged-In Users -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
-    <!-- Recycler View for displaying user's adopted habits -->
+    <!-- RecyclerView for User's Adopted Habits -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_user_habits"
         android:layout_width="match_parent"
@@ -63,6 +64,7 @@
         android:padding="8dp"
         android:visibility="gone" />
 
+    <!-- Divider for New Habit Suggestions -->
     <TextView
         android:id="@+id/new_habits_divider"
         android:layout_width="wrap_content"
@@ -70,9 +72,10 @@
         android:text="@string/new_habits_for_you_to_try"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/blackish_gray" />
+        android:textColor="@color/blackish_gray"
+        android:visibility="gone" />
 
-    <!-- Recycler View for displaying new habit suggestions -->
+    <!-- RecyclerView for New Habit Suggestions -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_new_habits"
         android:layout_width="match_parent"
@@ -81,9 +84,7 @@
         android:padding="8dp"
         android:visibility="gone" />
 
-
-
-    <!-- Back Button at the bottom left -->
+    <!-- Back Button at the Bottom Left -->
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
@@ -91,6 +92,5 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/baseline_arrow_circle_left_24"
         android:contentDescription="@string/go_back"
-        android:textColor=" @android:color/white" />
-
+        android:textColor="@android:color/white" />
 </LinearLayout>
