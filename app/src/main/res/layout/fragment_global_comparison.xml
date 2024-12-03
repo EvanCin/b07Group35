@@ -7,15 +7,17 @@
     tools:context=".GlobalComparisonFragment">
 
     <LinearLayout
+        android:id="@+id/gaugeAvgComparisonGlobalAvgContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:visibility="invisible">
         <TextView
+            android:id="@+id/gaugeAvgComparisonGlobalAvgOverview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your emissions are within the global average."
             android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,4 +66,25 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/gaugeAvgComparisonGlobalAvgProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintTop_toTopOf="@+id/gaugeAvgComparisonGlobalAvgContainer" />
+
+    <TextView
+        android:id="@+id/gaugeAvgComparisonGlobalAvgErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintTop_toTopOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        android:text="@string/somethingWentWrong"
+        android:visibility="invisible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
