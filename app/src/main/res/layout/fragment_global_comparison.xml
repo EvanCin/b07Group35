@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GlobalComparisonFragment">
+
+    <LinearLayout
+        android:id="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="15dp"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/gaugeAvgComparisonGlobalAvgOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You've emitted"/>
+                <TextView
+                    android:id="@+id/gaugeAvgComparisonGlobalUserEmissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\?\?\?"
+                    style="@style/TextAppearance.AppCompat.Headline"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tons of CO2"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="The global average is"/>
+                <TextView
+                    android:id="@+id/gaugeAvgComparisonGlobalAvgEmissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\?\?\?"
+                    style="@style/TextAppearance.AppCompat.Headline"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tons of CO2 (per capita)"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/gaugeAvgComparisonGlobalAvgProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintTop_toTopOf="@+id/gaugeAvgComparisonGlobalAvgContainer" />
+
+    <TextView
+        android:id="@+id/gaugeAvgComparisonGlobalAvgErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        app:layout_constraintTop_toTopOf="@+id/gaugeAvgComparisonGlobalAvgContainer"
+        android:text="@string/somethingWentWrong"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

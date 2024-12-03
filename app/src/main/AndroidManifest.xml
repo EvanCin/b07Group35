@@ -32,7 +32,6 @@
             android:name=".SignupPageActivity"
             android:exported="false"
             android:label="Planetze35 - signup" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />

@@ -126,8 +126,13 @@
                     android:layout_height="300dp">
                 </com.github.mikephil.charting.charts.LineChart>
             </LinearLayout>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/gaugeAvgComparisonFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"/>
         </LinearLayout>
     </ScrollView>
-    
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

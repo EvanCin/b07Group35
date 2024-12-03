@@ -22,4 +22,7 @@
         <item>Month</item>
         <item>Year</item>
     </string-array>
+    <string name="gaugeAvgComparisonHeader">Global and National Average Comparison</string>
+    <string name="gaugeAvgComparisonDisclaimer">Note: These figures will be more accurate the more you log your activities in Eco Tracker.</string>
+    <string name="somethingWentWrong">Something went wrong.\nPlease try again later.</string>
 </resources>
