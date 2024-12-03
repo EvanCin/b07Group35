@@ -31,14 +31,7 @@
         <activity
             android:name=".SignupPageActivity"
             android:exported="false"
-            android:label="Planetze35 - signup"
-            android:parentActivityName=".LoginPageActivity" />
-        <activity
-            android:name=".LoginPageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Planetze35.Actionbar">
-
-        </activity>
+            android:label="Planetze35 - signup" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
