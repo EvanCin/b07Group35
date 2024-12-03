@@ -80,7 +80,7 @@ public class NationalComparisonFragment extends Fragment {
 
     private void updateUserAvgEmissionDisplay() {
         DailyActivityEmissionsModel model = DailyActivityEmissionsModel.getInstance();
-        LocalDate today = LocalDate.of(2025, 11, 20);
+        LocalDate today = LocalDate.now();
         model.getEmissionsData(today, "year", new DailyActivityEmissionsModel.DatabaseFetchCallback() {
             @Override
             public void onSuccess(HashMap<String, Double> dateToEmissionMapData) {
