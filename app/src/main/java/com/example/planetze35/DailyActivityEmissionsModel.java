@@ -43,8 +43,7 @@ public class DailyActivityEmissionsModel {
         String defaultUid = "defaultUserId";
         String uid = (currentUser != null) ? currentUser.getUid() : defaultUid;
         dbRef = FirebaseDatabase.getInstance().getReference()
-//                .child("users/" + uid + "/DailyActivities");
-                .child("users/defaultUserId/DailyActivities");
+                .child("users/" + uid + "/DailyActivities");
 
         /*
          * Fetch data from database.
