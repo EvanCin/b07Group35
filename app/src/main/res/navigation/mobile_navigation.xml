@@ -13,9 +13,15 @@
 
     <activity
         android:id = "@+id/nav_eco_tracker"
-        android:name = "com.example.planetze35.userauthentication.LoginActivityView"
+        android:name = "com.example.planetze35.EcoTrackerAllParts.EcoTrackerHomepageActivity"
         android:label = "@string/eco_tracker_title"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/activity_eco_tracker_homepage" />
+
+    <activity
+        android:id = "@+id/nav_eco_gauge"
+        android:name = "com.example.planetze35.ecogauge.EcoGaugeActivity"
+        android:label = "@string/eco_tracker_title"
+        tools:layout="@layout/activity_eco_gauge" />
 
     <activity
         android:id = "@+id/nav_annual_footprint"

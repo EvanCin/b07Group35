@@ -95,8 +95,9 @@
             android:name = ".setup.AnnualCarbonFootprintDisplayerActivity"
             android:exported = "false" />
         <activity
-            android:name = ".EcoGaugeActivity"
+            android:name = ".ecogauge.EcoGaugeActivity"
             android:exported = "false"
+            android:parentActivityName=".MainActivity"
             android:label = "Eco Gauge" />
         <activity
             android:name = ".userauthentication.EmailVerificationActivity"
