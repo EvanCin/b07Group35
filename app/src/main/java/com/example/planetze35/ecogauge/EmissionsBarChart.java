@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class EmissionsBarChart {
 
-    public static BarChart barChart;
+    BarChart barChart;
 
     EmissionsBarChart(BarChart barChart) {
-        EmissionsBarChart.barChart = barChart;
+        this.barChart = barChart;
     }
 
-    public static void setDefaultBarChart() {
+    public void setDefaultBarChart() {
         barChart.getAxisRight().setDrawLabels(false);
         YAxis yAxis = barChart.getAxisLeft();
         yAxis.setAxisMinimum(0f);
@@ -31,7 +31,6 @@ public class EmissionsBarChart {
         yAxis.setAxisLineColor(Color.BLACK);
 
         barChart.getDescription().setEnabled(false);
-        barChart.invalidate();
         ArrayList<String> xValues = new ArrayList<>();
         xValues.add("");xValues.add("Transportation");xValues.add("Energy Use");xValues.add("Consumption");
         barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
@@ -44,11 +43,13 @@ public class EmissionsBarChart {
         barChart.setAutoScaleMinMaxEnabled(true);
     }
 
-    public static void setBarChartData(ArrayList<BarEntry> entries) {
+    public void setBarChartData(ArrayList<BarEntry> entries) {
         BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.85f);
+        System.out.println("dataSet: " + dataSet);
+        System.out.println("barData: " + barData);
         barChart.setData(barData);
     }
 }
