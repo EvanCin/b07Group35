@@ -31,8 +31,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 app:tabTextAppearance="@style/TabLayoutTextStyle">
-<!--                app:tabSelectedTextColor="@color/material_dynamic_tertiary60"-->
-<!--                app:tabIndicatorColor="@color/material_dynamic_tertiary60">-->
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
@@ -40,7 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
-<!--                android:background="@drawable/bg_border_linearlayout"-->
             </androidx.viewpager2.widget.ViewPager2>
 
             <View
