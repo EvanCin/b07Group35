@@ -197,7 +197,6 @@ public class DailyActivityEmissionsModel {
             return null;
         }
 
-        String dateStr = localDateToStr(date);
         HashMap<String, Double> map = new HashMap<>();
 
         int dateKickback = 0;
