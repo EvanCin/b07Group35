@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,12 @@ public class HouseActivity extends AppCompatActivity {
                         listViewCF4.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
                         listViewCF5.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
                         listViewCF6.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION ||
-                        listViewCF7.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) return;
+                        listViewCF7.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Unanswered questions", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 selectedChoices.add(listViewCF1.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF2.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF3.getListView().getCheckedItemPosition());

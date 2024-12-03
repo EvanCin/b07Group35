@@ -13,11 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 public class FoodC1Activity extends AppCompatActivity {
-
     ListViewCF listViewCF1;
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
@@ -39,7 +39,12 @@ public class FoodC1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if(listViewCF1.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) return;
+                if(listViewCF1.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Unanswered questions", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 selectedChoices.add(listViewCF1.getListView().getCheckedItemPosition());
                 if(selectedChoices.get(7) == 3) {
                     intent = new Intent(FoodC1Activity.this, FoodC2Activity.class);

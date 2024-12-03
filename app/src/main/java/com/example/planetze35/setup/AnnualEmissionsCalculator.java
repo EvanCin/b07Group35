@@ -167,7 +167,6 @@ public class AnnualEmissionsCalculator {
         int housingEmissions = 0;
         //Calculations for other type of home is same as townhouse
         if(typeOfHome == 4) typeOfHome = 2;
-
         int[] currArr = houseData.get(typeOfHome*3 + sizeOfHome).get(numOfOccupants);
         housingEmissions = currArr[energyForHeat + monthlyElectricBill*5];
         totalEmissions += housingEmissions;
@@ -256,6 +255,4 @@ public class AnnualEmissionsCalculator {
 
         return emissionsByCategory;
     }
-
-
 }
