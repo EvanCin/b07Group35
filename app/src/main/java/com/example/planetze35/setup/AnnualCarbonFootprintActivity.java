@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.io.BufferedReader;
@@ -17,12 +19,14 @@ import java.util.ArrayList;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +37,12 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
     ArrayList<Integer> selectedChoices = new ArrayList<>();
     Button nextPageButton;
     ArrayList<String> countries;
+    String[] nonCountries = {"Africa","Asia","Asia (excl. China and India)","Australia","Europe"
+                            ,"Europe (excl. EU-27)","Europe (excl. EU-28)","European Union (27)"
+                            ,"European Union (28)","High-income countries","Low-income countries"
+                            ,"Lower-middle-income countries","North America","North America (excl. USA)","Oceania"
+                            ,"South America","Upper-middle-income countries","World"};
+    final String DEFAULT_CHOICE = "---Select Country---";
     String selectedCountry;
     DatabaseReference mDatabase;
 
@@ -47,6 +57,7 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             return insets;
         });
         readCSV();
+        //Spinner for the countries
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,countries);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -54,13 +65,23 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
         spinner.setOnItemSelectedListener(this);
 
         listViewCF = new ListViewCF(findViewById(R.id.listView),0);
-
         nextPageButton = findViewById(R.id.nextPageButton);
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if(listViewCF.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION || selectedCountry == null) return;
+                if(listViewCF.getListView().getCheckedItemPosition() == AdapterView.INVALID_POSITION) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Unanswered questions", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
+                if(selectedCountry == null || selectedCountry.equals(DEFAULT_CHOICE)) {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Country not selected", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    return;
+                }
                 selectedChoices.add(listViewCF.getListView().getCheckedItemPosition());
                 if(selectedChoices.get(0) == 0) {
                     intent = new Intent(AnnualCarbonFootprintActivity.this, TransportationC1Activity.class);
@@ -71,12 +92,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                     selectedChoices.add(-1);
                 }
                 intent.putExtra("selectedChoices", selectedChoices);
-                //Temporarily store data to firebase using dummy user
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                assert user != null;
-//                String uid = user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference("users").child(uid);
-//                mDatabase.child("country").setValue(selectedCountry);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
@@ -86,16 +101,23 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             }
         });
     }
-
     public void readCSV() {
         countries = new ArrayList<>();
+        countries.add(DEFAULT_CHOICE);
         InputStream stream = AnnualCarbonFootprintActivity.this.getResources()
                 .openRawResource(R.raw.global_averages);
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
         try {
             String line = br.readLine();
             line = br.readLine();
-            while(line != null) {
+            readLoop: while(line != null) {
+                String country = line.split(",")[0];
+                for(String str:nonCountries) {
+                    if(str.equals(country)) {
+                        line = br.readLine();
+                        continue readLoop;
+                    }
+                }
                 countries.add(line.split(",")[0]);
                 line = br.readLine();
             }
@@ -103,14 +125,11 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
             Log.d("AnnualCarbonFootprintActivity", "IOException");
         }
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         selectedCountry = countries.get(pos);
     }
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

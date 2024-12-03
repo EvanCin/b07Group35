@@ -36,7 +36,6 @@ public class ListViewCF {
         this.listView.setAdapter(new ArrayAdapter<>(listView.getContext(), android.R.layout.simple_list_item_single_choice, QUESTIONS[curr_question]));
         this.listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
-
     public ListView getListView() {
         return listView;
     }
