@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -13,14 +14,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Singleton class for fetching emission data from Eco Tracker activities for use in Eco Gauge.
  */
-public class DailyActivityEmissionsModel {
-    private static DailyActivityEmissionsModel instance = null;
+public class CategoryEmissionsModel {
+    private static CategoryEmissionsModel instance = null;
     private DatabaseReference dbRef;
     private final HashMap<String, Double> dateToEmissionMap = new HashMap<>();
     private final HashMap<String, DatabaseFetchCallback> backloadedCallbacks = new HashMap<>();
@@ -32,13 +34,13 @@ public class DailyActivityEmissionsModel {
      * Calling this method will start the fetch the current user's "DailyActivities" node from
      * Firebase.
      */
-    private DailyActivityEmissionsModel() {
+    private CategoryEmissionsModel() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String defaultUid = "defaultUserId";
         String uid = (currentUser != null) ? currentUser.getUid() : defaultUid;
         dbRef = FirebaseDatabase.getInstance().getReference()
 //                .child("users/" + uid + "/DailyActivities");
-                .child("users/defaultUserId/DailyActivities");
+                .child("users/defaultUserId");
 
         /*
          * Fetch data from database.
@@ -65,27 +67,39 @@ public class DailyActivityEmissionsModel {
                                     + " instead of HashMap. I don't know what to do here.");
                     return;
                 }
+                System.out.println(String.valueOf(snapshotMap));
 
                 // Filter the data so that only the total_daily_emissions from each day is stored
-                for (Map.Entry<String, Object> entry : snapshotMap.entrySet()) {
-                    String key = entry.getKey();
-                    HashMap<String, Object> activitiesMap = (HashMap<String, Object>) snapshotMap.get(key);
-                    if (activitiesMap == null) {
-                        continue;
-                    }
-                    Object o2 = activitiesMap.get("total_daily_emissions");
-                    if (o2 instanceof Double) {
-                        dateToEmissionMap.put(key, (double) o2);
-                    } else if (o2 instanceof Long)
-                        dateToEmissionMap.put(key, (double) (long) o2);
-                    else {
-                        Log.w("DailyActivityEmissionsModel",
-                                "The total_daily_emissions node at user " + uid
-                                        + " and date " + key
-                                        + " doesn't store a number. I don't know what to do here.");
+                if(snapshotMap.containsKey("consumptionEmissions") && snapshotMap.get("consumptionEmissions") != null) {
+                    Object o2 = snapshotMap.get("consumptionEmissions");
+                    if(o2 instanceof Double) {
+                        dateToEmissionMap.put("consumptionEmissions", (double) o2);
+                    } else if(o2 instanceof Long){
+                        dateToEmissionMap.put("consumptionEmissions", (double) (long) o2);
+                    } else {
                         return;
                     }
                 }
+                if(snapshotMap.containsKey("transportationEmissions") && snapshotMap.get("transportationEmissions") != null) {
+                    Object o2 = snapshotMap.get("transportationEmissions");
+                    if(o2 instanceof Double) {
+                        dateToEmissionMap.put("transportationEmissions", (double) o2);
+                    } else if(o2 instanceof Long){
+                        dateToEmissionMap.put("transportationEmissions", (double) (long) o2);
+                    } else {
+                        return;
+                    }
+                }if(snapshotMap.containsKey("energyEmissions") && snapshotMap.get("energyEmissions") != null) {
+                    Object o2 = snapshotMap.get("energyEmissions");
+                    if(o2 instanceof Double) {
+                        dateToEmissionMap.put("energyEmissions", (double) o2);
+                    } else if(o2 instanceof Long){
+                        dateToEmissionMap.put("energyEmissions", (double) (long) o2);
+                    } else {
+                        return;
+                    }
+                }
+                System.out.println(String.valueOf(dateToEmissionMap));
 
                 callBackloadedCallbacks(true, null);
             }
@@ -98,13 +112,13 @@ public class DailyActivityEmissionsModel {
     }
 
     /**
-     * Gets the <code>DailyActivityEmissionsModel</code> instance.
+     * Gets the <code>CategoryEmissionsModel</code> instance.
      *
-     * @return the <code>DailyActivityEmissionsModel</code> instance
+     * @return the <code>CategoryEmissionsModel</code> instance
      */
-    public static DailyActivityEmissionsModel getInstance() {
+    public static CategoryEmissionsModel getInstance() {
         if (instance == null) {
-            instance = new DailyActivityEmissionsModel();
+            instance = new CategoryEmissionsModel();
         }
         return instance;
     }
@@ -125,27 +139,16 @@ public class DailyActivityEmissionsModel {
      * Otherwise, <code>callback</code> will be backloaded and will be called when the fetch
      * operation is completed.
      *
-     * @param date the date to get the total daily emissions from
+     * @param category the date to get the total daily emissions from
      * @param callback the callback to call when the fetch operation is complete
      */
-    public void getEmissionsData(@NonNull LocalDate date, @NonNull String timeRange,
-                                 @NonNull DatabaseFetchCallback callback) {
-        if (!(timeRange.equals("day") || timeRange.equals("week")
-                || timeRange.equals("month") || timeRange.equals("year"))) {
-            Log.w("DailyActivityEmissionsModel",
-                    "The given time range is " + timeRange + ", which I don't understand."
-                            + "I'm going to interpret it as \"day\" instead.");
-            timeRange = "day";
-        }
-        if (fetchComplete) {
-            HashMap<String, Double> data = getPopulatedEmissionHashMap(date, timeRange);
+    public void getEmissionsData(@NonNull String category,@NonNull DatabaseFetchCallback callback) {
+        if(fetchComplete) {
+            HashMap<String, Double> data = getDateToEmissionMap();
             callback.onSuccess(data);
         } else {
-            String dateStr = localDateToStr(date);
-            backloadedCallbacks.put(timeRange + "-" + dateStr, callback);
+            backloadedCallbacks.put("dateToEmissionMap", callback);
         }
-
-
     }
 
     /**
@@ -167,6 +170,7 @@ public class DailyActivityEmissionsModel {
          *                              emission data
          */
         void onSuccess(HashMap<String, Double> dateToEmissionMapData);
+
 
         /**
          * Called when the data could not be fetched from the database.
@@ -204,42 +208,14 @@ public class DailyActivityEmissionsModel {
 
     /**
      * Returns the emission data from the given time range, ending at the date given (inclusive).
-     *
-     * @param date the last day of the time range given
-     * @param timeRange must be one of <code>"day"</code>, <code>"week"</code>, <code>"month"</code>,
-     *                  or <code>"year"</code>, otherwise it will be interpreted as <code>"day"</code>
      * @return the emission data from the given time range, where the keys are the dates and the
      * values are the corresponding emission data
      */
-    private HashMap<String, Double> getPopulatedEmissionHashMap(LocalDate date, String timeRange) {
+    private HashMap<String,Double> getDateToEmissionMap() {
         if (!fetchComplete) {
             return null;
         }
-
-        String dateStr = localDateToStr(date);
-        HashMap<String, Double> map = new HashMap<>();
-
-        int dateKickback = 0;
-        if (timeRange.equals("year")) {
-            dateKickback = 364;
-        } else if (timeRange.equals("month")) {
-            dateKickback = 29;
-        } else if (timeRange.equals("week")) {
-            dateKickback = 6;
-        } else if (!timeRange.equals("day")) {
-            Log.w("DailyActivityEmissionsModel",
-                    "The given time range is " + timeRange + ", which I don't understand."
-                            + "I'm going to interpret it as \"day\" instead.");
-        }
-
-        for (LocalDate d = date.minusDays(dateKickback);
-                d.isBefore(date.plusDays(1)); d = d.plusDays(1)) {
-            String dStr = localDateToStr(d);
-            if (dateToEmissionMap.containsKey(dStr)) {
-                map.put(dStr, dateToEmissionMap.get(dStr));
-            }
-        }
-        return map;
+        return dateToEmissionMap;
     }
 
     /**
@@ -254,16 +230,14 @@ public class DailyActivityEmissionsModel {
      */
     private void callBackloadedCallbacks(boolean fetchSuccessful, DatabaseError error) {
         if (fetchSuccessful) {
-            Log.d("DailyActivityEmissionsModel", "Data fetch was successful.");
+            Log.d("CategoryEmissionsModel", "Data fetch was successful.");
             for (Map.Entry<String, DatabaseFetchCallback> entry : backloadedCallbacks.entrySet()) {
-                String[] modeAndDate = entry.getKey().split("-", 2);
-                Log.d("DailyActivityEmissionsModel", "Callback with time range " + modeAndDate[0] + " and date " + modeAndDate[1]);
-                HashMap<String, Double> emissionMap = getPopulatedEmissionHashMap(
-                        strToLocalDate(modeAndDate[1]), modeAndDate[0]);
+                String currEntry = entry.getKey();
+                HashMap<String, Double> emissionMap = getDateToEmissionMap();
                 entry.getValue().onSuccess(emissionMap);
             }
         } else {
-            Log.d("DailyActivityEmissionsModel", "Data fetch failed.", error.toException());
+            Log.d("CategoryEmissionsModel", "Data fetch failed.", error.toException());
             for (Map.Entry<String, DatabaseFetchCallback> entry : backloadedCallbacks.entrySet()) {
                 entry.getValue().onFailure(error);
             }

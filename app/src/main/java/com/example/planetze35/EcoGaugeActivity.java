@@ -103,12 +103,12 @@ public class EcoGaugeActivity extends AppCompatActivity {
                         dateEmissionMap.put(key, String.valueOf(temp.get("total_daily_emissions")));
                     }
                 }
-                for(String key: dateEmissionMap.keySet()) {
-                    System.out.println(key + " " + dateEmissionMap.get(key));
-                }
+//                for(String key: dateEmissionMap.keySet()) {
+//                    System.out.println(key + " " + dateEmissionMap.get(key));
+//                }
 
                 Date d = Calendar.getInstance().getTime();
-                System.out.println("Current time => " + d);
+                //System.out.println("Current time => " + d);
 
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String formattedDate = df.format(d);
@@ -122,7 +122,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 c1.add(Calendar.MONTH, -1);
                 c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH));
                 int day = c.get(Calendar.DAY_OF_WEEK);
-                System.out.println("day: " + day);
+                //System.out.println("day: " + day);
                 //Calculate the data for each day of the week
                 weeklyEmissionsForTextView = 0;
                 List<Entry> dailyEmissions = new ArrayList<>();
@@ -157,6 +157,12 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 int currMonth = 1;
                 yearlyEmissionsForTextView = 0;
                 for(int i = 0; i < dayOfYear; i++) {
+                    String currDate = yearAbs+"-"+currMonth+"-"+currDay;
+                    if(dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null) {
+                        yearlyEmissions[i] = Float.parseFloat(dateEmissionMap.get(currDate));
+                        emissionsPerMonth += yearlyEmissions[i];
+                        yearlyEmissionsForTextView += yearlyEmissions[i];
+                    }
                     if(currMonth == 1 || currMonth == 3 || currMonth == 5 || currMonth == 7 || currMonth == 8 || currMonth == 10 || currMonth == 12) {
                         if(currDay == 31) {
                             monthlyEmissions[currMonth-1] = emissionsPerMonth;
@@ -184,17 +190,10 @@ public class EcoGaugeActivity extends AppCompatActivity {
                             currDay = 0;
                         }
                     }
-                    String currDate = yearAbs+"-"+months[currMonth]+"-"+currDay;
-                    if(currDay < 10) {
-                        currDate = yearAbs+"-"+months[currMonth]+"-0"+currDay;
-                    }
-                    if(dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null) {
-                        yearlyEmissions[i] = Float.parseFloat(dateEmissionMap.get(currDate));
-                        emissionsPerMonth += yearlyEmissions[i];
-                        yearlyEmissionsForTextView += yearlyEmissions[i];
-                    }
                     currDay++;
                 }
+                monthlyEmissions[currMonth-1] = emissionsPerMonth;
+
                 //Calculate data for each week of month
                 int[] daysPerMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
                 float[] weeklyEmission = new float[4];
@@ -234,18 +233,19 @@ public class EcoGaugeActivity extends AppCompatActivity {
 
                 //Emissions Chart
                 emissionsChart = findViewById(R.id.emissionsChart);
-                EmissionsBarChart.setDefaultBarChart(emissionsChart);
-
+                EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
+                EmissionsBarChart.setDefaultBarChart();
                 ArrayList<BarEntry> entries = new ArrayList<>();
                 entries.add(new BarEntry(1f, 20));
                 entries.add(new BarEntry(2f, 38));
                 entries.add(new BarEntry(3f, 69));
-
-                BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
-                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                BarData barData = new BarData(dataSet);
-                barData.setBarWidth(0.85f);
-                emissionsChart.setData(barData);
+                EmissionsBarChart.setBarChartData(entries);
+//                EmissionsBarChart.setBarChartData(entries);
+//                BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
+//                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+//                BarData barData = new BarData(dataSet);
+//                barData.setBarWidth(0.85f);
+//                emissionsChart.setData(barData);
 
                 //Line chart for emissions trend graph
                 LineDataSet dataset1 = new LineDataSet(dailyEmissions,"Daily Emissions");

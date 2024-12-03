@@ -5,14 +5,24 @@ import android.graphics.Color;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EmissionsBarChart {
 
+    public static BarChart barChart;
 
-    public static void setDefaultBarChart(BarChart barChart) {
+    EmissionsBarChart(BarChart barChart) {
+        EmissionsBarChart.barChart = barChart;
+    }
+
+    public static void setDefaultBarChart() {
         barChart.getAxisRight().setDrawLabels(false);
         YAxis yAxis = barChart.getAxisLeft();
         yAxis.setAxisMinimum(0f);
@@ -32,5 +42,13 @@ public class EmissionsBarChart {
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.setAutoScaleMinMaxEnabled(true);
+    }
+
+    public static void setBarChartData(ArrayList<BarEntry> entries) {
+        BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.85f);
+        barChart.setData(barData);
     }
 }
