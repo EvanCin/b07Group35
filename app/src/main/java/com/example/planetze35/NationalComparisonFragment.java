@@ -91,7 +91,8 @@ public class NationalComparisonFragment extends Fragment {
                     totalEmissions += entry.getValue();
                 }
 
-                double approxAnnualEmissions = totalEmissions * 0.365 / daysWithData;
+                double approxAnnualEmissions = (daysWithData == 0)
+                        ? totalEmissions * 0.365 / daysWithData : 0;
                 gaugeAvgComparisonNationalUserEmissions.setText(
                         String.format(Locale.getDefault(), "%.2f", approxAnnualEmissions));
                 loadProgressIncrement();
