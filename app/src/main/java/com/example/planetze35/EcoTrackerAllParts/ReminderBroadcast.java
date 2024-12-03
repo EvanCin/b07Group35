@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import android.util.Log;
 
@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.planetze35.R;
 
 public class ReminderBroadcast extends BroadcastReceiver {
 

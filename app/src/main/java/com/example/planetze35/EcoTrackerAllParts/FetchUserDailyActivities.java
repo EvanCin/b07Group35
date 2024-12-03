@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 public class ActivityItem {
     private String id;

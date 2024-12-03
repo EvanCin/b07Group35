@@ -8,7 +8,7 @@
     android:background="@drawable/food_bg"
     android:weightSum="100"
     android:id="@+id/food"
-    tools:context=".FoodActivity">
+    tools:context=".EcoTrackerAllParts.FoodActivity">
 
     <Button
         android:id="@+id/meal_button"

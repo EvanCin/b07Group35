@@ -8,7 +8,7 @@
     android:id="@+id/transport"
     android:paddingTop="0dp"
     android:background="@drawable/transport_background"
-    tools:context=".TransportationActivity">
+    tools:context=".EcoTrackerAllParts.TransportationActivity">
 
 
     <LinearLayout

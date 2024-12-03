@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.DiffUtil;
+
+import com.example.planetze35.R;
 
 import java.util.Calendar;
 import java.util.List;

@@ -8,7 +8,7 @@
     android:background="@drawable/energy_bg"
     android:weightSum="100"
     android:id="@+id/energy"
-    tools:context=".EnergyBillsActivity">
+    tools:context=".EcoTrackerAllParts.EnergyBillsActivity">
 
     <Button
         android:id="@+id/energyBills_button"

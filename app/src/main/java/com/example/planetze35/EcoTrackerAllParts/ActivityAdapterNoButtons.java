@@ -1,4 +1,6 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
+
+import com.example.planetze35.R;
 
 import java.util.List;
 

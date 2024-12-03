@@ -1,7 +1,6 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import java.util.Map;
-import java.util.Objects;
 
 public interface AbstractActivity {
     //abstract methods

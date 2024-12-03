@@ -8,7 +8,7 @@
     android:id="@+id/consumption"
     android:paddingTop="0dp"
     android:background="@drawable/consumption_background"
-    tools:context=".ConsumptionEcoTrackerActivity">
+    tools:context=".EcoTrackerAllParts.ConsumptionEcoTrackerActivity">
 
 
     <LinearLayout

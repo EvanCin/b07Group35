@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.planetze35.R;
+
 import java.util.List;
 
 public abstract class ActivityAdapterBase extends RecyclerView.Adapter<ActivityAdapterBase.ActivityViewHolder> {

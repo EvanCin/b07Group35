@@ -1,6 +1,9 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import android.view.View;
+
+import com.example.planetze35.R;
+
 import java.util.List;
 
 public class ActivityAdapterWithButtons extends ActivityAdapterBase {

@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.EcoTrackerAllParts;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
