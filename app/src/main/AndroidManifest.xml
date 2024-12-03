@@ -52,9 +52,10 @@
             android:name=".RecommendationsActivity"
             android:exported="false" />
         <activity
+            android:name=".BaseRecommendationsActivity"
+            android:exported="false" />
+        <activity
             android:name = ".MainActivity"
             android:exported = "false"
             android:label = "@string/app_name" />
-    </application>
-
-</manifest>
+    </application></manifest>
