@@ -113,14 +113,14 @@ public class EcoGaugeActivity extends AppCompatActivity {
         EmissionsLineChart.setDefaultLineChart(lineChart);
         EmissionsLineChart.setDefaultValues(lineChart);
 
-        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId/DailyActivities");
+        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "/DailyActivities");
         dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Firebase", "Success");
                 HashMap<String, Object> datesHS = (HashMap<String, Object>) snapshot.getValue();
-                Log.d("HI", "HI");
-
+                if (datesHS == null) {
+                    datesHS = new HashMap<>();
+                }
                 HashMap<String, Object> datesMap = new HashMap<>();
                 HashMap<String, String> dateEmissionMap = new HashMap<>();
                 for (Map.Entry<String, Object> entry : datesHS.entrySet()) {
