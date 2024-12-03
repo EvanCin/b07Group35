@@ -6,13 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.planetze35.EcoTrackerAllParts.EcoTrackerHomepageActivity;
 import com.example.planetze35.databinding.FragmentHomeBinding;
+import com.example.planetze35.ecogauge.EcoGaugeActivity;
 import com.example.planetze35.setup.AnnualCarbonFootprintDisplayerActivity;
 
 public class HomeFragment extends Fragment {
@@ -34,14 +35,16 @@ public class HomeFragment extends Fragment {
         ibEcoTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Eco Tracker", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), EcoTrackerHomepageActivity.class);
+                startActivity(intent);
             }
         });
 
         ibEcoGauge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Eco Gauge", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), EcoGaugeActivity.class);
+                startActivity(intent);
             }
         });
 
