@@ -7,8 +7,26 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="green">#044435</color>
+    <color name ="green_shade">#075752</color>
+    <color name ="green_shade2">#0e6d56</color>
+    <color name ="green_shade3">#228b84</color>
+    <color name ="green_shade4">#03434d</color>
     <color name="red">#FFFF0000</color>
     <color name="blue">#FF0000FF</color>
     <color name="grey">#D8DBE2</color>
     <color name="light_pink">#FFF0F2</color>
+    <color name="light_blue_gray">#a9bcd0</color>
+    <color name="teal">#0CC4C7</color>
+    <color name="dark_blue">#373f51</color>
+    <color name="light_gray">#d8dbe2</color>
+    <color name="blackish_gray">#1b1b1e</color>
+    <color name="background_blue">#A9BCD0</color> <!-- A shade darker than light gray -->
+    <color name="cardview_background_blue">#D8DBE2</color> <!-- A matching blue shade for cardviews -->
+    <color name="button_blue">#009999</color>
+    <color name="search_background_blue">#76009999</color>
+    <color name="rounded_label_color">#009999</color>
+    <color name="rounded_label2_color">#009959</color>
+    <color name="light_green">#C5FBDE</color>
+    <color name="dark_grey">#E1A9A5A5</color>
 </resources>

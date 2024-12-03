@@ -31,6 +31,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -40,10 +43,16 @@ dependencies {
     implementation("javax.activation:activation:1.1.1")
     implementation("commons-validator:commons-validator:1.7")
     implementation(libs.firebase.database)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    testImplementation("org.mockito:mockito-core:4.11.0")
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     // TODO: Add the dependencies for Firebase products you want to use
+    implementation("com.google.firebase:firebase-auth")
     // When using the BoM, don't specify versions in Firebase dependencies
     // https://firebase.google.com/docs/android/setup#available-libraries
 

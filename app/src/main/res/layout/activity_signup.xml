@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:id = "@+id/main"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    tools:context = ".userauthentication.SignupActivity">
+
+    <ImageView
+        android:id = "@+id/ivScientistPenguin"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginBottom = "2dp"
+        android:scaleType = "centerCrop"
+        android:src = "@mipmap/ic_scientist_penguin"
+        app:layout_constraintBottom_toTopOf = "@+id/guidelineTop"
+        app:layout_constraintEnd_toEndOf = "parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:background = "@drawable/half_oval_background"
+        app:layout_constraintBottom_toBottomOf = "parent"
+        app:layout_constraintLeft_toLeftOf = "parent"
+        app:layout_constraintRight_toRightOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@+id/guidelineForLogoOutsideTop">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width = "0dp"
+        android:layout_height = "0dp"
+        android:background = "@drawable/hybrid_background"
+        android:elevation = "10dp"
+        app:layout_constraintBottom_toBottomOf = "@id/guidelineBottom"
+        app:layout_constraintLeft_toLeftOf = "@id/guidelineLeft"
+        app:layout_constraintRight_toRightOf = "@id/guidelineRight"
+        app:layout_constraintTop_toTopOf = "@id/guidelineTop">
+
+        <TextView
+            android:id = "@+id/tvTitleSignupPage"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "50dp"
+            android:text = "@string/title_activity_signup_page"
+            android:textColor = "@color/black"
+            android:textSize = "24sp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <EditText
+            android:id = "@+id/etFirstName"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "50dp"
+            android:autofillHints = "name"
+            android:background = "@drawable/edittext_background_hybrid"
+            android:elevation = "1dp"
+            android:hint = "@string/first_name"
+            android:inputType = "text"
+            android:maxLines = "1"
+            android:padding = "12dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/tvTitleSignupPage" />
+
+        <EditText
+            android:id = "@+id/etLastName"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "20dp"
+            android:autofillHints = "name"
+            android:background = "@drawable/edittext_background_hybrid"
+            android:elevation = "1dp"
+            android:hint = "@string/last_name"
+            android:inputType = "text"
+            android:maxLines = "1"
+            android:padding = "12dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/etFirstName" />
+
+        <EditText
+            android:id = "@+id/etSignupEmail"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "20dp"
+            android:autofillHints = "emailAddress"
+            android:background = "@drawable/edittext_background_hybrid"
+            android:elevation = "1dp"
+            android:hint = "@string/email"
+            android:inputType = "textEmailAddress"
+            android:padding = "12dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/etLastName" />
+
+        <EditText
+            android:id = "@+id/etSignupPassword"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "20dp"
+            android:autofillHints = "password"
+            android:background = "@drawable/edittext_background_hybrid"
+            android:elevation = "1dp"
+            android:hint = "@string/password"
+            android:inputType = "textPassword"
+            android:padding = "12dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@id/etSignupEmail" />
+
+        <TextView
+            android:id = "@+id/tvPasswordRequirements"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "5dp"
+            android:text = "@string/password_requirements"
+            app:drawableStartCompat = "@drawable/ic_exclamation"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@id/etSignupPassword" />
+
+        <EditText
+            android:id = "@+id/etSignupPasswordConfirmation"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "16dp"
+            android:autofillHints = "password"
+            android:background = "@drawable/edittext_background_hybrid"
+            android:elevation = "1dp"
+            android:hint = "@string/confirm_password"
+            android:inputType = "textPassword"
+            android:padding = "12dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@id/tvPasswordRequirements" />
+
+        <Button
+            android:id = "@+id/btnSignup"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom="16dp"
+            android:elevation = "1dp"
+            android:text = "@string/sign_up"
+            android:textAllCaps = "false"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/etSignupPasswordConfirmation" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id = "@+id/constraintLayout3"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/btnSignup">
+
+            <TextView
+                android:id = "@+id/tvAlreadyHaveAnAccount"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:text = "@string/already_have_an_account"
+                android:textAllCaps = "false"
+                app:layout_constraintBottom_toBottomOf = "parent"
+                app:layout_constraintEnd_toStartOf = "@+id/btnLogin"
+                app:layout_constraintTop_toTopOf = "parent" />
+
+            <Button
+                android:id = "@+id/btnLogin"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:background = "@android:color/transparent"
+                android:text = "@string/login_underlined"
+                android:textAllCaps = "false"
+                android:textColor = "@color/blue"
+                app:layout_constraintBottom_toBottomOf = "parent"
+                app:layout_constraintStart_toEndOf = "@+id/tvAlreadyHaveAnAccount"
+                app:layout_constraintTop_toTopOf = "parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineTop"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent = "0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineBottom"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent = "0.92" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineRight"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "vertical"
+        app:layout_constraintGuide_percent = "0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineLeft"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "vertical"
+        app:layout_constraintGuide_percent = "0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineForLogoOutsideTop"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent = "0.65" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
