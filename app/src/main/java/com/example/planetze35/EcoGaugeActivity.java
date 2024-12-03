@@ -2,11 +2,16 @@ package com.example.planetze35;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,9 +32,24 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class EcoGaugeActivity extends AppCompatActivity {
 
@@ -38,6 +58,9 @@ public class EcoGaugeActivity extends AppCompatActivity {
     BarChart emissionsChart;
     LineChart lineChart;
     Button dailyButton, weeklyButton, monthlyButton;
+    FirebaseUser user;
+    DatabaseReference mDatabase;
+    float weeklyEmissionsForTextView, monthlyEmissionsForTextView, yearlyEmissionsForTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,114 +73,247 @@ public class EcoGaugeActivity extends AppCompatActivity {
             return insets;
         });
 
-        totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
-        totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
-        totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
-        totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        UpdateCategoryEmissions updateCategoryEmissions = new UpdateCategoryEmissions(user.getUid());
 
-        //Display weekly emissions by default
-        totalEmissionsTextView.setText("You've emitted 16 kg CO2e this week");
+        //Gets Category emissions for barchart
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                EmissionsCategoryModel post = dataSnapshot.getValue(EmissionsCategoryModel.class);
+                if(post != null) {
+                    double transportationEmissions = post.transportationEmissions;
+                    double energyEmissions = post.energyEmissions;
+                    double consumptionEmissions = post.consumptionEmissions;
+                    ArrayList<BarEntry> entries = new ArrayList<>();
+                    entries.add(new BarEntry(1f, (float) transportationEmissions));
+                    entries.add(new BarEntry(2f, (float) energyEmissions));
+                    entries.add(new BarEntry(3f, (float) consumptionEmissions));
+                    EmissionsBarChart.setBarChartData(entries);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.d("Post Error","Getting post failed");
+            }
+        });
 
-        //Emissions Chart
-        emissionsChart = findViewById(R.id.emissionsChart);
-        emissionsChart.getAxisRight().setDrawLabels(false);
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(1f, 20));
-        entries.add(new BarEntry(2f, 38));
-        entries.add(new BarEntry(3f, 69));
-        entries.add(new BarEntry(4f, 27));
-
-        YAxis yAxis = emissionsChart.getAxisLeft();
-        yAxis.setAxisMinimum(0f);
-        yAxis.setAxisMaximum(100f);
-        yAxis.setAxisLineWidth(2f);
-        yAxis.setAxisLineColor(Color.BLACK);
-        yAxis.setLabelCount(10);
-
-        BarDataSet dataSet = new BarDataSet(entries, "Subjects");
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.85f);
-        emissionsChart.setData(barData);
-
-        emissionsChart.getDescription().setEnabled(false);
-        emissionsChart.invalidate();
-        ArrayList<String> xValues = new ArrayList<>();
-        xValues.add("one");xValues.add("one");xValues.add("two");xValues.add("three");xValues.add("four");
-        emissionsChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
-        emissionsChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        emissionsChart.getXAxis().setGranularity(1f);
-        emissionsChart.getXAxis().setGranularityEnabled(true);
-        emissionsChart.getAxisLeft().setDrawGridLines(false);
-        emissionsChart.getAxisRight().setDrawGridLines(false);
-        emissionsChart.getXAxis().setDrawGridLines(false);
-        emissionsChart.setAutoScaleMinMaxEnabled(true);
-
-
-        //Line chart for emissions trend graph
         lineChart = findViewById(R.id.linechart);
-        LineDataSet dataset1 = new LineDataSet(getdata(),"dataset 1");
-        LineDataSet dataset2 = new LineDataSet(getdata2(), "dataset 2");
-        ArrayList<ILineDataSet> datasets=new ArrayList<>();
-        datasets.add(dataset1);
-        datasets.add(dataset2);
-        LineData lineData = new LineData(datasets);
-        lineChart.setData(lineData);
-//        lineChart.invalidate();
-        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getAxisRight().setEnabled(false);
+        EmissionsLineChart.setDefaultLineChart(lineChart);
+        EmissionsLineChart.setDefaultValues(lineChart);
 
-        dailyButton = findViewById(R.id.dailyButton);
-        weeklyButton = findViewById(R.id.weeklyButton);
-        monthlyButton = findViewById(R.id.monthlyButton);
+        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId/DailyActivities");
+        dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("Firebase", "Success");
+                HashMap<String,Object> datesHS = (HashMap<String, Object>) snapshot.getValue();
+                Log.d("HI","HI");
+                //System.out.println(String.valueOf(datesHS));
 
-        //Display total weekly emissions for textview
-        totalWeeklyEmissionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                totalEmissionsTextView.setText("You've emitted 16 kg CO2e this week.");
-            }
-        });
-        //Display total monthly emissions for textview
-        totalMonthlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                totalEmissionsTextView.setText("You've emitted 67 kg CO2e this month.");
-            }
-        });
-        //Display total yearly emissions for textview
-        totalYearlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                totalEmissionsTextView.setText("You've emitted 720 kg CO2e this year.");
-            }
-        });
+                HashMap<String, Object> datesMap = new HashMap<>();
+                HashMap<String, String > dateEmissionMap = new HashMap<>();
+                for (Map.Entry<String, Object> entry : datesHS.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    datesMap.put(key, value);
+                    HashMap<String,Object> temp = (HashMap<String, Object>) datesHS.get(key);
+                    if(key != null) {
+                        dateEmissionMap.put(key, String.valueOf(temp.get("total_daily_emissions")));
+                    }
+                }
 
-        //Display daily emissions trend graph
-        dailyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lineChart.setData(new LineData(new LineDataSet(testData1(), "testData1")));
-                lineChart.invalidate();
+                Date d = Calendar.getInstance().getTime();
+                //System.out.println("Current time => " + d);
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                String formattedDate = df.format(d);
+                System.out.println(formattedDate);
+                String dayAbs = formattedDate.substring(0,2);
+                String monthAbs = formattedDate.substring(3,5);
+                String yearAbs = formattedDate.substring(6,10);
+
+                Calendar c = Calendar.getInstance();
+                Calendar c1 = Calendar.getInstance();
+                c1.add(Calendar.MONTH, -1);
+                c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH));
+                int day = c.get(Calendar.DAY_OF_WEEK);
+                //System.out.println("day: " + day);
+                //Calculate the data for each day of the week
+                weeklyEmissionsForTextView = 0;
+                List<Entry> dailyEmissions = new ArrayList<>();
+                for(int i = 1; i <= day; i++) {
+                    int currDay = Integer.parseInt(dayAbs)-day+i;
+                    //Last month
+                    int currMonth = Integer.parseInt(monthAbs);
+                    if(currDay <= 0) {
+                        currDay += c1.get(Calendar.DAY_OF_MONTH);
+                        currMonth -= 1;
+                    }
+                    String currDate = yearAbs+"-"+currMonth+"-"+currDay;
+                    if(dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null) {
+                        dailyEmissions.add(new Entry(i-1, Float.parseFloat(dateEmissionMap.get(currDate))));
+                        weeklyEmissionsForTextView += Float.parseFloat(dateEmissionMap.get(currDate));
+                    } else {
+                        dailyEmissions.add(new Entry(i-1, 0));
+                    }
+                }
+                for(int i = day+1; i < 8; i++) {
+                    dailyEmissions.add(new Entry(i-1, 0));
+                }
+
+                //Store the emission info of each day for the whole year
+                //Get current day
+                float[] yearlyEmissions = new float[366];
+                float[] monthlyEmissions = new float[12];
+                float emissionsPerMonth = 0;
+                int dayOfYear = c.get(Calendar.DAY_OF_YEAR);
+                String[] months = {"","01","02","03","04","05","06","07","08","09","10","11","12"};
+                int currDay = 1;
+                int currMonth = 1;
+                yearlyEmissionsForTextView = 0;
+                for(int i = 0; i < dayOfYear; i++) {
+                    String currDate = yearAbs+"-"+currMonth+"-"+currDay;
+                    if(dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null) {
+                        yearlyEmissions[i] = Float.parseFloat(dateEmissionMap.get(currDate));
+                        emissionsPerMonth += yearlyEmissions[i];
+                        yearlyEmissionsForTextView += yearlyEmissions[i];
+                    }
+                    if(currMonth == 1 || currMonth == 3 || currMonth == 5 || currMonth == 7 || currMonth == 8 || currMonth == 10 || currMonth == 12) {
+                        if(currDay == 31) {
+                            monthlyEmissions[currMonth-1] = emissionsPerMonth;
+                            emissionsPerMonth = 0;
+                            currMonth++;
+                            currDay = 0;
+                        }
+                    } else if(currMonth == 4 || currMonth == 6 || currMonth == 9 || currMonth == 11) {
+                        if(currDay == 30) {
+                            monthlyEmissions[currMonth-1] = emissionsPerMonth;
+                            emissionsPerMonth = 0;
+                            currMonth++;
+                            currDay = 0;
+                        }
+                    }else if(currMonth == 2) {
+                        if(currDay == 28 && Integer.parseInt(yearAbs)%4!=0) {
+                            monthlyEmissions[currMonth-1] = emissionsPerMonth;
+                            emissionsPerMonth = 0;
+                            currMonth++;
+                            currDay = 0;
+                        } else if(currDay == 29) {
+                            monthlyEmissions[currMonth-1] = emissionsPerMonth;
+                            emissionsPerMonth = 0;
+                            currMonth++;
+                            currDay = 0;
+                        }
+                    }
+                    currDay++;
+                }
+                monthlyEmissions[currMonth-1] = emissionsPerMonth;
+
+                //Calculate data for each week of month
+                int[] daysPerMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+                float[] weeklyEmission = new float[4];
+                float weekEmission = 0;
+                currDay = 0;
+                for(int i = 0; i < Integer.parseInt(monthAbs)-1; i++) {
+                    currDay += daysPerMonth[i];
+                }
+                for(int week = 0; week < 4; week++) {
+                    for(int i = 0; i < 7; i++) {
+                        weekEmission += yearlyEmissions[currDay];
+                        currDay++;
+                    }
+                    weeklyEmission[week] = weekEmission;
+                    weekEmission = 0;
+                }
+                List<Entry> weeklyEmissionsEntry = new ArrayList<>();
+                for(int i = 0; i < 4; i++) {
+                    weeklyEmissionsEntry.add(new Entry(i, weeklyEmission[i]));
+                }
+                //Calculate data for each month of year
+                List<Entry> monthlyEmissionsEntry = new ArrayList<>();
+                for(int i = 0; i < 12; i++) {
+                    monthlyEmissionsEntry.add(new Entry(i, monthlyEmissions[i]));
+                }
+                //Calculate data for monthlyTextView
+                monthlyEmissionsForTextView = monthlyEmissions[Integer.parseInt(monthAbs)-1];
+
+
+                totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
+                totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
+                totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
+                totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
+
+                //Display weekly emissions by default
+                totalEmissionsTextView.setText("You've emitted --- kg CO2e this ---");
+
+                //Emissions Chart
+                emissionsChart = findViewById(R.id.emissionsChart);
+                EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
+                EmissionsBarChart.setDefaultBarChart();
+
+                //Line chart for emissions trend graph
+                LineDataSet dataset1 = new LineDataSet(dailyEmissions,"Daily Emissions");
+                lineChart.setData(new LineData(dataset1));
+
+                dailyButton = findViewById(R.id.dailyButton);
+                weeklyButton = findViewById(R.id.weeklyButton);
+                monthlyButton = findViewById(R.id.monthlyButton);
+                //Display total weekly emissions for textview
+                totalWeeklyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        totalEmissionsTextView.setText("You've emitted "+ weeklyEmissionsForTextView +" kg CO2e this week.");
+                    }
+                });
+                //Display total monthly emissions for textview
+                totalMonthlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        totalEmissionsTextView.setText("You've emitted " + monthlyEmissionsForTextView +" kg CO2e this month.");
+                    }
+                });
+                //Display total yearly emissions for textview
+                totalYearlyEmissionsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        totalEmissionsTextView.setText("You've emitted " + yearlyEmissionsForTextView + " kg CO2e this year.");
+                    }
+                });
+                //Display daily emissions trend graph
+                dailyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lineChart.setData(new LineData(new LineDataSet(dailyEmissions, "Daily Emissions (kg CO2e)")));
+                        EmissionsLineChart.setBottomLabelDaily(lineChart);
+                        lineChart.invalidate();
+                    }
+                });
+                //Display weekly emissions trend graph
+                weeklyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lineChart.setData(new LineData(new LineDataSet(weeklyEmissionsEntry, "Weekly Emissions (kg CO2e)")));
+                        EmissionsLineChart.setBottomLabelWeekly(lineChart);
+                        lineChart.invalidate();
+                    }
+                });
+                //Display monthly emissions trend graph
+                monthlyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lineChart.setData(new LineData(new LineDataSet(monthlyEmissionsEntry, "Monthly Emissions (kg CO2e)")));
+                        EmissionsLineChart.setBottomLabelMonthly(lineChart);
+                        lineChart.invalidate();
+                    }
+                });
             }
-        });
-        //Display weekly emissions trend graph
-        weeklyButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                lineChart.setData(new LineData(new LineDataSet(testData2(), "testData2")));
-                lineChart.invalidate();
-            }
-        });
-        //Display monthly emissions trend graph
-        monthlyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lineChart.setData(new LineData(new LineDataSet(testData3(), "testData3")));
-                lineChart.invalidate();
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
         // Average comparison
@@ -170,56 +326,4 @@ public class EcoGaugeActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    private List<Entry> getdata(){
-        List<Entry> entries=new ArrayList<>();
-        entries.add(new Entry(1,20));
-        entries.add(new Entry(2,14));
-        entries.add(new Entry(3,8));
-        entries.add(new Entry(4,12));
-        entries.add(new Entry(5,24));
-
-        return entries;
-    }
-    private List<Entry> getdata2(){
-        List<Entry> entries=new ArrayList<>();
-        entries.add(new Entry(1,22));
-        entries.add(new Entry(2,8));
-        entries.add(new Entry(3,3));
-        entries.add(new Entry(4,18));
-        entries.add(new Entry(5,6));
-
-        return entries;
-    }
-    private List<Entry> testData1(){
-        List<Entry> entries=new ArrayList<>();
-        entries.add(new Entry(1,10));
-        entries.add(new Entry(2,10));
-        entries.add(new Entry(3,10));
-        entries.add(new Entry(4,10));
-        entries.add(new Entry(5,10));
-
-        return entries;
-    }
-    private List<Entry> testData2(){
-        List<Entry> entries=new ArrayList<>();
-        entries.add(new Entry(1,20));
-        entries.add(new Entry(2,20));
-        entries.add(new Entry(3,20));
-        entries.add(new Entry(4,20));
-        entries.add(new Entry(5,20));
-
-        return entries;
-    }
-    private List<Entry> testData3(){
-        List<Entry> entries=new ArrayList<>();
-        entries.add(new Entry(1,15));
-        entries.add(new Entry(2,15));
-        entries.add(new Entry(3,15));
-        entries.add(new Entry(4,15));
-        entries.add(new Entry(5,15));
-
-        return entries;
-    }
-
 }
