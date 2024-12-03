@@ -17,7 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Singleton class for fetching emission data from Eco Tracker activities for use in Eco Gauge.
+ * Singleton class for fetching emission data from Eco Tracker activities for use in Eco Gauge. </br>
+ *
+ * To use this class, get the singleton instance by calling <code>getInstance</code>.
+ * Then, use the <code>getEmissionsData</code> method to get the data. </br>
+ *
+ * See the descriptions for the <code>getEmissionsData</code> method and the
+ * <code>DatabaseFetchCallback</code> interface for more details.
  */
 public class DailyActivityEmissionsModel {
     private static DailyActivityEmissionsModel instance = null;
@@ -98,7 +104,7 @@ public class DailyActivityEmissionsModel {
     }
 
     /**
-     * Gets the <code>DailyActivityEmissionsModel</code> instance.
+     * Returns the <code>DailyActivityEmissionsModel</code> instance.
      *
      * @return the <code>DailyActivityEmissionsModel</code> instance
      */
@@ -111,7 +117,9 @@ public class DailyActivityEmissionsModel {
 
     /**
      * Removes any listeners from the Firebase database reference and sets the instance to null. </br>
-     * Mainly used for if the user switches to a different account.
+     *
+     * Use if the data needs to be updated in any way, and don't forget to re-invoke the
+     * <code>getInstance</code> method after.
      */
     public static void resetInstance() {
         instance = null;
@@ -123,9 +131,11 @@ public class DailyActivityEmissionsModel {
      * If the relevant data has already been fetched successfully from the database,
      * <code>callback.onSuccess</code> is immediately called.
      * Otherwise, <code>callback</code> will be backloaded and will be called when the fetch
-     * operation is completed.
+     * operation is completed. </br>
      *
-     * @param date the date to get the total daily emissions from
+     * @param date the last day of the time range given
+     * @param timeRange must be one of <code>"day"</code>, <code>"week"</code>, <code>"month"</code>,
+     *                  or <code>"year"</code>, otherwise it will be interpreted as <code>"day"</code>
      * @param callback the callback to call when the fetch operation is complete
      */
     public void getEmissionsData(@NonNull LocalDate date, @NonNull String timeRange,
@@ -147,34 +157,7 @@ public class DailyActivityEmissionsModel {
     }
 
     /**
-     * Callback interface for interacting with the database. </br>
-     *
-     * Due to the asynchronous nature of the Firebase database, you may end up trying to call the
-     * other methods in this class (e.g. <code>getEmissionsFromDay</code>) before the data fetching
-     * is completed. </br>
-     *
-     * This interface allows you to "backload" any code you may want to run if this is the case
-     * so that your code doesn't just do nothing/crash the app.
-     */
-    public interface DatabaseFetchCallback {
-        /**
-         * Called when the data is successfully fetched from the database.
-         *
-         * @param dateToEmissionMapData the desired emission data for the given date(s) </br>
-         *                              the keys are the dates, and the values are the corresponding
-         *                              emission data
-         */
-        void onSuccess(HashMap<String, Double> dateToEmissionMapData);
-
-        /**
-         * Called when the data could not be fetched from the database.
-         * @param error the error returned from the Firebase event listener.
-         */
-        void onFailure(@NonNull DatabaseError error);
-    }
-
-    /**
-     * Formats a <code>LocalDate</code> instance as a string. </br>
+     * Returns a formatted string representation of a given <code>LocalDate</code> instance. </br>
      *
      * Used so that the date string is formatted the same as the keys in <code>dateToEmissionMap</code>.
      *
@@ -267,5 +250,31 @@ public class DailyActivityEmissionsModel {
             }
         }
         backloadedCallbacks.clear();
+    }
+
+    /**
+     * Callback interface for interacting with the database. </br>
+     *
+     * Due to the asynchronous nature of the Firebase database, you may end up trying to call
+     * <code>getEmissionsData</code>) before the data is fetched from Firebase. </br>
+     *
+     * This interface allows you to "backload" any code you may want to run if this is the case
+     * so that your code doesn't just do nothing/crash the app.
+     */
+    public interface DatabaseFetchCallback {
+        /**
+         * Called when the data is successfully fetched from the database.
+         *
+         * @param dateToEmissionMapData the desired emission data for the given date(s) </br>
+         *                              the keys are the dates, and the values are the corresponding
+         *                              emission data
+         */
+        void onSuccess(HashMap<String, Double> dateToEmissionMapData);
+
+        /**
+         * Called when the data could not be fetched from the database.
+         * @param error the error returned from the Firebase event listener.
+         */
+        void onFailure(@NonNull DatabaseError error);
     }
 }
