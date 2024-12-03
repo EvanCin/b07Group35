@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import android.graphics.Color;
 
@@ -11,7 +11,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EmissionsBarChart {

@@ -1,8 +1,10 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+
+import com.example.planetze35.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

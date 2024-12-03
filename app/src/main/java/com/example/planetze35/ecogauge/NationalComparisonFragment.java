@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

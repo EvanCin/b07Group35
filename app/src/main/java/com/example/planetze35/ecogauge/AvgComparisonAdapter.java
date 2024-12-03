@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
