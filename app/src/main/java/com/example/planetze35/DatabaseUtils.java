@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class for interacting with the Firebase Realtime Database
@@ -123,6 +124,11 @@ public class DatabaseUtils {
      * @param data the data to be stored
      */
     public static void storeOneDataField(String uid, String dataField, List<String> data) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        dbRef.child(dataField).setValue(data);
+    }
+
+    public static void storeOneDataField(String uid, String dataField, Map<String, String> data) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
         dbRef.child(dataField).setValue(data);
     }

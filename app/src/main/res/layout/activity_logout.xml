@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:id = "@+id/main"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    tools:context = ".mainmenu.LogoutActivity">
+
+    <ImageView
+        android:id = "@+id/ivScientistPenguin"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginBottom = "2dp"
+        android:scaleType = "centerCrop"
+        android:src = "@mipmap/ic_scientist_penguin"
+        app:layout_constraintBottom_toTopOf = "@+id/guidelineTop"
+        app:layout_constraintEnd_toEndOf = "parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id = "@+id/constraintLayout3"
+        android:layout_width = "0dp"
+        android:layout_height = "0dp"
+        android:background = "@drawable/hybrid_background"
+        android:elevation = "100dp"
+        app:layout_constraintBottom_toBottomOf = "@id/guidelineBottom"
+        app:layout_constraintLeft_toLeftOf = "@id/guidelineLeft"
+        app:layout_constraintRight_toRightOf = "@id/guidelineRight"
+        app:layout_constraintTop_toTopOf = "@id/guidelineTop">
+
+        <TextView
+            android:id = "@+id/tvTitleLogoutPage"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "40dp"
+            android:text = "@string/logout_question"
+            android:textAlignment = "center"
+            android:textColor = "@color/black"
+            android:textSize = "36sp"
+            app:layout_constraintLeft_toLeftOf = "parent"
+            app:layout_constraintRight_toRightOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id = "@+id/btnLogout"
+            android:layout_width = "143dp"
+            android:layout_height = "82dp"
+            android:background = "@drawable/filled_background"
+            android:text = "@string/logout"
+            android:textColor = "@color/red"
+            android:textSize = "30sp"
+            android:fontFamily="@font/lato_bold"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "@+id/guideline9"
+            app:layout_constraintTop_toBottomOf = "@+id/tvTitleLogoutPage" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id = "@+id/btnCancel"
+            android:layout_width = "143dp"
+            android:layout_height = "82dp"
+            android:background = "@drawable/transparent_with_border_background"
+            android:fontFamily = "@font/lato_bold"
+            android:text = "@string/cancel"
+            android:textColor = "@color/teal_200"
+            android:textSize = "30sp"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toStartOf = "@+id/guideline9"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toBottomOf = "@+id/tvTitleLogoutPage" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guideline9"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:background = "@drawable/half_oval_background"
+        app:layout_constraintBottom_toBottomOf = "parent"
+        app:layout_constraintLeft_toLeftOf = "parent"
+        app:layout_constraintRight_toRightOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@+id/guidelineForHalfOvalOutsideTop">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineLeft"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineRight"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineTop"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineBottom"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.845" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guidelineForHalfOvalOutsideTop"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+</androidx.constraintlayout.widget.ConstraintLayout>

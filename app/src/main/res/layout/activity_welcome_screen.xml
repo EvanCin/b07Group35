@@ -28,13 +28,13 @@
         app:layout_constraintEnd_toEndOf = "parent" />
 
     <TextView
-        android:id = "@+id/tvMoto"
+        android:id = "@+id/tvMotto"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:fontFamily = "@font/lato_bold"
         android:gravity = "center"
         android:lineSpacingExtra = "2pt"
-        android:text = "@string/moto"
+        android:text = "@string/motto"
         android:textColor = "@color/black"
         android:textSize = "23sp"
         app:layout_constraintEnd_toEndOf = "parent"

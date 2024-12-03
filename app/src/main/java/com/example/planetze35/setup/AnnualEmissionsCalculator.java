@@ -3,16 +3,15 @@ package com.example.planetze35.setup;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-import android.widget.Switch;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class AnnualEmissionsCalculator {
     double totalEmissions; //kg
@@ -46,8 +45,9 @@ public class AnnualEmissionsCalculator {
             Log.d("AnnualEmissionsCalculator", "Invalid File");
         }
     }
-    public double calculateEmissions(ArrayList<Integer> selectedChoices) {
+    public Map<String, String> calculateEmissions(ArrayList<Integer> selectedChoices) {
         totalEmissions = 0;
+        double totalTransportationEmissions = 0;
         //Transportation Questions
         currQChoice = selectedChoices.get(0);
         //User uses a car
@@ -113,7 +113,10 @@ public class AnnualEmissionsCalculator {
             case 4: flightEmission = 6600; break;
         }
         totalEmissions += flightEmission;
+        totalTransportationEmissions = totalEmissions;
+
         //Food Questions
+        double totalFoodEmissions = 0;
         currQChoice = selectedChoices.get(7);
         double foodEmissions = 0;
         switch(currQChoice) {
@@ -150,7 +153,10 @@ public class AnnualEmissionsCalculator {
             case 3: foodEmissions = 140.4; break;
         }
         totalEmissions += foodEmissions;
+        totalFoodEmissions = totalEmissions - totalTransportationEmissions;
+
         //Housing Questions
+        double totalHousingEmissions = 0;
         int typeOfHome = selectedChoices.get(13);
         int numOfOccupants = selectedChoices.get(14);
         int sizeOfHome = selectedChoices.get(15);
@@ -171,7 +177,11 @@ public class AnnualEmissionsCalculator {
             case 0: totalEmissions -= 6000;
             case 1: totalEmissions -= 4000;
         }
+
+        totalHousingEmissions = totalEmissions - totalFoodEmissions - totalTransportationEmissions;
+
         //Consumption Questions
+        double totalConsumptionEmissions = 0;
         int buyClothFrequency = selectedChoices.get(20);
         int buySecondHand = selectedChoices.get(21);
         int boughtDevices = selectedChoices.get(22);
@@ -234,6 +244,15 @@ public class AnnualEmissionsCalculator {
             }
         }
         totalEmissions += consumptionEmissions;
-        return totalEmissions;
+        totalConsumptionEmissions = totalEmissions - totalHousingEmissions - totalFoodEmissions - totalTransportationEmissions;
+
+        Map<String, String> emissionsByCategory = new HashMap<>();
+        emissionsByCategory.put("total", String.format(Locale.CANADA, "%5f", totalEmissions/1000));
+        emissionsByCategory.put("transportation", String.format(Locale.CANADA, "%4f", totalTransportationEmissions/1000));
+        emissionsByCategory.put("food", String.format(Locale.CANADA, "%4f", totalFoodEmissions/1000));
+        emissionsByCategory.put("housing", String.format(Locale.CANADA, "%4f", totalHousingEmissions/1000));
+        emissionsByCategory.put("consumption", String.format(Locale.CANADA, "%4f", totalConsumptionEmissions/1000));
+
+        return emissionsByCategory;
     }
 }
