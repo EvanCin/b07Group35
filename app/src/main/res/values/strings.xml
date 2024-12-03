@@ -23,6 +23,6 @@
         <item>Year</item>
     </string-array>
     <string name="gaugeAvgComparisonHeader">Global and National Average Comparison</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gaugeAvgComparisonDisclaimer">Note: These figures will be more accurate the more you log your activities in Eco Tracker.</string>
+    <string name="somethingWentWrong">Something went wrong.\nPlease try again later.</string>
 </resources>
