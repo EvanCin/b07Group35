@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.planetze35.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.BarData;
@@ -99,7 +102,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
                     emissionsChart.invalidate();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
@@ -312,5 +314,15 @@ public class EcoGaugeActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        // Average comparison
+        loadFragment(R.id.gaugeAvgComparisonFragmentContainer, new AvgComparisonFragment());
+    }
+
+    private void loadFragment(int fragContainerID, Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(fragContainerID, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

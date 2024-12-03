@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_marginBottom="16dp"
+    android:padding="16dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/cardview_background_blue">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+    <!-- ImageView  habit icon -->
+        <ImageView
+            android:id="@+id/habit_icon"
+            android:layout_width="72dp"
+            android:layout_height="68dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/habit_icon"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:tint="@color/teal"
+            tools:ignore="ImageContrastCheck,ImageContrastCheck" />
+
+        <!-- TextView  habit details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/habit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/habit_name_default"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"/>
+            <!-- Category and Impact Labels side by side -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/habit_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_label_background"
+                android:textSize="14sp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/habit_category_default"
+                android:textColor="@android:color/white"
+                />
+
+            <TextView
+                android:id="@+id/habit_impact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_label2_background"
+                android:textSize="14sp"
+                android:text="@string/habit_impact_default"
+                android:layout_marginBottom="6dp"
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Reminder Button -->
+        <ImageButton
+            android:id="@+id/reminder_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/add_reminder"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+
+            android:src="@drawable/baseline_circle_notifications_24"
+            app:tint="@color/teal" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,41 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Planetze35 - login"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Planetze35"
-        tools:targetApi="31">
+        android:allowBackup = "true"
+        android:dataExtractionRules = "@xml/data_extraction_rules"
+        android:fullBackupContent = "@xml/backup_rules"
+        android:icon = "@mipmap/ic_launcher_planetze"
+        android:label = "Planetze"
+        android:roundIcon = "@mipmap/ic_launcher_planetze_round"
+        android:supportsRtl = "true"
+        android:theme = "@style/Theme.Planetze35"
+        tools:targetApi = "31">
         <activity
-            android:name=".EcoGaugeActivity"
-            android:exported="true"
-            android:label="Eco Gauge">
+            android:name = ".mainmenu.LogoutActivity"
+            android:exported = "false" />
+        <activity
+            android:name = ".MainActivity"
+            android:exported = "false"
+            android:label = "@string/title_activity_main"
+            android:theme = "@style/Theme.Planetze35.NoActionBar" />
+        <activity
+            android:name = ".userauthentication.WelcomeScreenActivity"
+            android:exported = "true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name = "android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name = "android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".EmailVerificationPageActivity"
-            android:exported="false"
-            android:label="Verify you email" />
+            android:name=".EcoTrackerAllParts.EcoTrackerHomepageActivity"
+            android:exported="false" />
         <activity
-            android:name=".SignupPageActivity"
-            android:exported="false"
-            android:label="Planetze35 - signup" />
+            android:name=".EcoTrackerAllParts.EcoTrackerDailyActivityHub"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.TransportationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.FoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.EnergyBillsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.ConsumptionEcoTrackerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.ViewListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.SelectDateActionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.DatePickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.RecommendationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EcoTrackerAllParts.BaseRecommendationsActivity"
+            android:exported="false" />
+        <activity
+            android:name = ".setup.FoodC3Activity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.ConsumptionActivity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.HouseActivity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.FoodC2Activity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.FoodC1Activity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.TransportationC2Activity"
+            android:exported = "false" />
+        <activity
+            android:name = ".setup.TransportationC1Activity"
+            android:exported = "false"
+            android:label = "Transportation" />
+        <activity
+            android:name = ".setup.AnnualCarbonFootprintActivity"
+            android:exported = "false"
+            android:label = "Planetze35 - Annual Carbon Footprint" />
+        <activity
+            android:name = ".setup.AnnualCarbonFootprintDisplayerActivity"
+            android:exported = "false" />
+        <activity
+            android:name = ".ecogauge.EcoGaugeActivity"
+            android:exported = "false"
+            android:parentActivityName=".MainActivity"
+            android:label = "Eco Gauge" />
+        <activity
+            android:name = ".userauthentication.EmailVerificationActivity"
+            android:exported = "false"
+            android:label = "Verify your email" />
+        <activity
+            android:name = ".userauthentication.ForgotPasswordActivity"
+            android:exported = "false"
+            android:parentActivityName = ".userauthentication.LoginActivityView" />
+        <activity
+            android:name = ".userauthentication.SignupActivity"
+            android:exported = "false"
+            android:label = "Sign up" />
+        <activity
+            android:name = ".userauthentication.LoginActivityView"
+            android:exported = "false"
+            android:label = "Log in" />
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+        <meta-data
+            android:name = "preloaded_fonts"
+            android:resource = "@array/preloaded_fonts" />
     </application>
 
 </manifest>

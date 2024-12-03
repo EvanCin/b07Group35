@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group android:checkableBehavior = "single">
+        <item
+            android:id = "@+id/nav_home"
+            android:icon = "@drawable/ic_menu_home"
+            android:title = "@string/menu_home" />
+        <item
+            android:id = "@+id/nav_eco_tracker"
+            android:icon = "@drawable/ic_menu_eco_tracker"
+            android:title = "@string/eco_tracker_title" />
+        <item
+            android:id = "@+id/nav_eco_gauge"
+            android:icon = "@drawable/ic_menu_eco_gauge"
+            android:title = "@string/eco_gauge_title" />
+        <item
+            android:id = "@+id/nav_annual_footprint"
+            android:icon="@drawable/ic_menu_annual_footprint"
+            android:title = "@string/annual_footprint_title" />
+        <item
+            android:id = "@+id/nav_logout"
+            android:icon = "@drawable/ic_menu_logout"
+            android:title = "@string/logout" />
+    </group>
+</menu>

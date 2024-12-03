@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    tools:context = ".mainmenu.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id = "@+id/clEcoTracker"
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_marginBottom="1dp"
+        android:background = "@drawable/eco_tracker_image"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline1"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "parent">
+
+        <ImageButton
+            android:id = "@+id/ibEcoTracker"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:background = "@drawable/grey_ripple_background"
+            android:contentDescription = "@string/eco_tracker_title"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvEcoTrackerTitle"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/alfa_slab_one"
+            android:padding = "8dp"
+            android:text = "@string/eco_tracker_title"
+            android:textColor = "@color/white"
+            android:textSize = "26sp"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvEcoTrackerDescription"
+            style = "@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/lato_bold"
+            android:text = "@string/eco_tracker_description"
+            android:textColor = "@color/white"
+            android:justificationMode="inter_word"
+            app:layout_constraintBottom_toBottomOf = "@+id/ibEcoTracker"
+            app:layout_constraintEnd_toStartOf = "@+id/guidelineEcoTracker2"
+            app:layout_constraintStart_toStartOf = "@+id/guidelineEcoTracker1"
+            app:layout_constraintTop_toTopOf = "parent"
+            tools:ignore = "UnusedAttribute" />
+
+        <ImageView
+            android:id = "@+id/ivEcoTrackerArrow"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginEnd = "8dp"
+            android:src = "@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineEcoTracker1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineEcoTracker2"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.84" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id = "@+id/clEcoGauge"
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:background = "@drawable/eco_gauge_image"
+        app:layout_constraintBottom_toTopOf = "@+id/guideline2"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline1">
+
+        <ImageButton
+            android:id = "@+id/ibEcoGauge"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:background = "@drawable/grey_ripple_background"
+            android:contentDescription = "@string/eco_gauge_title"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvEcoGaugeTitle"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/alfa_slab_one"
+            android:padding = "8dp"
+            android:text = "@string/eco_gauge_title"
+            android:textColor = "@color/white"
+            android:textSize = "26sp"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvEcoGaugeDescription"
+            android:layout_width = "0dp"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/lato_bold"
+            android:text = "@string/eco_gauge_description"
+            android:textColor = "@color/white"
+            android:justificationMode="inter_word"
+            app:layout_constraintBottom_toBottomOf = "@+id/ibEcoGauge"
+            app:layout_constraintEnd_toStartOf = "@+id/guidelineEcoGauge2"
+            app:layout_constraintStart_toStartOf = "@+id/guidelineEcoGauge1"
+            app:layout_constraintTop_toTopOf = "parent"
+            tools:ignore = "UnusedAttribute" />
+
+        <ImageView
+            android:id = "@+id/ivEcoGaugeArrow"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src = "@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "@+id/ibEcoGauge"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineEcoGauge1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineEcoGauge2"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.84" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id = "@+id/clAnnualFootprint"
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_marginTop="1dp"
+        android:background = "@drawable/annual_footprint_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2">
+
+        <ImageButton
+            android:id = "@+id/ibAnnualFootprint"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:background = "@drawable/grey_ripple_background"
+            android:contentDescription = "@string/annual_footprint_title"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvAnnualFootprintTitle"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/alfa_slab_one"
+            android:padding = "8dp"
+            android:text = "@string/annual_footprint_title"
+            android:textColor = "@color/white"
+            android:textSize = "20sp"
+            app:layout_constraintStart_toStartOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <TextView
+            android:id = "@+id/tvAnnualFootprintDescription"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:fontFamily = "@font/lato_bold"
+            android:justificationMode = "inter_word"
+            android:text = "@string/annual_footprint_description"
+            android:textColor = "@color/white"
+            app:layout_constraintBottom_toBottomOf = "@+id/ibAnnualFootprint"
+            app:layout_constraintEnd_toStartOf = "@+id/guidelineAnnualFootprint2"
+            app:layout_constraintHorizontal_bias = "0.0"
+            app:layout_constraintStart_toStartOf = "@+id/guidelineAnnualFootprint1"
+            app:layout_constraintTop_toTopOf = "parent"
+            tools:ignore = "UnusedAttribute" />
+
+        <ImageView
+            android:id = "@+id/ivAnnualFootprintArrow"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription = "TODO"
+            android:src = "@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf = "parent"
+            app:layout_constraintEnd_toEndOf = "parent"
+            app:layout_constraintTop_toTopOf = "parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineAnnualFootprint1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id = "@+id/guidelineAnnualFootprint2"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:orientation = "vertical"
+            app:layout_constraintGuide_percent="0.84" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline1"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.34" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id = "@+id/guideline2"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation = "horizontal"
+        app:layout_constraintGuide_percent="0.67" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

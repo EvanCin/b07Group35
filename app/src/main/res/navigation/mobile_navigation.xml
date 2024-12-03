@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:id = "@+id/mobile_navigation"
+    app:startDestination = "@+id/nav_home">
+
+    <fragment
+        android:id = "@+id/nav_home"
+        android:name = "com.example.planetze35.mainmenu.HomeFragment"
+        android:label = "@string/menu_home"
+        tools:layout = "@layout/fragment_home" />
+
+    <activity
+        android:id = "@+id/nav_eco_tracker"
+        android:name = "com.example.planetze35.EcoTrackerAllParts.EcoTrackerHomepageActivity"
+        android:label = "@string/eco_tracker_title"
+        tools:layout="@layout/activity_eco_tracker_homepage" />
+
+    <activity
+        android:id = "@+id/nav_eco_gauge"
+        android:name = "com.example.planetze35.ecogauge.EcoGaugeActivity"
+        android:label = "@string/eco_tracker_title"
+        tools:layout="@layout/activity_eco_gauge" />
+
+    <activity
+        android:id = "@+id/nav_annual_footprint"
+        android:name = "com.example.planetze35.setup.AnnualCarbonFootprintDisplayerActivity"
+        android:label = "@string/annual_footprint_title"
+        tools:layout="@layout/activity_annual_carbon_footprint_displayer" />
+
+    <activity
+        android:id = "@+id/nav_logout"
+        android:name = "com.example.planetze35.mainmenu.LogoutActivity"
+        android:label = "@string/logout"
+        tools:layout="@layout/activity_logout" />
+
+</navigation>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/search_background_blue" /> <!-- Background color of the search view -->
+    <corners android:radius="16dp" /> <!-- Rounded corners to make it look modern -->
+    <padding
+        android:left="8dp"
+        android:right="8dp"
+        android:top="4dp"
+        android:bottom="4dp"/>
+</shape>

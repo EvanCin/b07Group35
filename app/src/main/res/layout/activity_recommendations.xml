@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_blue"
+    android:padding="16dp">
+
+    <!-- Top Layout for Search and Filter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- Search View -->
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:queryHint="Search habits..."
+            android:background="@drawable/rounded_search_background" />
+
+        <!-- Filter Button -->
+        <Button
+            android:id="@+id/filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/teal"
+            android:text="@string/filter"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Divider for User-Adopted Habits -->
+    <TextView
+        android:id="@+id/user_adopted_habits_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/habits_you_have_adopted"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/blackish_gray"
+        android:visibility="gone" />
+
+    <!-- RecyclerView for Non-Logged-In Users -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <!-- RecyclerView for User's Adopted Habits -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_user_habits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <!-- Divider for New Habit Suggestions -->
+    <TextView
+        android:id="@+id/new_habits_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_habits_for_you_to_try"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/blackish_gray"
+        android:visibility="gone" />
+
+    <!-- RecyclerView for New Habit Suggestions -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_new_habits"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <!-- Back Button at the Bottom Left -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/baseline_arrow_circle_left_24"
+        android:contentDescription="@string/go_back"
+        android:textColor="@android:color/white" />
+</LinearLayout>

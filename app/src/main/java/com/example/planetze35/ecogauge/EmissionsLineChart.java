@@ -1,4 +1,4 @@
-package com.example.planetze35;
+package com.example.planetze35.ecogauge;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -7,7 +7,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
