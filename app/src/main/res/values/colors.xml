@@ -28,4 +28,5 @@
     <color name="rounded_label_color">#009999</color>
     <color name="rounded_label2_color">#009959</color>
     <color name="light_green">#C5FBDE</color>
+    <color name="dark_grey">#E1A9A5A5</color>
 </resources>

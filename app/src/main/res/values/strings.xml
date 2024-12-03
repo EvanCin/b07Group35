@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Planetze35</string>
+
     <string-array name="meal_types">
         <item>Beef</item>
         <item>Pork</item>
@@ -33,7 +34,7 @@
         <item>Short-haul</item>
         <item>Long-haul</item>
     </string-array>
-    <string name="ann_carbon_foot">Annual Carbon Footprint</string>
+
     <string name="daily_carbon_foot">Daily Carbon Footprint</string>
     <string name="add_activity">Add/Edit Activity</string>
     <string name="view_activities">View Activities</string>
@@ -68,4 +69,68 @@
         <item>Reduce energy consumption by unplugging devices</item>
         <item>Shop for locally produced food</item>
     </string-array>
+
+    <string name = "name">Name</string>
+    <string name = "email">Email</string>
+    <string name = "password">Password</string>
+    <string name = "login">Log in</string>
+    <string name = "login_underlined"><u>Log in</u></string>
+    <string name = "sign_up">Sign up</string>
+    <string name = "sign_up_underlined"><u>Sign up</u></string>
+    <string name = "create_an_account">Create an account</string>
+    <string name = "title_activity_login_page">Log in to continue</string>
+    <string name = "title_activity_signup_page">Sign up to continue</string>
+    <string name = "dont_have_an_account">don\'t have an account?</string>
+    <string name = "confirm_password">Confirm your password</string>
+    <string name = "forgot_your_password">Forgot your password?</string>
+    <string name = "title_forgot_password_page">Forgot your password?</string>
+    <string name = "forgot_password_desc">Enter your email address and we\'ll send you a link that will allow you to reset your password.</string>
+    <string name = "send_email">Send Email</string>
+    <string name = "first_name">First name</string>
+    <string name = "last_name">Last name</string>
+    <string name = "email_verification_message">A verification email has been sent to your email address.
+        Please verify your email address to continue. If you did not receive any email,
+        please click on the button below after the cooldown is finished to resend the email.</string>
+    <string name = "verified">Verified my email</string>
+    <string name = "resend_verification_email">Resend verification email</string>
+    <string name = "seconds_remaining">Seconds remaining:</string>
+    <string name = "password_requirements">Password must be at least 6 characters</string>
+    <string name = "already_have_an_account">already have an account?</string>
+    <string name = "application_description">Welcome to Planetze!\nPlanetze is your go-to sustainability platform, dedicated to empowering individuals
+        and employees to track, reduce, and offset their carbon footprint. As climate action becomes increasingly vital,
+        our app offers personalized insights into your environmental impact, helping you make informed decisions every day.</string>
+    <string name = "motto">Empowering You to Live Sustainability\nEVERYDAY</string>
+    <string name = "title_activity_main">MainActivity</string>
+    <string name = "navigation_drawer_open">Open navigation drawer</string>
+    <string name = "navigation_drawer_close">Close navigation drawer</string>
+    <string name = "nav_header_title">Android Studio</string>
+    <string name = "nav_header_subtitle">android.studio@android.com</string>
+    <string name = "nav_header_desc">Navigation header</string>
+    <string name = "action_settings">Settings</string>
+
+    <string name = "menu_home">Home</string>
+    <string name = "menu_gallery">Gallery</string>
+    <string name = "menu_slideshow">Slideshow</string>
+    <string name = "eco_tracker_title">Eco Tracker</string>
+    <string name = "eco_tracker_description">Eco Tracker helps you monitor your carbon emissions in real time.
+        Easily input your daily activities to receive immediate feedback on your carbon footprint.</string>
+    <string name = "eco_gauge_title">Eco Gauge</string>
+    <string name = "annual_footprint_title">Annual Carbon Footprint</string>
+    <string name = "eco_gauge_description">Eco Gauge dashboard displays your total CO2e emissions, category breakdowns, and trends over time, and allows you to compare your emissions to regional and global averages for better sustainability tracking.</string>
+    <string name = "annual_footprint_description">Monitor your annual carbon emissions or recalculate it. We will ask you a few questions to help us gather necessary information to calculate your annual carbon footprint.</string>
+    <string name = "logout">Log Out</string>
+    <string name = "logout_question">Are sure you want to log out?</string>
+    <string name = "cancel">Cancel</string>
+    <string name = "moto">Empowering You to Live Sustainability\nEVERYDAY</string>
+    <string name = "total_annual_emission_text">Your total annual emissions are:</string>
+    <string name = "total_annual_emissions_unit">tons of CO2e/year</string>
+    <string name = "emissions_with_unit">Emissions (tons of CO2e/year)</string>
+    <string name = "category">Category</string>
+    <string name = "number_placeholder">100</string>
+    <string name = "transportation">Transportation</string>
+    <string name = "food">Food</string>
+    <string name = "housing">Housing</string>
+    <string name = "consumption">Consumption</string>
+    <string name = "continue_to_main_menu">Continue to main menu</string>
+    <string name = "recalculate_your_total_annual_emissions">Recalculate your total annual emissions</string>
 </resources>
