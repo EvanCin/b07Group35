@@ -133,4 +133,8 @@
     <string name = "consumption">Consumption</string>
     <string name = "continue_to_main_menu">Continue to main menu</string>
     <string name = "recalculate_your_total_annual_emissions">Recalculate your total annual emissions</string>
+
+    <string name="gaugeAvgComparisonHeader">Global and National Average Comparison</string>
+    <string name="gaugeAvgComparisonDisclaimer">Note: These figures will be more accurate the more you log your activities in Eco Tracker.</string>
+    <string name="somethingWentWrong">Something went wrong.\nPlease try again later.</string>
 </resources>
