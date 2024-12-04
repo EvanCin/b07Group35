@@ -31,6 +31,7 @@ public class ConsumptionEcoTrackerActivity extends AppCompatActivity {
 
     private Button buttonNewClothes, addNewClothesButton;
     private DatabaseReference databaseRef;
+    private DatabaseReference dailyActivitiesRef;
     private String selectedDate;
     private String userId;
     private LinearLayout questionsNewClothes;
@@ -64,6 +65,10 @@ public class ConsumptionEcoTrackerActivity extends AppCompatActivity {
             showToast("You must be logged in to add consumption data.");
             return;
         }
+        dailyActivitiesRef = databaseRef .child("users")
+                .child(userId)  // Use the logged-in user's UID
+                .child("DailyActivities")
+                .child(selectedDate);
         initUIComponents();
         // Set up ScrollView for scrolling when sections appear
         ScrollView scrollView = findViewById(R.id.consumption);
@@ -136,6 +141,7 @@ public class ConsumptionEcoTrackerActivity extends AppCompatActivity {
             Map<String, Object> purchaseData = clothes.toMap();
             //store to firebase
             updateOrAddConsumptionData(userId, selectedDate, "newClothes", null, purchaseData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             numClothes.setText("");
         } else {
             showToast("Please enter the number of clothing items");
@@ -152,6 +158,7 @@ public class ConsumptionEcoTrackerActivity extends AppCompatActivity {
             // Prepare data to be stored
             Map<String, Object> purchaseData = electronics.toMap();
             updateOrAddConsumptionData(userId, selectedDate, "electronics", deviceType, purchaseData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             numDevices.setText("");
         } else {
             showToast("Please enter the number of electronics");

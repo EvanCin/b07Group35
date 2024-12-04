@@ -29,6 +29,7 @@ import java.util.Objects;
 
 public class FoodActivity extends AppCompatActivity {
     private DatabaseReference databaseRef;
+    private DatabaseReference dailyActivitiesRef;
     private String selectedDate;
     private String userId;
     private Button mealButton, addButton, doneButton;
@@ -112,6 +113,12 @@ public class FoodActivity extends AppCompatActivity {
         Map<String, Object> mealData = meal.toMap();
         Log.d("FoodActivity", "Adding meal data for user: " + userId + " on " + selectedDate);
         addOrUpdateMealHelper(userId, selectedDate, mealData, mealType);
+        dailyActivitiesRef = databaseRef .child("users")
+                .child(userId)  // Use the logged-in user's UID
+                .child("DailyActivities")
+                .child(selectedDate);
+        EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
+
     }
     private void addOrUpdateMealHelper(String userId, String date, Map<String, Object> mealData, String mealType) {
         databaseRef.child("users").child(userId).child("DailyActivities").child(date)

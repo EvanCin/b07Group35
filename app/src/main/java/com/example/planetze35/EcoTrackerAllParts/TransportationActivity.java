@@ -29,6 +29,7 @@ import java.util.Objects;
 
 public class TransportationActivity extends AppCompatActivity {
     private DatabaseReference databaseRef;
+    private DatabaseReference dailyActivitiesRef;
     private String selectedDate;
     private String userId;
     private Button buttonPersonalVehicle, buttonPublicTransport, buttonCycling, buttonFlight, Done_button;
@@ -56,6 +57,10 @@ public class TransportationActivity extends AppCompatActivity {
             showToast("You must be logged in to add transportation data.");
             return;
         }
+        dailyActivitiesRef = databaseRef .child("users")
+                .child(userId)  // Use the logged-in user's UID
+                .child("DailyActivities")
+                .child(selectedDate);
         // Initialize components
         initUIComponents();
         // Initialize ScrollView for scrolling down when new content appears
@@ -153,6 +158,7 @@ public class TransportationActivity extends AppCompatActivity {
             Map<String, Object> vehicleData = personalVehicle.toMap();
             // Store data in Firebase
             updateOrAddTransportData(userId, selectedDate, "drivePersonalVehicle", vehicleType, vehicleData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             // Clear input fields
             driveVehicle.setText("");
         } else {
@@ -171,6 +177,7 @@ public class TransportationActivity extends AppCompatActivity {
             Map<String, Object> transportData = publicTransport.toMap();
             // Store data in Firebase
             updateOrAddTransportData(userId, selectedDate, "takePublicTransportation", transportType, transportData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             // Clear input fields
             edtTimePublicTransport.setText("");
         } else {
@@ -189,6 +196,7 @@ public class TransportationActivity extends AppCompatActivity {
             Map<String, Object> cyclingData = cycling.toMap();
             // Store data in Firebase
             updateOrAddTransportData(userId, selectedDate, "cyclingOrWalking", null, cyclingData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             // Clear input fields
             walkingDistance.setText("");
         } else {
@@ -208,6 +216,7 @@ public class TransportationActivity extends AppCompatActivity {
             Map<String, Object> flightData = flight.toMap();
             // Store data in Firebase
             updateOrAddTransportData(userId, selectedDate, "flight", flightType, flightData);
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
             // Clear input fields
             numFlights.setText("");
         } else {

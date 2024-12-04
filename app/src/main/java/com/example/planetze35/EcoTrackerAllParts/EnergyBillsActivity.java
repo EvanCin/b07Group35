@@ -29,6 +29,7 @@ import java.util.Objects;
 
 public class EnergyBillsActivity extends AppCompatActivity {
     private Button energyBillsButton, addEnergyBillButton, doneButton;
+    private DatabaseReference dailyActivitiesRef;
     private String userId;
     private LinearLayout questionsLayout;
     private Spinner energyBillSpinner;
@@ -55,6 +56,10 @@ public class EnergyBillsActivity extends AppCompatActivity {
             showToast("You must be logged in to add energy bills data.");
             return;
         }
+        dailyActivitiesRef = databaseRef .child("users")
+                .child(userId)  // Use the logged-in user's UID
+                .child("DailyActivities")
+                .child(selectedDate);
         initializeViews();
         setupEnergyBillsButton();
         setupAddEnergyBillButton();
@@ -167,6 +172,7 @@ public class EnergyBillsActivity extends AppCompatActivity {
                 if (billExistsForSameDay) {
                     Log.d("EnergyBillsActivity", "Bill exists for the same day, overwriting...");
                     addOrUpdateEnergyHelper(userId, selectedDate, energyData, energyType);
+                    EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
                 } else if (billExistsForSameMonth) {
                     // Prevent adding a new bill if the energy type already exists for a different day in the same month
                     showToast("A bill for " + energyType + " already exists for this month. You can only overwrite the bill on the same day.");
@@ -174,6 +180,7 @@ public class EnergyBillsActivity extends AppCompatActivity {
                     // No bill found for this energy type in the month, allow adding
                     Log.d("EnergyBillsActivity", "No bill found for this energy type in this month, adding new one...");
                     addOrUpdateEnergyHelper(userId, selectedDate, energyData, energyType);
+                    EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
                 }
             } else {
                 // Handle potential error if the task fails
