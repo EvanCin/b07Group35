@@ -44,7 +44,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                             ,"South America","Upper-middle-income countries","World"};
     final String DEFAULT_CHOICE = "---Select Country---";
     String selectedCountry;
-    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,6 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference userRef = database.getReference("users").child(uid);
                 userRef.child("country").setValue(selectedCountry);
-                //DatabaseUtils.storeOneDataField(uid,"country",selectedCountry);
                 startActivity(intent);
                 finish();
             }

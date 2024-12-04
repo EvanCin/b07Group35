@@ -64,11 +64,10 @@ public class ConsumptionActivity extends AppCompatActivity {
                 selectedChoices.add(listViewCF2.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF3.getListView().getCheckedItemPosition());
                 selectedChoices.add(listViewCF4.getListView().getCheckedItemPosition());
-                //Temporarily calculate and display the total emission here
+
                 AnnualEmissionsCalculator annualEmissionsCalculator = new AnnualEmissionsCalculator(ConsumptionActivity.this);
                 annualEmissionsCalculator.readData();
                 Map<String, String> emissionsByCategory = annualEmissionsCalculator.calculateEmissions(selectedChoices);
-
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
@@ -77,8 +76,6 @@ public class ConsumptionActivity extends AppCompatActivity {
                 DatabaseReference userRef = database.getReference("users").child(uid);
                 userRef.child("totalAnnualEmissionsByCategory").setValue(emissionsByCategory);
                 userRef.child("completedSetup").setValue(true);
-                //DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
-                //DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
                 Intent intent = new Intent(ConsumptionActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -87,5 +84,4 @@ public class ConsumptionActivity extends AppCompatActivity {
             }
         });
     }
-
 }

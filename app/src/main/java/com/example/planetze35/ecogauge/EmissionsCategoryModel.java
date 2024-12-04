@@ -4,7 +4,6 @@ public class EmissionsCategoryModel {
     public double consumptionEmissions;
     public double energyEmissions;
     public double transportationEmissions;
-
     public EmissionsCategoryModel() {
     }
 }

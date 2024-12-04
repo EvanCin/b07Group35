@@ -43,14 +43,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class EcoGaugeActivity extends AppCompatActivity {
-
     Button totalWeeklyEmissionsButton, totalMonthlyEmissionsButton, totalYearlyEmissionsButton;
     TextView totalEmissionsTextView;
     BarChart emissionsChart;
     LineChart lineChart;
     Button dailyButton, weeklyButton, monthlyButton;
-    FirebaseUser user;
-    DatabaseReference mDatabase;
     float weeklyEmissionsForTextView, monthlyEmissionsForTextView, yearlyEmissionsForTextView;
 
     @Override
@@ -63,12 +60,10 @@ public class EcoGaugeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
         totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
         totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
         totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
-
         emissionsChart = findViewById(R.id.emissionsChart);
         EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
         emissionsBarChart.setDefaultBarChart();
@@ -77,7 +72,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
         assert user != null;
         UpdateCategoryEmissions updateCategoryEmissions = new UpdateCategoryEmissions(user.getUid());
         updateCategoryEmissions.updateCategories();
-        System.out.println(user.getUid());
 
         //Gets Category emissions for barchart
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
@@ -112,7 +106,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
         lineChart = findViewById(R.id.linechart);
         EmissionsLineChart.setDefaultLineChart(lineChart);
         EmissionsLineChart.setDefaultValues(lineChart);
-
+        //Gets the emissions for linechart and textviews
         DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "/DailyActivities");
         dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -132,9 +126,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                         dateEmissionMap.put(key, String.valueOf(temp.get("total_daily_emissions")));
                     }
                 }
-
                 Date d = Calendar.getInstance().getTime();
-
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String formattedDate = df.format(d);
                 String dayAbs = formattedDate.substring(0, 2);
@@ -249,9 +241,6 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 //Display weekly emissions by default
                 totalEmissionsTextView.setText("You've emitted --- kg CO2e this ---");
 
-                //Emissions Chart
-
-
                 //Line chart for emissions trend graph
                 LineDataSet dataset1 = new LineDataSet(dailyEmissions, "Daily Emissions");
                 lineChart.setData(new LineData(dataset1));
@@ -309,16 +298,13 @@ public class EcoGaugeActivity extends AppCompatActivity {
                     }
                 });
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
         // Average comparison
         loadFragment(R.id.gaugeAvgComparisonFragmentContainer, new AvgComparisonFragment());
     }
-
     private void loadFragment(int fragContainerID, Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(fragContainerID, fragment);

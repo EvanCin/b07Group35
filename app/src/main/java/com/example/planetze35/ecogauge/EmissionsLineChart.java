@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmissionsLineChart {
-
-
     public static void setDefaultLineChart(LineChart lineChart) {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         lineChart.getAxisLeft().setDrawGridLines(false);
