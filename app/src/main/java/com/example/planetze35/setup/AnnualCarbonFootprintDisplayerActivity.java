@@ -13,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.GlobalAveragesCSVModel;
-import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,8 +65,6 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
         });
 
         btnGoToMainMenu.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
         });
     }
@@ -105,14 +102,14 @@ public class AnnualCarbonFootprintDisplayerActivity extends AppCompatActivity {
             dbRef.child("users").child(user.getUid()).child("country").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     String country = (String) task.getResult().getValue();
-                    String regionalEmissionsAverage = String.format(Locale.CANADA, "%.2f", globalAveragesCSVModel.getAvgEmission(country));
+                    String regionalEmissionsAverage = String.format(Locale.getDefault(), "%.2f", globalAveragesCSVModel.getAvgEmission(country));
                     double diff = calculatePercentageDifference(Double.parseDouble(totalAnnualEmissions),Double.parseDouble(regionalEmissionsAverage));
                     if (diff > 0) {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.red));
-                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format(Locale.CANADA, "%.2f", Math.abs(diff)) + "% higher than the national average for " + country);
+                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format(Locale.getDefault(), "%.2f", Math.abs(diff)) + "% higher than the national average for " + country);
                     } else if (diff < 0) {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.teal_200));
-                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format(Locale.CANADA, "%.2f", Math.abs(diff)) + "% lower than the national average for " + country);
+                        tvCompareWithRegionalAverage.setText("Your total annual emissions are " + String.format(Locale.getDefault(), "%.2f", Math.abs(diff)) + "% lower than the national average for " + country);
                     } else {
                         tvCompareWithRegionalAverage.setTextColor(getResources().getColor(R.color.teal_200));
                         tvCompareWithRegionalAverage.setText("Your total annual emissions are equal to the national average for " + country);

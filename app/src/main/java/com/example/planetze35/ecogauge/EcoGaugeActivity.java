@@ -182,7 +182,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 yearlyEmissionsForTextView = 0;
                 for (int i = 0; i < dayOfYear; i++) {
                     String currDate = yearAbs + "-" + currMonth + "-" + currDay;
-                    if (dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null) {
+                    if (dateEmissionMap.containsKey(currDate) && dateEmissionMap.get(currDate) != null && !dateEmissionMap.get(currDate).equals("null")) {
                         yearlyEmissions[i] = Float.parseFloat(dateEmissionMap.get(currDate));
                         emissionsPerMonth += yearlyEmissions[i];
                         yearlyEmissionsForTextView += yearlyEmissions[i];

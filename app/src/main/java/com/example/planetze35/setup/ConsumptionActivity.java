@@ -12,8 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.planetze35.MainActivity;
 import com.example.planetze35.R;
-import com.example.planetze35.ecogauge.DatabaseUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -80,8 +80,10 @@ public class ConsumptionActivity extends AppCompatActivity {
                 //DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
                 //DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
-                Intent intent = new Intent(ConsumptionActivity.this, AnnualCarbonFootprintDisplayerActivity.class);
+                Intent intent = new Intent(ConsumptionActivity.this, MainActivity.class);
                 startActivity(intent);
+                Intent intent2 = new Intent(ConsumptionActivity.this, AnnualCarbonFootprintDisplayerActivity.class);
+                startActivity(intent2);
             }
         });
     }

@@ -93,6 +93,7 @@
             android:label = "Planetze35 - Annual Carbon Footprint" />
         <activity
             android:name = ".setup.AnnualCarbonFootprintDisplayerActivity"
+            android:parentActivityName=".MainActivity"
             android:exported = "false" />
         <activity
             android:name = ".ecogauge.EcoGaugeActivity"
