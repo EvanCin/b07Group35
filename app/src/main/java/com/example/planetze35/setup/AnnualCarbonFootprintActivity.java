@@ -24,12 +24,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AnnualCarbonFootprintActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
@@ -95,7 +95,10 @@ public class AnnualCarbonFootprintActivity extends AppCompatActivity implements 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 assert user != null;
                 String uid = user.getUid();
-                DatabaseUtils.storeOneDataField(uid,"country",selectedCountry);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference userRef = database.getReference("users").child(uid);
+                userRef.child("country").setValue(selectedCountry);
+                //DatabaseUtils.storeOneDataField(uid,"country",selectedCountry);
                 startActivity(intent);
                 finish();
             }

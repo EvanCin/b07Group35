@@ -18,10 +18,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.planetze35.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -61,29 +64,44 @@ public class EcoGaugeActivity extends AppCompatActivity {
             return insets;
         });
 
+        totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
+        totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
+        totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
+        totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
+
+        emissionsChart = findViewById(R.id.emissionsChart);
+        EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
+        emissionsBarChart.setDefaultBarChart();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         UpdateCategoryEmissions updateCategoryEmissions = new UpdateCategoryEmissions(user.getUid());
+        updateCategoryEmissions.updateCategories();
+        System.out.println(user.getUid());
 
         //Gets Category emissions for barchart
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId");
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                EmissionsCategoryModel post = dataSnapshot.getValue(EmissionsCategoryModel.class);
-                if (post != null) {
-                    double transportationEmissions = post.transportationEmissions;
-                    double energyEmissions = post.energyEmissions;
-                    double consumptionEmissions = post.consumptionEmissions;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                EmissionsCategoryModel categoryModel = dataSnapshot.getValue(EmissionsCategoryModel.class);
+                if (categoryModel != null) {
+                    double transportationEmissions = categoryModel.transportationEmissions;
+                    double energyEmissions = categoryModel.energyEmissions;
+                    double consumptionEmissions = categoryModel.consumptionEmissions;
                     ArrayList<BarEntry> entries = new ArrayList<>();
                     entries.add(new BarEntry(1f, (float) transportationEmissions));
                     entries.add(new BarEntry(2f, (float) energyEmissions));
                     entries.add(new BarEntry(3f, (float) consumptionEmissions));
-                    EmissionsBarChart.setBarChartData(entries);
+
+                    BarDataSet dataSet = new BarDataSet(entries, "Category Emissions (kg CO2e)");
+                    dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    BarData barData = new BarData(dataSet);
+                    barData.setBarWidth(0.85f);
+                    emissionsChart.setData(barData);
+                    emissionsChart.invalidate();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
@@ -95,15 +113,14 @@ public class EcoGaugeActivity extends AppCompatActivity {
         EmissionsLineChart.setDefaultLineChart(lineChart);
         EmissionsLineChart.setDefaultValues(lineChart);
 
-        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/defaultUserId/DailyActivities");
+        DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "/DailyActivities");
         dbNode.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Firebase", "Success");
                 HashMap<String, Object> datesHS = (HashMap<String, Object>) snapshot.getValue();
-                Log.d("HI", "HI");
-                //System.out.println(String.valueOf(datesHS));
-
+                if (datesHS == null) {
+                    datesHS = new HashMap<>();
+                }
                 HashMap<String, Object> datesMap = new HashMap<>();
                 HashMap<String, String> dateEmissionMap = new HashMap<>();
                 for (Map.Entry<String, Object> entry : datesHS.entrySet()) {
@@ -117,11 +134,9 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 }
 
                 Date d = Calendar.getInstance().getTime();
-                //System.out.println("Current time => " + d);
 
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String formattedDate = df.format(d);
-                System.out.println(formattedDate);
                 String dayAbs = formattedDate.substring(0, 2);
                 String monthAbs = formattedDate.substring(3, 5);
                 String yearAbs = formattedDate.substring(6, 10);
@@ -131,7 +146,7 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 c1.add(Calendar.MONTH, -1);
                 c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH));
                 int day = c.get(Calendar.DAY_OF_WEEK);
-                //System.out.println("day: " + day);
+
                 //Calculate the data for each day of the week
                 weeklyEmissionsForTextView = 0;
                 List<Entry> dailyEmissions = new ArrayList<>();
@@ -231,23 +246,16 @@ public class EcoGaugeActivity extends AppCompatActivity {
                 //Calculate data for monthlyTextView
                 monthlyEmissionsForTextView = monthlyEmissions[Integer.parseInt(monthAbs) - 1];
 
-
-                totalWeeklyEmissionsButton = findViewById(R.id.totalWeeklyEmissionButton);
-                totalMonthlyEmissionsButton = findViewById(R.id.totalMonthlyEmissionsButton);
-                totalYearlyEmissionsButton = findViewById(R.id.totalYearlyEmissionsButton);
-                totalEmissionsTextView = findViewById(R.id.totalEmissionsTextView);
-
                 //Display weekly emissions by default
                 totalEmissionsTextView.setText("You've emitted --- kg CO2e this ---");
 
                 //Emissions Chart
-                emissionsChart = findViewById(R.id.emissionsChart);
-                EmissionsBarChart emissionsBarChart = new EmissionsBarChart(emissionsChart);
-                EmissionsBarChart.setDefaultBarChart();
+
 
                 //Line chart for emissions trend graph
                 LineDataSet dataset1 = new LineDataSet(dailyEmissions, "Daily Emissions");
                 lineChart.setData(new LineData(dataset1));
+                lineChart.invalidate();
 
                 dailyButton = findViewById(R.id.dailyButton);
                 weeklyButton = findViewById(R.id.weeklyButton);

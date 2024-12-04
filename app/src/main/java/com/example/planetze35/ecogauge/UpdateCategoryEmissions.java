@@ -18,7 +18,7 @@ public class UpdateCategoryEmissions {
         database = FirebaseDatabase.getInstance();
         //userRef = database.getReference("users").child(userId);
         //TODO: replace with actual userid
-        userRef = database.getReference("users/defaultUserId");
+        userRef = database.getReference("users").child(userId);
     }
 
     public void updateCategories() {

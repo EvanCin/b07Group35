@@ -12,12 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.planetze35.DatabaseUtils;
 import com.example.planetze35.R;
+import com.example.planetze35.ecogauge.DatabaseUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.logging.LogFactory;
 
@@ -72,8 +73,12 @@ public class ConsumptionActivity extends AppCompatActivity {
                 assert user != null;
                 String uid = user.getUid();
 
-                DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
-                DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference userRef = database.getReference("users").child(uid);
+                userRef.child("totalAnnualEmissionsByCategory").setValue(emissionsByCategory);
+                userRef.child("completedSetup").setValue(true);
+                //DatabaseUtils.storeOneDataField(uid, "totalAnnualEmissionsByCategory", emissionsByCategory);
+                //DatabaseUtils.storeOneDataField(uid, "completedSetup",true);
                 finish();
                 Intent intent = new Intent(ConsumptionActivity.this, AnnualCarbonFootprintDisplayerActivity.class);
                 startActivity(intent);
