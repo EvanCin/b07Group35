@@ -76,7 +76,7 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
             ActivityAdapterNoButtons adapter = new ActivityAdapterNoButtons(activityList);
             activityRecyclerView.setAdapter(adapter);
 
-            // Fetch daily activities from Firebase
+            // Fetch daily activities and emissions
             fetchDailyActivities();
 
             // Initialize the "Activity Management" button
@@ -88,7 +88,7 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
             });
 
             // Initialize the "Habit Suggestions" button
-            Button btnHabitSuggestions = findViewById(R.id.btn_habit_suggestions); // Make sure this matches the XML ID
+            Button btnHabitSuggestions = findViewById(R.id.btn_habit_suggestions);
             btnHabitSuggestions.setOnClickListener(v -> {
                 // Navigate to RecommendationsActivity
                 Intent intent = new Intent(EcoTrackerHomepageActivity.this, RecommendationsActivity.class);
@@ -103,9 +103,8 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     activityList.clear();  // Clear existing data
-                    double totalCo2e = 0;  // Variable to calculate total CO2e emissions
 
-                    // Loop through categories
+                    // Loop through categories and add them to the activity list
                     for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
                         // Loop through the subcategories (e.g., 'drivePersonalVehicle', 'beef')
                         for (DataSnapshot subCategorySnapshot : categorySnapshot.getChildren()) {
@@ -117,7 +116,6 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
                                 Double co2eValue = subCategorySnapshot.child("CO2e").getValue(Double.class);
                                 if (subCategoryName != null && co2eValue != null) {
                                     activityList.add(new ActivityItem(subCategoryName, co2eValue.toString()));
-                                    totalCo2e += co2eValue;  // Accumulate the CO2e value
                                 }
                             } else {
                                 // If no direct 'CO2e', look for sub-subcategories (e.g., 'gasoline', 'diesel')
@@ -127,17 +125,26 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
                                     Double co2eValue = subSubCategorySnapshot.child("CO2e").getValue(Double.class);
                                     if (subSubCategoryName != null && co2eValue != null) {
                                         activityList.add(new ActivityItem(subSubCategoryName, co2eValue.toString()));
-                                        totalCo2e += co2eValue;  // Accumulate the CO2e value
                                     }
                                 }
                             }
                         }
                     }
-                    // Update the UI with the total CO2e emissions
-                    totalCo2TextView.setText("Total CO2e: " + totalCo2e + " kg");
 
-                    // Save the total CO2e emissions to Firebase under 'total_daily_emissions'
-                    updateTotalCo2eInFirebase(totalCo2e);
+                    // After fetching activities, now fetch and display the total CO2e emissions
+                    if (dataSnapshot.hasChild("total_daily_emissions")) {
+                        // Get total CO2e from Firebase
+                        Double totalCo2eFromFirebase = dataSnapshot.child("total_daily_emissions").getValue(Double.class);
+                        if (totalCo2eFromFirebase != null) {
+                            totalCo2TextView.setText("Total CO2e: " + totalCo2eFromFirebase + " kg");
+                        } else {
+                            // If the total_daily_emissions is null, set to 0
+                            totalCo2TextView.setText("Total CO2e: 0 kg");
+                        }
+                    } else {
+                        // If total_daily_emissions doesn't exist, set the value to 0
+                        totalCo2TextView.setText("Total CO2e: 0 kg");
+                    }
 
                     // Notify the adapter that the data has changed and it should update the view
                     activityRecyclerView.getAdapter().notifyDataSetChanged();
@@ -153,10 +160,5 @@ public class EcoTrackerHomepageActivity extends AppCompatActivity {
                 System.out.println("Error fetching data: " + databaseError.getMessage());
             }
         });
-    }
-
-    private void updateTotalCo2eInFirebase(double totalCo2e) {
-        // Update Firebase with the total CO2e emissions for this date
-        dailyActivitiesRef.child("total_daily_emissions").setValue(totalCo2e);
     }
 }

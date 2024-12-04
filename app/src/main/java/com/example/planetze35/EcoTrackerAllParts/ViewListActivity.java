@@ -138,56 +138,17 @@ public class ViewListActivity extends AppCompatActivity implements ActivityAdapt
 
     @Override
     public void onDeleteClick(ActivityItem activityItem) {
-        // Remove the activity from the list
+        // Remove the activity from the list (RecyclerView)
         activityList.remove(activityItem);
         adapter.notifyDataSetChanged();  // Refresh the RecyclerView to show updated data
 
         // Remove the activity from Firebase
-        removeActivityFromFirebase(activityItem);
+        EmissionsHelper.removeActivityFromFirebase(dailyActivitiesRef, activityItem.getActivityName());
+
+        // Recalculate and update the total emissions for the selected date
+        EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
 
         // Show a confirmation toast
         showToast("Deleted: " + activityItem.getActivityName());
     }
-
-    // Helper method to remove the activity from Firebase
-    private void removeActivityFromFirebase(ActivityItem activityItem) {
-        // The specific activity name is unique, so remove it by name.
-
-        /// Iterate through the categories and subcategories in Firebase to find the correct path
-        dailyActivitiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
-                        // Iterate through subcategories
-                        for (DataSnapshot subCategorySnapshot : categorySnapshot.getChildren()) {
-                            // Check if this subcategory name matches
-                            if (subCategorySnapshot.getKey().equals(activityItem.getActivityName())) {
-                                // Found the activity, remove it
-                                subCategorySnapshot.getRef().removeValue();  // Removes this activity from Firebase
-                                return;  // Exit after deleting
-                            } else {
-                                //Iterate through subsubcategories
-                                for (DataSnapshot subSubCategorySnapshot : subCategorySnapshot.getChildren()) {
-                                    //Check if this subsubcategory name matches
-                                    if (subSubCategorySnapshot.getKey().equals(activityItem.getActivityName())) {
-                                        //Found the activity, remove it
-                                        subSubCategorySnapshot.getRef().removeValue();  // Removes this activity from Firebase
-                                        return;  // Exit after deleting
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle database error
-                showToast("Error removing data: " + databaseError.getMessage());
-            }
-        });
-    }
-
 }

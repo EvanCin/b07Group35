@@ -3,6 +3,7 @@ package com.example.planetze35.EcoTrackerAllParts;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +12,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planetze35.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EcoTrackerDailyActivityHub extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference dailyActivitiesRef;
+    private FirebaseUser currentUser;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +31,9 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
         // Enable EdgeToEdge immersive experience
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_eco_tracker_daily_hub);
+
         // Get the selected date passed from the previous activity
-        String selectedDate = getIntent().getStringExtra("selectedDate");
+        selectedDate = getIntent().getStringExtra("selectedDate");
 
         // Apply window insets for immersive mode
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -31,32 +42,55 @@ public class EcoTrackerDailyActivityHub extends AppCompatActivity {
             return insets;
         });
 
-        Button transportButton = findViewById(R.id.button_transport);
-        Button foodButton = findViewById(R.id.button_Food);
-        Button consumptionButton = findViewById(R.id.button_Consumption);
-        Button energyButton = findViewById(R.id.button_Energy);
-        // Set up click listeners for each button to navigate to respective activities
-        transportButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, TransportationActivity.class);
-            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
-            startActivity(intent);
-        });
+        // Initialize Firebase Database reference for the selected date
+        database = FirebaseDatabase.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        foodButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, FoodActivity.class);
-            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
-            startActivity(intent);
-        });
-        energyButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, EnergyBillsActivity.class);
-            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
-            startActivity(intent);
-        });
-        consumptionButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EcoTrackerDailyActivityHub.this, ConsumptionEcoTrackerActivity.class);
-            intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
-            startActivity(intent);
-        });
+        // Check if the user is logged in
+        if (currentUser == null) {
+            // User is not logged in, show a Toast message
+            Toast.makeText(this, "You are not logged in", Toast.LENGTH_LONG).show();
+        } else {
+            // User is logged in, proceed with fetching data
+            String userId = currentUser.getUid(); // Get current user ID
+            dailyActivitiesRef = database.getReference("users")
+                    .child(userId)  // Use the logged-in user's UID
+                    .child("DailyActivities")
+                    .child(selectedDate);
 
+            // Call the helper method to update emissions for the selected date
+            EmissionsHelper.updateTotalEmissions(dailyActivitiesRef);
+
+            // Setup the buttons to navigate to respective activities
+            Button transportButton = findViewById(R.id.button_transport);
+            Button foodButton = findViewById(R.id.button_Food);
+            Button consumptionButton = findViewById(R.id.button_Consumption);
+            Button energyButton = findViewById(R.id.button_Energy);
+
+            // Set up click listeners for each button to navigate to respective activities
+            transportButton.setOnClickListener(v -> {
+                Intent intent = new Intent(EcoTrackerDailyActivityHub.this, TransportationActivity.class);
+                intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
+                startActivity(intent);
+            });
+
+            foodButton.setOnClickListener(v -> {
+                Intent intent = new Intent(EcoTrackerDailyActivityHub.this, FoodActivity.class);
+                intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
+                startActivity(intent);
+            });
+
+            energyButton.setOnClickListener(v -> {
+                Intent intent = new Intent(EcoTrackerDailyActivityHub.this, EnergyBillsActivity.class);
+                intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
+                startActivity(intent);
+            });
+
+            consumptionButton.setOnClickListener(v -> {
+                Intent intent = new Intent(EcoTrackerDailyActivityHub.this, ConsumptionEcoTrackerActivity.class);
+                intent.putExtra("selectedDate", selectedDate);  // Pass the date to the next activity
+                startActivity(intent);
+            });
+        }
     }
 }
