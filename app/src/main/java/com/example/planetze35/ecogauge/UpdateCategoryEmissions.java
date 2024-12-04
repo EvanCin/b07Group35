@@ -12,15 +12,11 @@ public class UpdateCategoryEmissions {
     private FirebaseDatabase database;
     private DatabaseReference userRef;
     private String userId;
-
     public UpdateCategoryEmissions(String userId) {
         this.userId = userId;
         database = FirebaseDatabase.getInstance();
-        //userRef = database.getReference("users").child(userId);
-        //TODO: replace with actual userid
         userRef = database.getReference("users").child(userId);
     }
-
     public void updateCategories() {
         userRef.child("DailyActivities").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -29,7 +25,6 @@ public class UpdateCategoryEmissions {
                 double totalTransportationEmissions = 0;
                 double totalEnergyEmissions = 0;
                 double totalConsumptionEmissions = 0;
-
                 // Check if DailyActivities exist
                 if (dataSnapshot.exists()) {
                     // Iterate through all dates under DailyActivities
@@ -63,7 +58,6 @@ public class UpdateCategoryEmissions {
             }
         });
     }
-
     private double getCategoryCO2(DataSnapshot categorySnapshot) {
         double categoryCO2 = 0;
         // Loop through all subcategories in the category
@@ -84,7 +78,6 @@ public class UpdateCategoryEmissions {
         }
         return categoryCO2;
     }
-
     private void updateTotalsInFirebase(double totalTransportationEmissions, double totalEnergyEmissions, double totalConsumptionEmissions) {
         userRef.child("transportationEmissions").setValue(totalTransportationEmissions);
         userRef.child("energyEmissions").setValue(totalEnergyEmissions);
